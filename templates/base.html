@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{% block title %}| BoCRoK {% endblock title %}</title>
+</head>
+<body>
+	<header>
+		<nav>
+			<ul>
+				<li>Main</li>
+				<li>Books</li>
+				<li>Catalogue</li>
+			</ul>
+		</nav>
+	</header>
+
+	{% block content %}{% endblock content %}
+
+	<footer>
+		footer
+		{% block footer %}{% endblock footer %}
+	</footer>
+</body>
+</html>
