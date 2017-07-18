@@ -1,7 +1,9 @@
 .idea/
-*.pyc
-bookcrossing/local_settings.py
 .env/
 media/
+node_modules/
+
+*.pyc
+bookcrossing/local_settings.py
 .DS_Store
 django.mo
