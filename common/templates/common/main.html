@@ -1,0 +1,203 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load i18n %}
+{% load thumbnail %}
+
+{% block content %}
+    <header>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-7">
+                    <div class="header-content">
+                        <div class="header-content-inner">
+                            <h1>{% trans "BoCRoK - платформа, для читачів, які не уявляють свого життя без паперової книги." %}</h1>
+                            <a href="" class="btn btn-outline btn-xl page-scroll" data-toggle="modal" data-target="#register-login">{% trans "Реєстрація" %}</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="device-container">
+                        <img src="{% static "img/books.jpg" %}" class="img-responsive" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="main" class="main bg-primary text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <h2 class="section-heading">Відкрий для себе великий світ книг!</h2>
+                    <p>Ти маєш унікальну можливість ділитись своїми книгами та читати книги інших!</p>
+                    <div class="badges">
+                        <a href="" class="btn btn-outline btn-xl page-scroll" data-toggle="modal" data-target="#register-login">Реєстрація</a>
+                        <a href="#books" class="btn btn-outline btn-xl page-scroll">Каталог</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="features">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="section-heading">
+                        <h2>Унікальні можливості</h2>
+                        <p class="text-muted">Ласкаво просимо! Дізнайся, що ми пропонуємо!</p>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="device-container">
+                        <div class="device-mockup iphone6_plus portrait white">
+                            <div class="device">
+                                <div class="screen">
+                                    <img src="{% static "img/demo-screen-1.jpg" %}" class="img-responsive" alt=""> </div>
+                                <div class="button">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="feature-item">
+                                    <i class="icon-screen-smartphone text-primary"></i>
+                                    <h3>Валюта</h3>
+                                    <p class="text-muted">За кожну <span class="delighted">1</span> додану на сайт книгу - отримуєш <span class="delighted">3 можливості</span></p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="feature-item">
+                                    <i class="icon-camera text-primary"></i>
+                                    <h3>Використання</h3>
+                                    <p class="text-muted">За кожну <span class="delighted">1 можливість</span> можна прочитати <span class="delighted">1 книгу</span></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="feature-item">
+                                    <i class="icon-present text-primary"></i>
+                                    <h3>Подарунок</h3>
+                                    <p class="text-muted">При реєстрації автоматично отримуєш <span class="delighted">2 можливості.</span></p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="feature-item">
+                                    <i class="icon-lock-open text-primary"></i>
+                                    <h3>Open Source</h3>
+                                    <p class="text-muted">Since this theme is MIT licensed, you can use it commercially!</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="statistics" class="statistics bg-primary">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="section-heading">
+                        <h2>Статистика</h2>
+                        <p>Трохи цифр!</p>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="stat">
+                        <i class="fa fa-book"></i>
+                        <span class="count">230</span>
+                        <h3>Книг додано</h3>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="stat">
+                        <i class="fa fa-users" aria-hidden="true"></i>
+                        <span class="count">456</span>
+                        <h3>Користувачів зареєстровано</h3>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="stat">
+                        <i class="fa fa-newspaper-o" aria-hidden="true"></i>
+                        <span class="count">1230</span>
+                        <h3>Разів брали читати книги</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="books" class="books">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="section-heading">
+                        <h2>Книги</h2>
+                        <p class="text-muted">Останні найцікавіші книги!</p>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+            	{% for book in books %}
+	                <div class="col-md-4 col-sm-6">
+	                    <figure class="imghvr-fold-up text-center">
+                            {% include "book/includes/book_cart_thumbnail.html" with image=book.photo %}
+	                        <figcaption>
+	                            <h3>{{ book.name }}</h3>
+	                            <p>{{ book.description }}</p>
+	                            <a href="{{ book.get_absolute_url }}#form" class="btn btn-outline btn-xl">Доступно!</a>
+	                        </figcaption>
+	                        <a href="{{ book.get_absolute_url }}"></a>
+	                    </figure>
+	                </div>
+            	{% endfor %}
+            </div>
+            <div class="text-center more-link">
+                <a href="" class="btn btn-filled-tertiary btn-xl" type="submit">Більше</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <div class="cta-content">
+            <div class="container">
+                <h2>Не думай.<br>Приєднуйся!</h2>
+                <a href="" class="btn btn-outline btn-xl" data-toggle="modal" data-target="#register-login">Починаймо разом!</a>
+            </div>
+        </div>
+        <div class="overlay"></div>
+    </section>
+
+    <section id="contact" class="contact bg-primary">
+        <div class="container">
+            <h2>Ми <i class="fa fa-heart"></i> нових друзів!</h2>
+            <ul class="list-inline list-social">
+                <li class="social-twitter">
+                    <a href="#"><i class="fa fa-twitter"></i></a>
+                </li>
+                <li class="social-facebook">
+                    <a href="#"><i class="fa fa-facebook"></i></a>
+                </li>
+                <li class="social-google-plus">
+                    <a href="#"><i class="fa fa-google-plus"></i></a>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+{% endblock content %}

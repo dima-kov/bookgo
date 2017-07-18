@@ -37,10 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'ckeditor',
+    'sorl.thumbnail',
 
     'users',
     'book',
     'currency',
+    'common',
 ]
 
 MIDDLEWARE = [
@@ -58,9 +60,12 @@ ROOT_URLCONF = 'bookcrossing.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            'templates',
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
+            'autoescape': False,
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
@@ -126,9 +131,21 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
+
 MEDIA_ROOT = 'media'
 
 MEDIA_URL = '/media/'
 
 
 from .local_settings import *
+
+if DEBUG is True:
+    INSTALLED_APPS = [
+        'livereload',
+    ] + INSTALLED_APPS
+    MIDDLEWARE = [
+        'livereload.middleware.LiveReloadScript',
+    ] + MIDDLEWARE

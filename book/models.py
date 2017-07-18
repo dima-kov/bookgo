@@ -5,6 +5,25 @@ from django.conf import settings
 from ckeditor.fields import RichTextField
 
 
+class BookQuerySet(models.QuerySet):
+    def available(self):
+        return self.filter(status=Book.AVAILABLE)
+
+    def booked(self):
+        return self.filter(status=Book.BOOKED)
+
+
+class BookManager(models.Manager):
+    def get_queryset(self):
+        return BookQuerySet(self.model, using=self._db)
+
+    def available(self):
+        return self.get_queryset().available()
+
+    def booked(self):
+        return self.get_queryset().booked()
+
+
 class Book(models.Model):
 
     AVAILABLE = 'AV'
@@ -44,9 +63,12 @@ class Book(models.Model):
         verbose_name=_('Status')
     )
 
+    objects = BookManager()
+
     class Meta:
         verbose_name = _("Book")
         verbose_name_plural = _("Books")
+        ordering = ['-created']
 
     def __str__(self):
         return self.name
