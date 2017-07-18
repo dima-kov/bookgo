@@ -1,0 +1,5 @@
+{% load thumbnail %}
+
+{% thumbnail image "500x740" crop="center" as im %}
+	<img src="{{ im.url }}" class="book-image">
+{% endthumbnail %}

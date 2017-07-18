@@ -141,11 +141,3 @@ MEDIA_URL = '/media/'
 
 
 from .local_settings import *
-
-if DEBUG is True:
-    INSTALLED_APPS = [
-        'livereload',
-    ] + INSTALLED_APPS
-    MIDDLEWARE = [
-        'livereload.middleware.LiveReloadScript',
-    ] + MIDDLEWARE

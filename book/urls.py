@@ -6,6 +6,6 @@ urlpatterns = [
     url(
         r'(?P<pk>\d+)/$',
         BookView.as_view(),
-        name='book',
+        name='detail',
     ),
 ]

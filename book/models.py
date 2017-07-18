@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
+from django.urls import reverse
 
 from ckeditor.fields import RichTextField
 
@@ -73,6 +74,13 @@ class Book(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse('book:detail', kwargs={'pk': self.pk})
+
+    @property
+    def is_available(self):
+        return self.status is self.AVAILABLE
+
 
 class BookReading(models.Model):
 
@@ -82,6 +90,7 @@ class BookReading(models.Model):
     )
     book = models.ForeignKey(
         Book,
+        related_name='book_readings',
         verbose_name=_('Book'),
     )
     date_start = models.DateField(
@@ -93,6 +102,11 @@ class BookReading(models.Model):
         verbose_name=_('Date of ending'),
         blank=True,
         null=True,
+    )
+    feelings = models.TextField(
+        verbose_name=_('Feelings'),
+        null=True,
+        blank=True,
     )
 
     class Meta:
