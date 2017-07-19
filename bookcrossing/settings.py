@@ -38,6 +38,7 @@ INSTALLED_APPS = [
 
     'ckeditor',
     'sorl.thumbnail',
+    'social_django',
 
     'users',
     'book',
@@ -71,6 +72,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -138,6 +141,26 @@ STATICFILES_DIRS = [
 MEDIA_ROOT = 'media'
 
 MEDIA_URL = '/media/'
+
+# Social Config
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.twitter.TwitterOAuth',
+    'social_core.backends.google.GoogleOAuth2',
+    'social_core.backends.facebook.FacebookOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '725388700117-tg1pvaqrfnlm136kvcg7s2tl63e66jir.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'gMoNDa0PJfTrh32UC0RMx9WK'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = []
+
+SOCIAL_AUTH_FACEBOOK_KEY = '118993025389579'
+SOCIAL_AUTH_FACEBOOK_SECRET = 'aeebc68a36c1dc4194a4b7dd2a00009d'
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
+
+SOCIAL_AUTH_TWITTER_KEY = 'TQFP2ZPb0CwMJPzCN96eDyfcj'
+SOCIAL_AUTH_TWITTER_SECRET = 'sd4HfWaQtGtje9dvD8RaTJI5ngsMbcBJMqb4x4emVSSvJUJ2l1'
 
 
 from .local_settings import *

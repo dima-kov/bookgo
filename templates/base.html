@@ -87,38 +87,7 @@
         </div>
     </footer>
 
-    {% if not request.user.is_authenticated %}
-	    <div id="register-login" class="modal fade" role="dialog">
-	        <div class="modal-dialog">
-	            <div class="modal-content">
-	                <div class="modal-header text-center">
-	                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-	                    <h4 class="modal-title">Реєстрація</h4>
-	                </div>
-	                <div class="modal-body">
-	                    <div class="text-center">
-	                        <ul class="list-inline social-login">
-	                            <li class="social-twitter">
-	                                <a href="#"><i class="fa fa-twitter"></i></a>
-	                            </li>
-	                            <li class="social-facebook">
-	                                <a href="#"><i class="fa fa-facebook"></i></a>
-	                            </li>
-	                            <li class="social-google-plus">
-	                                <a href="#"><i class="fa fa-google-plus"></i></a>
-	                            </li>
-	                        </ul>
-	                    </div>
-	                </div>
-	                <div class="modal-footer text-center">
-	                    <p class="text-center smaller">
-	                        Реєстрація і Вхід доступні тільки через соц. мережі, щоб у нас не виникало сумнівів щодо користувача
-	                    </p>
-	                 </div>
-	            </div>
-	        </div>
-	    </div>
-    {% endif %}
+    {% include "common/includes/login_modal.html" %}
 
     <!-- jQuery -->
     <script src="{% static "lib/jquery/jquery.min.js" %}"></script>
