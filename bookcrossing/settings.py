@@ -176,4 +176,7 @@ SOCIAL_AUTH_TWITTER_KEY = 'TQFP2ZPb0CwMJPzCN96eDyfcj'
 SOCIAL_AUTH_TWITTER_SECRET = 'sd4HfWaQtGtje9dvD8RaTJI5ngsMbcBJMqb4x4emVSSvJUJ2l1'
 
 
-from .local_settings import *
+try:
+    from .local_settings import *
+except:
+    raise
