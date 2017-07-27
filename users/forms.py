@@ -1,5 +1,6 @@
 from django import forms
 
+
 from users.models import User
 
 
@@ -9,8 +10,9 @@ class UserProfileEditForm(forms.ModelForm):
         fields = (
             'first_name', 'last_name', 'email', 'about', 'favourite_book',
             'favourite_author', 'reading_preferences', 'city',
-            'novaposhta_number',
+            'novaposhta_number', 'phone',
         )
         widgets = {
-            'about': forms.Textarea(attrs={'rows': 4}),
+            'about': forms.Textarea(attrs={'rows': 7}),
+            'phone': forms.TextInput(attrs={'placeholder': '+380'}),
         }

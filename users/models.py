@@ -3,8 +3,9 @@ from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import AbstractUser
 from django.urls import reverse
 
+from phonenumber_field.modelfields import PhoneNumberField
+
 from currency.models import Opportunity
-from ckeditor.fields import RichTextField
 
 
 class User(AbstractUser):
@@ -30,6 +31,10 @@ class User(AbstractUser):
     reading_preferences = models.CharField(
         max_length=255,
         verbose_name=_('Reading preferences'),
+        null=True,
+    )
+    phone = PhoneNumberField(
+        verbose_name=_('Phone'),
         null=True,
     )
     city = models.CharField(
