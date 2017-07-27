@@ -22,6 +22,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^book/', include('book.urls', namespace='book')),
+    url(r'^users/', include('users.urls', namespace='users')),
     url(r'^', include('common.urls', namespace='common')),
     url('', include('social_django.urls', namespace='social')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) \

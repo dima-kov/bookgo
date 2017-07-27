@@ -1,7 +1,7 @@
 /*!
- * Start Bootstrap - New Age v3.3.7 (http://startbootstrap.com/template-overviews/new-age)
- * Copyright 2013-2017 Start Bootstrap
- * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
+ * Start Bootstrap - BoCRoK v1.0.0 (http://bocrok.org.ua)
+ * Copyright 2013-2017 Dima Kovalchuk
+ * Licensed under BSD (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
  */
 .heading-font {
   font-family: 'PT Sans', 'Helvetica', 'Arial', 'sans-serif';
@@ -889,7 +889,7 @@ section.catalogue-books .load-more {
 /* --- User page --- */
 section.user-header .info ul {
   list-style-type: none;
-  padding: 10px;
+  padding: 0px;
 }
 section.user-header .info ul > li {
   margin-top: 7px;
@@ -897,10 +897,13 @@ section.user-header .info ul > li {
 section.user-header .info ul > li > span {
   font-size: 16px;
   text-decoration: underline;
+  min-width: 150px;
+  display: inline-block;
 }
-section.user-header .info ul > li > a {
-  font-size: 18px;
-  font-weight: 800;
+section.user-header .info ul > li > p {
+  font-size: 15px;
+  color: #dc2430;
+  display: inline;
 }
 section.user-header .image img {
   width: 250px;

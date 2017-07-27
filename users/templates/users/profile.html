@@ -1,0 +1,251 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+
+{% block content %}
+    <section id="user-header" class="user-header bg-primary">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7 col-sm-12 info">
+                    <div class="row">
+                        <h1 class="section-heading">{{ user.get_full_name }}</h1>
+                        <ul>
+                            {% if user.favourite_book %}
+                                <li>
+                                    <span>{% trans "Улюблена книга:" %}</span>
+                                    <p>{{ user.favourite_book }}</p>
+                                </li>
+                            {% endif %}
+                            {% if user.favourite_author %}
+                                <li>
+                                    <span>{% trans "Улюблений автор:" %}</span>
+                                    <p>{{ user.favourite_author }}</p>
+                                </li>
+                            {% endif %}
+                            {% if user.reading_preferences %}
+                                <li>
+                                    <span>{% trans "Люблю читати:" %}</span>
+                                    <p>{{ user.reading_preferences }}</p>
+                                </li>
+                            {% endif %}
+                            {% if user.about %}
+                                <li>
+                                    <span>{% trans "Про мене:" %}</span>
+                                    <p>{{ user.about }}</p>
+                                </li>
+                            {% endif %}
+                            <hr>
+                            <span>
+                        </ul>
+                        {% if request.user == user %}
+                            {% if user.city or user.novaposhta_number %}
+                                <div class="personal">
+                                    <h4>{% trans "Персональна інфо:" %}</h4>
+                                    <ul>
+                                        <li>
+                                            {% trans "Місто:" %} {{ user.city }}
+                                        </li>
+                                        <li>
+                                            {% trans "Відділення Нової Пошти:" %} {{ user.novaposhta_number }}
+                                        </li>
+                                    </ul>
+                                </div>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-5 col-sm-12 text-center">
+                    <div class="image">
+                        {% include "users/includes/user_avatar_profile_thumbnail.html" with image=user.avatar %}
+                    </div>
+                    <div class="statistics">
+                        <span>{% trans "Можливостей:" %}</span>
+                        <div class="opportunities"><span class="delighted">{{ user.opportunities }}</span></div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </section>
+    <section id="books" class="books">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="section-heading">
+                        <h2>Додані книги</h2>
+                        <p class="text-muted">Всього: 6 штук!</p>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-sm-6">
+                    <figure class="imghvr-fold-up text-center">
+                        <img src="img/images/course01.jpg" class="img-responsive">
+                        <figcaption>
+                            <h3>Course Name</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam atque, nostrum veniam consequatur libero fugiat, similique quis.</p>
+                            <a href="#" class="btn btn-outline btn-xl">Доступно!</a>
+                        </figcaption>
+                        <a href="#"></a>
+                    </figure>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <figure class="imghvr-fold-up text-center">
+                        <img src="img/images/course02.jpg" class="img-responsive">
+                        <figcaption>
+                            <h3>Course Name</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam atque, nostrum veniam consequatur libero fugiat, similique quis.</p>
+                            <a href="#" class="btn btn-outline btn-xl">Доступно!</a>
+                        </figcaption>
+                        <a href="#"></a>
+                    </figure>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <figure class="imghvr-fold-up text-center">
+                        <img src="img/images/course03.jpg" class="img-responsive">
+                        <figcaption>
+                            <h3>Course Name</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam atque, nostrum veniam consequatur libero fugiat, similique quis.</p>
+                            <a href="#" class="btn btn-outline btn-xl">Доступно!</a>
+                        </figcaption>
+                        <a href="#"></a>
+                    </figure>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <figure class="imghvr-fold-up text-center">
+                        <img src="img/images/course04.jpg" class="img-responsive">
+                        <figcaption>
+                            <h3>Course Name</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam atque, nostrum veniam consequatur libero fugiat, similique quis.</p>
+                            <a href="#" class="btn btn-outline btn-xl">Доступно!</a>
+                        </figcaption>
+                        <a href="#"></a>
+                    </figure>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <figure class="imghvr-fold-up text-center">
+                        <img src="img/images/course05.jpg" class="img-responsive">
+                        <figcaption>
+                            <h3>Course Name</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam atque, nostrum veniam consequatur libero fugiat, similique quis.</p>
+                        </figcaption>
+                        <a href="#"></a>
+                    </figure>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <figure class="imghvr-fold-up text-center">
+                        <img src="img/images/course06.jpg" class="img-responsive">
+                        <figcaption>
+                            <h3>Course Name</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam atque, nostrum veniam consequatur libero fugiat, similique quis.</p>
+                        </figcaption>
+                        <a href="#"></a>
+                    </figure>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="history" class="history bg-secondary">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="section-heading">
+                        <h2>Max Kervud</h2>
+                        <p class="text-muted">прочитав 10 книг:</p>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="container">
+                    <div class="col-lg-12">
+                        <ul class="timeline">
+                            <li>
+                                <div class="timeline-image">
+                                    <img class="img-circle img-responsive" src="http://lorempixel.com/250/250/cats/1" alt="">
+                                </div>
+                                <div class="timeline-panel">
+                                    <div class="timeline-heading">
+                                        <h4>Step One</h4>
+                                    </div>
+                                    <div class="timeline-body">
+                                        <p class="text-muted">
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="line"></div>
+                            </li>
+                            <li class="timeline-inverted">
+                                <div class="timeline-image">
+                                    <img class="img-circle img-responsive" src="http://lorempixel.com/250/250/cats/2" alt="">
+                                </div>
+                                <div class="timeline-panel">
+                                    <div class="timeline-heading">
+                                        <h4>Step Two</h4>
+                                    </div>
+                                    <div class="timeline-body">
+                                        <p class="text-muted">
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="line"></div>
+                            </li>
+                            <li>
+                                <div class="timeline-image">
+                                    <img class="img-circle img-responsive" src="http://lorempixel.com/250/250/cats/3" alt="">
+                                </div>
+                                <div class="timeline-panel">
+                                    <div class="timeline-heading">
+                                        <h4>Step Three</h4>
+                                    </div>
+                                    <div class="timeline-body">
+                                        <p class="text-muted">
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="line"></div>
+                            </li>
+                            <li class="timeline-inverted">
+                                <div class="timeline-image">
+                                    <img class="img-circle img-responsive" src="http://lorempixel.com/250/250/cats/4" alt="">
+                                </div>
+                                <div class="timeline-panel">
+                                    <div class="timeline-heading">
+                                        <h4>Step Three</h4>
+                                    </div>
+                                    <div class="timeline-body">
+                                        <p class="text-muted">
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="line"></div>
+                            </li>
+                            <li>
+                                <div class="timeline-image">
+                                    <img class="img-circle img-responsive" src="http://lorempixel.com/250/250/cats/5" alt="">
+                                </div>
+                                <div class="timeline-panel">
+                                    <div class="timeline-heading">
+                                        <h4>Bonus Step</h4>
+                                    </div>
+                                    <div class="timeline-body">
+                                        <p class="text-muted">
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                        </p>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock content %}

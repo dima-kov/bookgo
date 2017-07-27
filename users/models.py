@@ -44,4 +44,4 @@ class User(AbstractUser):
 
     @property
     def opportunities(self):
-        return Opportunity.objects.filter(user=self).count_values()
+        return Opportunity.objects.filter(user=self).count_values()['value__sum']
