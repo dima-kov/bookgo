@@ -919,45 +919,54 @@ section.catalogue-books .load-more {
 }
 /* --- end --- Catalogue books --- end --- */
 /* --- User page --- */
-section.user-header .info ul {
+section.user-header .info ul,
+section.form-section .info ul {
   list-style-type: none;
   padding: 0px;
 }
-section.user-header .info ul > li {
+section.user-header .info ul > li,
+section.form-section .info ul > li {
   margin-top: 7px;
 }
-section.user-header .info ul > li > span {
+section.user-header .info ul > li > span,
+section.form-section .info ul > li > span {
   font-size: 16px;
   text-decoration: underline;
   min-width: 150px;
   display: inline-block;
 }
-section.user-header .info ul > li > p {
+section.user-header .info ul > li > p,
+section.form-section .info ul > li > p {
   font-size: 15px;
   color: #dc2430;
   display: inline;
 }
-section.user-header .image img {
+section.user-header .image img,
+section.form-section .image img {
   width: 250px;
   height: 250px;
   box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
 }
-section.user-header .statistics {
+section.user-header .statistics,
+section.form-section .statistics {
   margin-top: 20px;
 }
-section.user-header .statistics > span {
+section.user-header .statistics > span,
+section.form-section .statistics > span {
   display: block;
   font-size: 16px;
   font-weight: bold;
 }
-section.user-header .statistics .opportunities {
+section.user-header .statistics .opportunities,
+section.form-section .statistics .opportunities {
   display: inline;
   border-radius: 5px;
   font-weight: 800;
   font-size: 60px;
   padding: 10px;
 }
-section.user-header .statistics .opportunities span {
+section.user-header .statistics .opportunities span,
+section.form-section .statistics .opportunities span {
   text-decoration: underline;
 }
 section.bg-secondary .timeline li:hover > .timeline-panel {
