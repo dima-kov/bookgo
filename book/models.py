@@ -83,8 +83,26 @@ class Book(models.Model):
     def is_available(self):
         return self.status == self.AVAILABLE
 
+    @property
+    def current_owner(self):
+        book_reading = self.book_readings.all().order_by('-date_end').last()
+        if book_reading:
+            return book_reading.user
+        return self.owner
+
 
 class BookReading(models.Model):
+    WAITING_OWNER = 'WO'
+    SENT_BY_POST = 'SP'
+    READINGD = 'RG'
+    READ = 'RD'
+
+    READING_STATUS = (
+        (WAITING_OWNER, _('Waiting for owner')),
+        (SENT_BY_POST, _('Sent bu post')),
+        (READINGD, _('Reading')),
+        (READ, _('Read')),
+    )
 
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -110,6 +128,12 @@ class BookReading(models.Model):
         verbose_name=_('Feelings'),
         null=True,
         blank=True,
+    )
+    status = models.CharField(
+        choices=READING_STATUS,
+        max_length=2,
+        default=WAITING_OWNER,
+        verbose_name=_('Status')
     )
 
     class Meta:

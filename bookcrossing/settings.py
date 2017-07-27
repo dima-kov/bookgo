@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'sorl.thumbnail',
     'social_django',
+    'phonenumber_field',
 
     'users',
     'book',

@@ -7,6 +7,11 @@
     <section id="single-book" class="single-book bg-primary text-center">
         <div class="container">
             <div class="row">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-success" role="alert">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
                 <div class="col-md-5 col-sm-12 text-center">
                     {% include "book/includes/book_full_thumbnail.html" with image=book.photo %}
                 </div>
@@ -108,16 +113,28 @@
                     </div>
                 </div>
             </div>
-            <form action="" class="tertiary" method="POST">
+            <form action="{% url 'book:booking' %}" class="tertiary" method="POST">
+                {% csrf_token %}
                 <div class="row">
                     <div class="col-lg-6 col-md-6">
-                        <input type="text" name="pib" placeholder="ПІБ">
-                        <input type="text" name="phone" placeholder="Номер телефону">
+                        {{ booking_form.name.label_tag }}
+                        <strong>{{ booking_form.name.errors.as_text }}</strong>
+                        {{ booking_form.name }}
+
+                        {{ booking_form.phone_number.label_tag }}
+                        <strong>{{ booking_form.phone_number.errors.as_text }}</strong>
+                        {{ booking_form.phone_number }}
                     </div>
                     <div class="col-lg-6 col-md-6">
-                        <input type="text" name="city" placeholder="Місто">
-                        <input type="text" name="department_number" placeholder="Номер відділення">
+                        {{ booking_form.city.label_tag }}
+                        <strong>{{ booking_form.city.errors.as_text }}</strong>
+                        {{ booking_form.city }}
+
+                        {{ booking_form.novaposhta_number.label_tag }}
+                        <strong>{{ booking_form.novaposhta_number.errors.as_text }}</strong>
+                        {{ booking_form.novaposhta_number }}
                     </div>
+                    {{ booking_form.book }}
                 </div>
                 <div class="text-center vertical-center">
                     <button class="btn btn-filled-tertiary btn-xl" type="submit">Надіслати</button>

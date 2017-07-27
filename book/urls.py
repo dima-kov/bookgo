@@ -1,11 +1,16 @@
 from django.conf.urls import url
 
-from book.views import BookView
+from book import views
 
 urlpatterns = [
     url(
         r'(?P<pk>\d+)/$',
-        BookView.as_view(),
+        views.BookView.as_view(),
         name='detail',
     ),
+    url(
+        r'^booking/$',
+        views.BookingView.as_view(),
+        name='booking',
+    )
 ]
