@@ -9,4 +9,9 @@ urlpatterns = [
         views.UserProfileView.as_view(),
         name='profile',
     ),
+    url(
+        r'^logout/$',
+        views.LogoutView.as_view(),
+        name='logout',
+    ),
 ]

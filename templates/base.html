@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 
 <!DOCTYPE html>
 <html>
@@ -58,9 +59,23 @@
                     <li>
                         <a href="catalogue.html">Books</a>
                     </li>
-                    <li>
-                        <a href="#" class="btn btn-outline" data-toggle="modal" data-target="#register-login">Register/Login</a>
-                    </li>
+                    {% if request.user.is_authenticated %}
+                        <li class="dropdown">
+                            <a id="user-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                {% include "users/includes/user_avatar_small_thumbnail.html" with image=request.user.avatar %}
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="user-menu">
+                                <li><a href="{{ request.user.get_absolute_url }}">{% trans "Мій аккаунт" %}</a></li>
+                                <li><a href="#">{% trans "Редагувати аккаунт" %}</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="{% url 'users:logout' %}">{% trans "Вийти" %}</a></li>
+                            </ul>
+                        </li>
+                    {% else %}
+                        <li>
+                            <a href="#" class="btn btn-outline" data-toggle="modal" data-target="#register-login">{% trans "Ввійти" %}</a>
+                        </li>
+                    {% endif %}
                 </ul>
             </div>
             <!-- /.navbar-collapse -->

@@ -103,12 +103,15 @@ input {
                 font-size: 12px;
                 padding-top: 5px;
                 padding-bottom: 5px;
+                line-height: 35px;
+                font-weight: 600;
             }
             > a,
             > a:focus {
                 color: @gray-darker;
                 &:hover {
                     color: @theme-primary;
+                    cursor: pointer;
                 }
             }
             &.active {
@@ -119,6 +122,19 @@ input {
                     &:hover {
                         background-color: transparent;
                     }
+                }
+            }
+            &.dropdown {
+                &.open a{
+                    background-color: transparent;
+                }
+                img {
+                    width: 35px;
+                    height: 35px;
+                    border-radius: 50%;
+                }
+                .dropdown-menu li a:hover{
+                    background-color: @gray-lighter;
                 }
             }
         }
