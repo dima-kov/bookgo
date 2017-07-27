@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import AbstractUser
+from django.urls import reverse
 
 from currency.models import Opportunity
 from ckeditor.fields import RichTextField
@@ -41,6 +42,9 @@ class User(AbstractUser):
         verbose_name=_('Novaposhta department number'),
         null=True,
     )
+
+    def get_absolute_url(self):
+        return reverse('users:profile', kwargs={'pk': self.pk})
 
     @property
     def opportunities(self):

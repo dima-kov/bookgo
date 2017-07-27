@@ -56,6 +56,8 @@ class Book(models.Model):
     )
     owner = models.ForeignKey(
         settings.AUTH_USER_MODEL,
+        verbose_name=_('Owner'),
+        related_name='books',
     )
     status = models.CharField(
         choices=BOOK_STATUS,
@@ -79,13 +81,14 @@ class Book(models.Model):
 
     @property
     def is_available(self):
-        return self.status is self.AVAILABLE
+        return self.status == self.AVAILABLE
 
 
 class BookReading(models.Model):
 
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
+        related_name='book_readings',
         verbose_name=_('User'),
     )
     book = models.ForeignKey(

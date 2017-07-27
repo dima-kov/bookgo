@@ -1,0 +1,13 @@
+{% load i18n %}
+
+<div class="col-md-4 col-sm-6">
+    <figure class="imghvr-fold-up text-center">
+        {% include "book/includes/book_cart_thumbnail.html" with image=book.photo %}
+        <figcaption>
+            <h3>{{ book.name }}</h3>
+            <p>{{ book.description }}</p>
+            <a href="{{ book.get_absolute_url }}#form" class="btn btn-outline btn-xl">{% trans "Доступно!" %}</a>
+        </figcaption>
+        <a href="{{ book.get_absolute_url }}"></a>
+    </figure>
+</div>
