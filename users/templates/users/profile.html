@@ -53,6 +53,9 @@
                                 </div>
                             {% endif %}
                         {% endif %}
+                        <a href="{% url 'users:edit' user.pk %}" class="btn btn-filled-tertiary btn-xl">
+                            {% trans "Редагувати інфо" %}
+                        </a>
                     </div>
                 </div>
                 <div class="col-md-5 col-sm-12 text-center">

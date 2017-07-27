@@ -150,7 +150,8 @@ p.smaller {
   margin-top: 10px;
   margin-bottom: 10px;
 }
-input {
+input,
+textarea {
   display: block;
   padding: 10px;
   margin: 20px 0;
@@ -159,12 +160,14 @@ input {
   border-radius: 5px;
   border: solid 1px #777777;
 }
-input:focus {
+input:focus,
+textarea:focus {
   outline: none;
   border-color: #fdcc52;
   box-shadow: 0 0 10px #fdcc52;
 }
-input:focus::-webkit-input-placeholder {
+input:focus::-webkit-input-placeholder,
+textarea:focus::-webkit-input-placeholder {
   color: #fcbd20;
 }
 .navbar-default {
@@ -685,6 +688,21 @@ section.owner div.inner-container div.contacts div.description {
   padding: 15px;
   margin-top: 20px;
 }
+section.form-section label {
+  font-size: 14px;
+}
+section.form-section input,
+section.form-section textarea {
+  margin: 0 0 10px 0;
+  padding: 5px;
+  border: 1px solid #dc2430;
+  color: #fdcc52;
+  font-weight: 700;
+}
+section.form-section input:focus,
+section.form-section textarea:focus {
+  box-shadow: 0 0 10px #dc2430;
+}
 section.history .text-muted {
   color: #ecf0f1;
 }
@@ -1010,9 +1028,6 @@ footer ul li a.active {
   background: -webkit-linear-gradient(#fdcc52, #fdc539);
   background: linear-gradient(#fdcc52, #fdc539);
 }
-.bg-primary a {
-  color: #dc2430;
-}
 .bg-principal {
   background: #16a085;
   background: -webkit-linear-gradient(#16a085, #138a72);
@@ -1095,9 +1110,9 @@ footer ul li a.active {
   outline: none;
 }
 .btn-filled-tertiary {
-  color: white;
   background: #fdcc52;
   background: #dc2430;
+  color: white;
 }
 .btn-filled-tertiary:hover,
 .btn-filled-tertiary:focus,

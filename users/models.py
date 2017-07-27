@@ -14,7 +14,7 @@ class User(AbstractUser):
         verbose_name=_('Avatar'),
         null=True,
     )
-    about = RichTextField(
+    about = models.TextField(
         verbose_name=_('About'),
     )
     favourite_book = models.CharField(

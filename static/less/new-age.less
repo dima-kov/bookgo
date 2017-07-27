@@ -56,7 +56,7 @@ p.smaller {
     margin-bottom: 10px;
 }
 
-input {
+input, textarea {
     display: block;
     padding: 10px;
     margin: 20px 0;
@@ -565,8 +565,20 @@ section.owner {
     }
 }
 
-section.form {
-
+section.form-section {
+    label {
+        font-size: 14px;
+    }
+    input, textarea {
+        margin: 0 0 10px 0;
+        padding: 5px;
+        border: 1px solid @theme-tertiary;
+        color: @theme-primary;
+        font-weight: 700;
+        &:focus {
+            box-shadow: 0 0 10px @theme-tertiary;
+        }
+    }
 }
 
 section.history {
@@ -883,9 +895,6 @@ footer {
     background: @theme-primary;
     background: -webkit-linear-gradient(@theme-primary , darken(@theme-primary, 5%));
     background: linear-gradient(@theme-primary , darken(@theme-primary, 5%));
-    a {
-        color: @theme-tertiary;
-    }
 }
 .bg-principal {
     background: @theme-principal;
@@ -969,6 +978,7 @@ footer {
 .btn-filled-tertiary {
     .btn-filled;
     background: @theme-tertiary;
+    color: white;
     &:hover,
     &:focus,
     &:active:focus,

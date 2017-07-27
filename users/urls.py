@@ -10,6 +10,11 @@ urlpatterns = [
         name='profile',
     ),
     url(
+        r'^edit/(?P<pk>\d+)/$',
+        views.UserProfileEditView.as_view(),
+        name='edit',
+    ),
+    url(
         r'^logout/$',
         views.LogoutView.as_view(),
         name='logout',
