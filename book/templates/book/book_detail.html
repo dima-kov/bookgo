@@ -1,4 +1,7 @@
 {% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{{ book.name }} - {% trans "Книга" %} - {{ block.super }}{% endblock title %}
 
 {% block content %}
     <section id="single-book" class="single-book bg-primary text-center">
