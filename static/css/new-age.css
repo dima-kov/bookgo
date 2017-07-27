@@ -703,6 +703,10 @@ section.form-section input:focus,
 section.form-section textarea:focus {
   box-shadow: 0 0 10px #dc2430;
 }
+section.form-section strong {
+  color: #dc2430;
+  display: block;
+}
 section.history .text-muted {
   color: #ecf0f1;
 }

@@ -12,24 +12,50 @@
                     <div class="col-md-7 col-sm-12">
                         <h1>{% trans "Оновити інформацію" %}</h1>
                         <div class="row">
+                            {% if form.errors %}
+                                <div class="alert alert-danger" role="alert">{% trans "Виправте помилки нижче" %}</div>
+                            {% endif %}
+                            {% if form.non_field_errors %}
+                                {% for err in form.non_field_errors %}
+                                    <strong>{{ err }}</strong>
+                                {% endfor %}
+                            {% endif %}
                             <div class="col-md-6 col-sm-6">
                                 {{ form.first_name.label_tag }}
+                                <strong>{{ form.first_name.errors.as_text }}</strong>
                                 {{ form.first_name }}
+
                                 {{ form.last_name.label_tag }}
+                                <strong>{{ form.last_name.errors.as_text }}</strong>
                                 {{ form.last_name }}
+
+                                {{ form.email.label_tag }}
+                                <strong>{{ form.email.errors.as_text }}</strong>
+                                {{ form.email }}
+
                                 {{ form.about.label_tag }}
+                                <strong>{{ form.about.errors.as_text }}</strong>
                                 {{ form.about }}
                             </div>
                             <div class="col-md-6 col-sm-6">
                                 {{ form.favourite_book.label_tag }}
+                                <strong>{{ form.favourite_book.errors.as_text }}</strong>
                                 {{ form.favourite_book }}
+
                                 {{ form.favourite_author.label_tag }}
+                                <strong>{{ form.favourite_author.errors.as_text }}</strong>
                                 {{ form.favourite_author }}
+
                                 {{ form.reading_preferences.label_tag }}
+                                <strong>{{ form.reading_preferences.errors.as_text }}</strong>
                                 {{ form.reading_preferences }}
+
                                 {{ form.city.label_tag }}
+                                <strong>{{ form.city.errors.as_text }}</strong>
                                 {{ form.city }}
+
                                 {{ form.novaposhta_number.label_tag }}
+                                <strong>{{ form.novaposhta_number.errors.as_text }}</strong>
                                 {{ form.novaposhta_number }}
                             </div>
                         </div>
