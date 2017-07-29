@@ -25,6 +25,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
+SITE_ID = 1
 
 # Application definition
 
@@ -35,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
 
     'ckeditor',
     'sorl.thumbnail',
@@ -178,6 +180,13 @@ SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
 SOCIAL_AUTH_TWITTER_KEY = 'TQFP2ZPb0CwMJPzCN96eDyfcj'
 SOCIAL_AUTH_TWITTER_SECRET = 'sd4HfWaQtGtje9dvD8RaTJI5ngsMbcBJMqb4x4emVSSvJUJ2l1'
 
+
+# Celery
+
+CELERY_IMPORTS = (
+    'book.tasks',
+    'common.email',
+)
 
 try:
     from .local_settings import *

@@ -6,6 +6,8 @@ from django.utils.translation import ugettext_lazy as _
 from book.models import Book
 from book.models import BookReading
 from book.forms import BookReadingForm
+# from book.tasks import book_owner_email_task
+from book import tasks
 
 
 class BookView(DetailView):
@@ -38,6 +40,10 @@ class BookingView(CreateView):
         form.instance.user = self.request.user
         form.instance.book.status = Book.BOOKED
         form.instance.book.save()
+        tasks.book_owner_email_task.delay(
+            form.instance.book.id,
+            form.instance.user.id
+        )
         message = _(
             'Your information was send to book owner. '
             'You`ll be notified when he send it to you.')

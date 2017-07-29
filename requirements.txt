@@ -5,3 +5,4 @@ Pillow==4.1.1
 -e git://github.com/mariocesar/sorl-thumbnail.git@7e61948e7a987714097ba50a54120f584db9c843#egg=sorl-thumbnail
 social-auth-app-django
 django-phonenumber-field
+celery

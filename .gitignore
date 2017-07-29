@@ -7,3 +7,4 @@ node_modules/
 bookcrossing/local_settings.py
 .DS_Store
 django.mo
+celerybeat-schedule
