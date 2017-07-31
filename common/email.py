@@ -36,7 +36,9 @@ class BaseEmail():
 
 
 class EmailTakeBook(BaseEmail):
-    """An email to book owner that someone wants to take a book"""
+    """
+        An email to book owner that someone wants to take a book
+    """
     template_name = 'common/emails/take_book.html'
     subject = _('[BoCRoK] Someone wants to take your book to read')
 
@@ -48,3 +50,11 @@ class EmailBookReadExpire(BaseEmail):
     """
     template_name = 'common/emails/return_book.html'
     subject = _('[BoCRoK] Time for reading passed')
+
+
+class EmailBookWillSent(BaseEmail):
+    """
+        An email too book requester that book owner will send book soon
+    """
+    template_name = 'common/emails/book_will_send.html'
+    subject = _('[BoCRoK] Book will be sent soon')

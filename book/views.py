@@ -68,6 +68,7 @@ class BookingOwnerConfirmView(EmailLinkView):
         # two_weeks = datetime.utcnow() + timedelta(days=14)
         two_weeks = datetime.utcnow() + timedelta(minutes=1)
         tasks.book_read_time_end.apply_async((book_reading.id,), eta=two_weeks)
+        tasks.book_will_sent.delay(book_reading.id)
         return redirect('/')
 
 
