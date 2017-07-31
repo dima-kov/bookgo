@@ -93,14 +93,16 @@ class Book(models.Model):
 
 class BookReading(models.Model):
     WAITING_OWNER = 'WO'
+    CONFIRMED_BY_OWNER = 'CO'
     SENT_BY_POST = 'SP'
-    READINGD = 'RG'
+    READING = 'RG'
     READ = 'RD'
 
     READING_STATUS = (
         (WAITING_OWNER, _('Waiting for owner')),
-        (SENT_BY_POST, _('Sent bu post')),
-        (READINGD, _('Reading')),
+        (CONFIRMED_BY_OWNER, _('Confirmed by owner')),
+        (SENT_BY_POST, _('Sent by post')),
+        (READING, _('Reading')),
         (READ, _('Read')),
     )
 
