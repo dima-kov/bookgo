@@ -7,11 +7,9 @@
     <section id="single-book" class="single-book bg-primary text-center">
         <div class="container">
             <div class="row">
-                {% if messages %}
-                    {% for message in messages %}
-                        <div class="alert alert-success" role="alert">{{ message }}</div>
-                    {% endfor %}
-                {% endif %}
+                {% block messages %}
+                    {{ block.super }}
+                {% endblock messages %}
                 <div class="col-md-5 col-sm-12 text-center">
                     {% include "book/includes/book_full_thumbnail.html" with image=book.photo %}
                 </div>

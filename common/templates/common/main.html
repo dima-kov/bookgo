@@ -13,6 +13,10 @@
                         <div class="header-content-inner">
                             <h1>{% trans "BoCRoK - платформа, для читачів, які не уявляють свого життя без паперової книги." %}</h1>
                             <a href="" class="btn btn-outline btn-xl page-scroll" data-toggle="modal" data-target="#register-login">{% trans "Реєстрація" %}</a>
+                            <hr>
+                            {% block messages %}
+                                {{ block.super }}
+                            {% endblock messages %}
                         </div>
                     </div>
                 </div>
@@ -21,6 +25,7 @@
                         <img src="{% static "img/books.jpg" %}" class="img-responsive" alt="">
                     </div>
                 </div>
+                <div class="clearfix"></div>
             </div>
         </div>
     </header>
