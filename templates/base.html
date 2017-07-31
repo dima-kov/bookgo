@@ -83,7 +83,16 @@
         <!-- /.container-fluid -->
     </nav>
 
-    {% block content %}{% endblock content %}
+    {% block content %}
+        {% block messages %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-success" role="alert">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endblock messages %}
+
+    {% endblock content %}
 
     <footer>
         <div class="container">

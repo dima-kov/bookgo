@@ -1,11 +1,36 @@
 from django.conf.urls import url
+from django.conf.urls import include
 
-from book.views import BookView
+from book import views
+
+booking_patterns = [
+    url(
+        r'^$',
+        views.BookingView.as_view(),
+        name='booking',
+    ),
+    url(
+        r'^owner-confirm/(?P<pk>\d+)/'
+        r'(?P<email>[\w.@+-]+)/(?P<token>[\w.:\-_=]+)/$',
+        views.BookingOwnerConfirmView.as_view(),
+        name='booking-owner-confirm',
+    ),
+    url(
+        r'^book-read/(?P<pk>\d+)/'
+        r'(?P<email>[\w.@+-]+)/(?P<token>[\w.:\-_=]+)/$',
+        views.BookingBookReadView.as_view(),
+        name='booking-book-read',
+    ),
+]
 
 urlpatterns = [
     url(
         r'(?P<pk>\d+)/$',
-        BookView.as_view(),
+        views.BookView.as_view(),
         name='detail',
+    ),
+    url(
+        r'^booking/',
+        include(booking_patterns),
     ),
 ]
