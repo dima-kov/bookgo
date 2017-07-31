@@ -1,13 +1,14 @@
 from django.views.generic import DetailView
 from django.views.generic import CreateView
-from django.contrib import messages
 from django.utils.translation import ugettext_lazy as _
+from django.contrib import messages
+from django.shortcuts import redirect
 
+from book import tasks
 from book.models import Book
 from book.models import BookReading
 from book.forms import BookReadingForm
-# from book.tasks import book_owner_email_task
-from book import tasks
+from common.helpers import EmailLinkView
 
 
 class BookView(DetailView):
@@ -40,12 +41,34 @@ class BookingView(CreateView):
         form.instance.user = self.request.user
         form.instance.book.status = Book.BOOKED
         form.instance.book.save()
+
+        form_valid = super(BookingView, self).form_valid(form)
         tasks.book_owner_email_task.delay(
+            form.instance.id,
             form.instance.book.id,
-            form.instance.user.id
+            form.instance.user.id,
         )
         message = _(
             'Your information was send to book owner. '
             'You`ll be notified when he send it to you.')
         messages.success(self.request, message)
-        return super(BookingView, self).form_valid(form)
+        return form_valid
+
+
+class BookingOwnerConfirmView(EmailLinkView):
+    def token_valid(self):
+        book_reading = BookReading.objects.get(pk=self.kwargs.get('pk'))
+        book_reading.status = BookReading.CONFIRMED_BY_OWNER
+        book_reading.save()
+        message = _(
+            'You successfully confirmed that you`ll send a book soon!'
+        )
+        messages.success(self.request, message)
+        return redirect('/')
+
+    def token_invalid(self):
+        message = _(
+            'Error! Your token is wrong!'
+        )
+        messages.success(self.request, message)
+        return redirect('/')

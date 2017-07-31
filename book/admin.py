@@ -13,7 +13,7 @@ admin.site.register(Book, BookAdmin)
 
 
 class BookReadingAdmin(admin.ModelAdmin):
-    list_display = ('book', 'user', 'date_start', 'date_end')
+    list_display = ('book', 'user', 'status', 'date_start', 'date_end')
 
 
 admin.site.register(BookReading, BookReadingAdmin)

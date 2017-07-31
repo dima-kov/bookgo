@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import AbstractUser
 from django.urls import reverse
+from django.core.signing import TimestampSigner
 
 from phonenumber_field.modelfields import PhoneNumberField
 
@@ -54,3 +55,6 @@ class User(AbstractUser):
     @property
     def opportunities(self):
         return Opportunity.objects.filter(user=self).count_values()['value__sum']
+
+    def get_token(self):
+        return TimestampSigner().sign(self.email).split(':', 1)[1]
