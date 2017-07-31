@@ -1,3 +1,6 @@
+from datetime import datetime
+from datetime import timedelta
+
 from django.views.generic import DetailView
 from django.views.generic import CreateView
 from django.utils.translation import ugettext_lazy as _
@@ -62,6 +65,8 @@ class BookingOwnerConfirmView(EmailLinkView):
             'You successfully confirmed that you`ll send a book soon!'
         )
         messages.success(self.request, message)
+        two_weeks = datetime.utcnow() + timedelta(days=14)
+        tasks.book_read_time_end.apply_async((book_reading.id,), eta=two_weeks)
         return redirect('/')
 
     def token_invalid(self):
