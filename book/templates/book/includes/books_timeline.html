@@ -2,11 +2,19 @@
     {% for book_reading in book_readings %}
         <li {% if forloop.counter|divisibleby:2 %}class="timeline-inverted"{% endif %}>
             <div class="timeline-image">
-                {% include "users/includes/user_avatar_thumbnail.html" with image=book_reading.user.avatar %}
+                {% if display_books %}
+                    {% include "users/includes/user_avatar_thumbnail.html" with image=book_reading.book.photo %}
+                {% else %}
+                    {% include "users/includes/user_avatar_thumbnail.html" with image=book_reading.user.avatar %}
+                {% endif %}
             </div>
             <div class="timeline-panel">
                 <div class="timeline-heading">
-                    <h4>{{ book_reading.user.get_full_name }}</h4>
+                    {% if display_books %}
+                        <h4>{{ book_reading.book.name }}</h4>
+                    {% else %}
+                        <h4>{{ book_reading.user.get_full_name }}</h4>
+                    {% endif %}
                     <h5>{{ book_reading.date_start }} - {{ book_reading.date_end }}</h5>
                 </div>
                 <div class="timeline-body">
