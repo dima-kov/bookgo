@@ -45,8 +45,6 @@ class BookingView(CreateView):
         form_valid = super(BookingView, self).form_valid(form)
         tasks.book_owner_email_task.delay(
             form.instance.id,
-            form.instance.book.id,
-            form.instance.user.id,
         )
         message = _(
             'Your information was send to book owner. '
