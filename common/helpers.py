@@ -1,6 +1,9 @@
 from django.core.signing import TimestampSigner
 from django.core.signing import BadSignature
 from django.views.generic.base import View
+from django.utils.translation import ugettext_lazy as _
+from django.shortcuts import redirect
+from django.contrib import messages
 
 
 class EmailLinkView(View):
@@ -43,3 +46,10 @@ class EmailLinkView(View):
         if not self.check_token():
             return self.token_invalid()
         return self.token_valid()
+
+    def token_invalid(self):
+        message = _(
+            'Error! Your token is wrong!'
+        )
+        messages.error(self.request, message)
+        return redirect('/')

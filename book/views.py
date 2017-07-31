@@ -65,13 +65,22 @@ class BookingOwnerConfirmView(EmailLinkView):
             'You successfully confirmed that you`ll send a book soon!'
         )
         messages.success(self.request, message)
-        two_weeks = datetime.utcnow() + timedelta(days=14)
+        # two_weeks = datetime.utcnow() + timedelta(days=14)
+        two_weeks = datetime.utcnow() + timedelta(minutes=1)
         tasks.book_read_time_end.apply_async((book_reading.id,), eta=two_weeks)
         return redirect('/')
 
-    def token_invalid(self):
+
+class BookingBookReadView(EmailLinkView):
+    def token_valid(self):
+        book_reading = BookReading.objects.get(pk=self.kwargs.get('pk'))
+        book_reading.status = BookReading.READ
+        book_reading.save()
+        book_reading.book.status = Book.AVAILABLE
+        book_reading.book.save()
         message = _(
-            'Error! Your token is wrong!'
+            'You successfully returned book to the site!'
+            'Now everyone can get it to read. Thanks!'
         )
         messages.success(self.request, message)
         return redirect('/')

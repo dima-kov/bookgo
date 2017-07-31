@@ -15,6 +15,12 @@ booking_patterns = [
         views.BookingOwnerConfirmView.as_view(),
         name='booking-owner-confirm',
     ),
+    url(
+        r'^book-read/(?P<pk>\d+)/'
+        r'(?P<email>[\w.@+-]+)/(?P<token>[\w.:\-_=]+)/$',
+        views.BookingBookReadView.as_view(),
+        name='booking-book-read',
+    ),
 ]
 
 urlpatterns = [
