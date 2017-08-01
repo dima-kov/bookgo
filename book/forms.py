@@ -49,8 +49,15 @@ class AddBookForm(forms.ModelForm):
             'language',
         )
         widgets = {
+            'description': forms.Textarea(attrs={'rows': 12}),
             'category': ModelSelect2(url='book:category-autocomplete'),
             'genre': ModelSelect2(url='book:genre-autocomplete'),
+        }
+        help_texts = {
+            'description': _(
+                'Tell us a bit about this book.'
+                'Do you like it? Why? What feelings did it caused?'
+            ),
         }
 
     def __init__(self, *args, **kwargs):

@@ -692,15 +692,17 @@ section.form-section label {
   font-size: 14px;
 }
 section.form-section input,
-section.form-section textarea {
+section.form-section textarea,
+section.form-section select {
   margin: 0 0 10px 0;
   padding: 5px;
   border: 1px solid #dc2430;
-  color: #fdcc52;
+  color: #dc2430;
   font-weight: 700;
 }
 section.form-section input:focus,
-section.form-section textarea:focus {
+section.form-section textarea:focus,
+section.form-section select:focus {
   box-shadow: 0 0 10px #dc2430;
 }
 section.form-section strong {
@@ -709,6 +711,16 @@ section.form-section strong {
 }
 section.form-section #cropper {
   margin-top: 50px;
+}
+section.form-section select {
+  line-height: 35px;
+  height: 35px;
+  width: 100%;
+  background-color: white;
+  border-radius: 5px;
+}
+section.form-section p {
+  font-size: 14px;
 }
 section.history .text-muted {
   color: #ecf0f1;
