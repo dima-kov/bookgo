@@ -39,6 +39,23 @@ class BookReadingForm(forms.ModelForm):
 
 
 class AddBookForm(forms.ModelForm):
+
     class Meta:
         model = Book
-        fields = ('author', 'name', 'description',)
+        fields = ('author', 'name', 'description', 'photo', )
+
+    def __init__(self, *args, **kwargs):
+        super(AddBookForm, self).__init__(*args, **kwargs)
+        fields = ['left', 'top', 'width', 'height']
+        for field in fields:
+            name = 'point_{}'.format(field)
+            self.fields[name] = forms.CharField(widget=forms.HiddenInput())
+
+    def get_coords(self):
+        data = self.cleaned_data
+        return (
+            int(data['point_left']),
+            int(data['point_top']),
+            int(data['point_width']),
+            int(data['point_height']),
+        )

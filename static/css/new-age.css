@@ -707,6 +707,9 @@ section.form-section strong {
   color: #dc2430;
   display: block;
 }
+section.form-section #cropper {
+  margin-top: 50px;
+}
 section.history .text-muted {
   color: #ecf0f1;
 }

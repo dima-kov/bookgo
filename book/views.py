@@ -1,5 +1,6 @@
 from datetime import datetime
 from datetime import timedelta
+from PIL import Image
 
 from django.views.generic import DetailView
 from django.views.generic import CreateView
@@ -41,7 +42,13 @@ class AddBookView(CreateView):
 
     def form_valid(self, form):
         form.instance.owner = self.request.user
-        return super(AddBookView, self).form_valid(form)
+        self.object = form.save()
+
+        image = Image.open(form.instance.photo)
+        cropped_image = image.crop(form.get_coords())
+        cropped_image.save(form.instance.photo.path)
+        return redirect(self.get_success_url())
+
 
 class BookingView(CreateView):
     model = BookReading
