@@ -30,6 +30,11 @@ urlpatterns = [
         name='detail',
     ),
     url(
+        r'^add/$',
+        views.AddBookView.as_view(),
+        name='add',
+    ),
+    url(
         r'^booking/',
         include(booking_patterns),
     ),

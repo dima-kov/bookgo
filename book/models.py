@@ -47,7 +47,7 @@ class Book(models.Model):
         max_length=250,
         verbose_name=_('Name'),
     )
-    description = RichTextField(
+    description = models.TextField(
         verbose_name=_('Description'),
     )
     photo = models.ImageField(

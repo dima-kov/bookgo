@@ -2,6 +2,7 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 from phonenumber_field.formfields import PhoneNumberField
 
+from book.models import Book
 from book.models import BookReading
 
 
@@ -35,3 +36,9 @@ class BookReadingForm(forms.ModelForm):
             self.fields['city'].initial = request.user.city
             self.fields['novaposhta_number'].initial = \
                 request.user.novaposhta_number
+
+
+class AddBookForm(forms.ModelForm):
+    class Meta:
+        model = Book
+        fields = ('author', 'name', 'description',)

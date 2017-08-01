@@ -11,6 +11,7 @@ from book import tasks
 from book.models import Book
 from book.models import BookReading
 from book.forms import BookReadingForm
+from book.forms import AddBookForm
 from common.helpers import EmailLinkView
 
 
@@ -32,6 +33,15 @@ class BookView(DetailView):
             )
         return context
 
+
+class AddBookView(CreateView):
+    model = Book
+    form_class = AddBookForm
+    template_name = 'book/add.html'
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super(AddBookView, self).form_valid(form)
 
 class BookingView(CreateView):
     model = BookReading
