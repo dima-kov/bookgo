@@ -158,12 +158,12 @@
                 </div>
             </div>
             <div class="row">
-                {% for book in books %}
+                {% for book in books|slice:"6" %}
                     {% include "book/includes/book_card.html" with book=book %}
                 {% endfor %}
             </div>
             <div class="text-center more-link">
-                <a href="" class="btn btn-filled-tertiary btn-xl" type="submit">Більше</a>
+                <a href="{% url 'book:list' %}" class="btn btn-filled-tertiary btn-xl" type="submit">Більше</a>
             </div>
         </div>
     </section>
