@@ -3,6 +3,8 @@ from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 from django.urls import reverse
 
+from phonenumber_field.modelfields import PhoneNumberField
+
 
 class Category(models.Model):
 
@@ -189,6 +191,22 @@ class BookReading(models.Model):
         max_length=2,
         default=WAITING_OWNER,
         verbose_name=_('Status')
+    )
+    # User data
+    full_name = models.CharField(
+        max_length=255,
+        verbose_name=_('Full name'),
+    )
+    phone = PhoneNumberField(
+        verbose_name=_('Phone Number'),
+    )
+    city = models.CharField(
+        max_length=255,
+        verbose_name=_('City'),
+    )
+    novaposhta_number = models.CharField(
+        max_length=10,
+        verbose_name=_('Novaposhta Number'),
     )
 
     class Meta:

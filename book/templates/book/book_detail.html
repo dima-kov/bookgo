@@ -115,13 +115,13 @@
                 {% csrf_token %}
                 <div class="row">
                     <div class="col-lg-6 col-md-6">
-                        {{ booking_form.name.label_tag }}
-                        <strong>{{ booking_form.name.errors.as_text }}</strong>
-                        {{ booking_form.name }}
+                        {{ booking_form.full_name.label_tag }}
+                        <strong>{{ booking_form.full_name.errors.as_text }}</strong>
+                        {{ booking_form.full_name }}
 
-                        {{ booking_form.phone_number.label_tag }}
-                        <strong>{{ booking_form.phone_number.errors.as_text }}</strong>
-                        {{ booking_form.phone_number }}
+                        {{ booking_form.phone.label_tag }}
+                        <strong>{{ booking_form.phone.errors.as_text }}</strong>
+                        {{ booking_form.phone }}
                     </div>
                     <div class="col-lg-6 col-md-6">
                         {{ booking_form.city.label_tag }}
