@@ -4,6 +4,7 @@ from PIL import Image
 
 from django.views.generic import DetailView
 from django.views.generic import CreateView
+from django.views.generic import ListView
 from django.utils.translation import ugettext_lazy as _
 from django.contrib import messages
 from django.shortcuts import redirect
@@ -48,6 +49,16 @@ class AddBookView(CreateView):
         cropped_image = image.crop(form.get_coords())
         cropped_image.save(form.instance.photo.path)
         return redirect(self.get_success_url())
+
+
+class BookListView(ListView):
+    model = Book
+    paginate_by = 20
+    template_name = 'book/list.html'
+    context_object_name = 'books'
+
+    def get_queryset(self):
+        return self.model.objects.available()
 
 
 class BookingView(CreateView):

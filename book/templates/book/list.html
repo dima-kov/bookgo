@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block title %}
+    {% trans "Каталог" %} - {{ block.super }}
+{% endblock title %}
+
+{% block content %}
+    <header class="catalogue">
+        <div class="header-overlay">
+            <div class="container">
+                <div class="row">
+                    <div class="header-content">
+                        <div class="header-content-inner">
+                            <h1>{% trans "Вибери ту, що до вподоби" %}</h1>
+                            <a href="#catalogue-books" class="btn btn-outline btn-xl page-scroll">{% trans "Шукати" %}</a>
+                        </div>
+                        <a href="#catalogue-books" class="page-scroll scroll-icon"><span></span><span></span><span></span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="catalogue-books" class="catalogue-books">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="section-heading">
+                        <h2>Книги</h2>
+                        <p class="text-muted">Останні найцікавіші книги!</p>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <form id="filter" class="filter" method="GET">
+                        <div class="filter-item">
+                            <span class="">За жанром:</span>
+                            <ul>
+                                <li>
+                                    <input id="genre1" type="checkbox" name="genre" value="1">
+                                    <label class="btn btn-outline-tertiary" for="genre1">Пригодницькі</label>
+                                </li>
+                                <li>
+                                    <input id="genre2" type="checkbox" name="genre" value="2">
+                                    <label class="btn btn-outline-tertiary" for="genre2">Романи</label>
+                                </li>
+                                <li>
+                                    <input id="genre3" type="checkbox" name="genre" value="3">
+                                    <label class="btn btn-outline-tertiary" for="genre3">Лірика</label>
+                                </li>
+                                <li>
+                                    <input id="genre4" type="checkbox" name="genre" value="4">
+                                    <label class="btn btn-outline-tertiary" for="genre4">Прикладні</label>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="filter-item">
+                            <span class="">За мовою:</span>
+                            <ul>
+                                <li>
+                                    <input id="lang1" type="checkbox" name="lang" value="1">
+                                    <label class="btn btn-outline-tertiary" for="lang1">Українська</label>
+                                </li>
+                                <li>
+                                    <input id="lang2" type="checkbox" name="lang" value="2">
+                                    <label class="btn btn-outline-tertiary" for="lang2">Англійська</label>
+                                </li>
+                            </ul>
+                        </div>
+                        <input type="submit" name="">
+                    </form>
+                </div>
+                <div class="col-md-10">
+                    <div class="row">
+                        {% for book in books %}
+                            {% include "book/includes/book_card.html" with book=book %}
+                        {% endfor %}
+                    </div>
+                    <div class="text-center load-more">
+                        <button class="btn btn-filled-tertiary btn-xl" type="submit">Завантажити ще</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock content %}

@@ -57,7 +57,7 @@
                         <a href="">Main</a>
                     </li>
                     <li>
-                        <a href="catalogue.html">Books</a>
+                        <a href="{% url 'book:list' %}">Books</a>
                     </li>
                     {% if request.user.is_authenticated %}
                         <li class="dropdown">

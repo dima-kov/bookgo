@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base_bottom.html" %}
 
 {% load static %}
 {% load i18n %}
@@ -159,39 +159,12 @@
             </div>
             <div class="row">
                 {% for book in books %}
-                    {% include "common/includes/book_card.html" with book=book %}
+                    {% include "book/includes/book_card.html" with book=book %}
                 {% endfor %}
             </div>
             <div class="text-center more-link">
                 <a href="" class="btn btn-filled-tertiary btn-xl" type="submit">Більше</a>
             </div>
-        </div>
-    </section>
-
-    <section class="cta">
-        <div class="cta-content">
-            <div class="container">
-                <h2>Не думай.<br>Приєднуйся!</h2>
-                <a href="" class="btn btn-outline btn-xl" data-toggle="modal" data-target="#register-login">Починаймо разом!</a>
-            </div>
-        </div>
-        <div class="overlay"></div>
-    </section>
-
-    <section id="contact" class="contact bg-primary">
-        <div class="container">
-            <h2>Ми <i class="fa fa-heart"></i> нових друзів!</h2>
-            <ul class="list-inline list-social">
-                <li class="social-twitter">
-                    <a href="#"><i class="fa fa-twitter"></i></a>
-                </li>
-                <li class="social-facebook">
-                    <a href="#"><i class="fa fa-facebook"></i></a>
-                </li>
-                <li class="social-google-plus">
-                    <a href="#"><i class="fa fa-google-plus"></i></a>
-                </li>
-            </ul>
         </div>
     </section>
 

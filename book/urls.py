@@ -35,6 +35,11 @@ urlpatterns = [
         name='add',
     ),
     url(
+        r'^list/$',
+        views.BookListView.as_view(),
+        name='list',
+    ),
+    url(
         r'^booking/',
         include(booking_patterns),
     ),
