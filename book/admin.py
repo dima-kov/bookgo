@@ -2,6 +2,8 @@ from django.contrib import admin
 
 from book.models import Book
 from book.models import BookReading
+from book.models import Category
+from book.models import Genre
 
 
 class BookAdmin(admin.ModelAdmin):
@@ -17,3 +19,17 @@ class BookReadingAdmin(admin.ModelAdmin):
 
 
 admin.site.register(BookReading, BookReadingAdmin)
+
+
+class GenreAdmin(admin.ModelAdmin):
+    list_display = ('name', )
+
+
+admin.site.register(Genre, GenreAdmin)
+
+
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ('name', )
+
+
+admin.site.register(Category, CategoryAdmin)

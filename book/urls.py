@@ -23,6 +23,19 @@ booking_patterns = [
     ),
 ]
 
+dal_patterns = [
+    url(
+        r'^category/',
+        views.CategoryAutocompleteView.as_view(),
+        name='category-autocomplete',
+    ),
+    url(
+        r'^genre/',
+        views.GenreAutocompleteView.as_view(),
+        name='genre-autocomplete',
+    ),
+]
+
 urlpatterns = [
     url(
         r'(?P<pk>\d+)/$',
@@ -42,5 +55,9 @@ urlpatterns = [
     url(
         r'^booking/',
         include(booking_patterns),
+    ),
+    url(
+        r'^autocomplete/',
+        include(dal_patterns),
     ),
 ]

@@ -4,6 +4,36 @@ from django.conf import settings
 from django.urls import reverse
 
 
+class Category(models.Model):
+
+    name = models.CharField(
+        max_length=255,
+        verbose_name=_('Name')
+    )
+
+    class Meta:
+        verbose_name = _("Category")
+        verbose_name_plural = _("Categories")
+
+    def __str__(self):
+        return self.name
+
+
+class Genre(models.Model):
+
+    name = models.CharField(
+        max_length=255,
+        verbose_name=_('Name')
+    )
+
+    class Meta:
+        verbose_name = _('Genre')
+        verbose_name_plural = _('Genres')
+
+    def __str__(self):
+        return self.name
+
+
 class BookQuerySet(models.QuerySet):
     def available(self):
         return self.filter(status=Book.AVAILABLE)
@@ -24,6 +54,16 @@ class BookManager(models.Manager):
 
 
 class Book(models.Model):
+
+    UKRAINIAN = 'UK'
+    ENGLISH = 'EN'
+    RUSSIAN = 'RU'
+
+    LANGUAGES = (
+        (UKRAINIAN, _('Ukrainian')),
+        (ENGLISH, _('English')),
+        (RUSSIAN, _('Russian')),
+    )
 
     AVAILABLE = 'AV'
     BOOKED = 'BK'
@@ -56,6 +96,21 @@ class Book(models.Model):
         settings.AUTH_USER_MODEL,
         verbose_name=_('Owner'),
         related_name='books',
+    )
+    category = models.ForeignKey(
+        Category,
+        related_name='books',
+        verbose_name=_('Category')
+    )
+    language = models.CharField(
+        max_length=2,
+        choices=LANGUAGES,
+        verbose_name=_('Language'),
+    )
+    genre = models.ForeignKey(
+        Genre,
+        related_name='books',
+        verbose_name=_('Genre')
     )
     status = models.CharField(
         choices=BOOK_STATUS,

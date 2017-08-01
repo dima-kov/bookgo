@@ -38,6 +38,19 @@
                             <strong>{{ form.photo.errors.as_text }}</strong>
                             {{ form.photo }}
 
+                            {{ form.category.label_tag }}
+                            <strong>{{ form.category.errors.as_text }}</strong>
+                            {{ form.category }}
+
+                            {{ form.genre.label_tag }}
+                            <strong>{{ form.genre.errors.as_text }}</strong>
+                            {{ form.genre }}
+
+
+                            {{ form.language.label_tag }}
+                            <strong>{{ form.language.errors.as_text }}</strong>
+                            {{ form.language }}
+
                             {{ form.description.label_tag }}
                             <strong>{{ form.description.errors.as_text }}</strong>
                             {{ form.description }}
@@ -63,8 +76,8 @@
 {% endblock content %}
 
 {% block js %}
+    {{ form.media }}
     <script src="{% static "lib/croppie/croppie.min.js" %}" type="text/javascript"></script>
-
     <script type="text/javascript">
         var cropper = $('#cropper').croppie({
             viewport: { width: 250, height: 150 },

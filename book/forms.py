@@ -1,6 +1,8 @@
+from phonenumber_field.formfields import PhoneNumberField
+from dal.autocomplete import ModelSelect2
+
 from django import forms
 from django.utils.translation import ugettext_lazy as _
-from phonenumber_field.formfields import PhoneNumberField
 
 from book.models import Book
 from book.models import BookReading
@@ -42,7 +44,14 @@ class AddBookForm(forms.ModelForm):
 
     class Meta:
         model = Book
-        fields = ('author', 'name', 'description', 'photo', )
+        fields = (
+            'author', 'name', 'description', 'photo', 'category', 'genre',
+            'language',
+        )
+        widgets = {
+            'category': ModelSelect2(url='book:category-autocomplete'),
+            'genre': ModelSelect2(url='book:genre-autocomplete'),
+        }
 
     def __init__(self, *args, **kwargs):
         super(AddBookForm, self).__init__(*args, **kwargs)

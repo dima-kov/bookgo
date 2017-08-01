@@ -1,5 +1,8 @@
+from dal import autocomplete
+
 from django.core.signing import TimestampSigner
 from django.core.signing import BadSignature
+from django.utils.decorators import classonlymethod
 from django.views.generic.base import View
 from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import redirect
@@ -53,3 +56,53 @@ class EmailLinkView(View):
         )
         messages.error(self.request, message)
         return redirect('/')
+
+
+class AutocompleteCommonView(autocomplete.Select2QuerySetView):
+    """
+        Common helper view  for django-autocomplete-light
+        No need to specify create_field and model in urls. Everything you need
+        is to create a subclass and specify `model` attribute.
+        By default, attribute with name `name` will be used for querying.
+        You can override it by attribute `field_name`
+
+        Optionally, you can switch `allow_create` flag,
+        turning on creating possibility.
+
+        For example:
+
+        class SomeThingAutoComplete(AutocompleteCommonView):
+            model = SomeThing
+            field_name = 'title'
+            allow_create = True
+
+    """
+    model = None
+    field_name = 'name'
+    allow_create = False
+
+    def __init__(self, *args, **kwargs):
+        if self.model is None:
+            raise Exception('Model attribute can not be None')
+
+        super(AutocompleteCommonView, self).__init__(*args, **kwargs)
+
+    @classonlymethod
+    def as_view(cls, **initkwargs):
+        initkwargs.update({
+            'model': cls.model,
+            'create_field': cls.field_name,
+        })
+        return super(AutocompleteCommonView, cls).as_view(**initkwargs)
+
+    def get_queryset(self):
+        if not self.request.user.is_authenticated():
+            return self.model.objects.none()
+        qs = self.model.objects.all()
+
+        if self.q:
+            filters = {
+                '{}__istartswith'.format(self.field_name): self.q,
+            }
+            qs = qs.filter(**filters)
+        return qs

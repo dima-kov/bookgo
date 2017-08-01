@@ -12,9 +12,12 @@ from django.shortcuts import redirect
 from book import tasks
 from book.models import Book
 from book.models import BookReading
+from book.models import Category
+from book.models import Genre
 from book.forms import BookReadingForm
 from book.forms import AddBookForm
 from common.helpers import EmailLinkView
+from common.helpers import AutocompleteCommonView
 
 
 class BookView(DetailView):
@@ -113,3 +116,11 @@ class BookingBookReadView(EmailLinkView):
         )
         messages.success(self.request, message)
         return redirect('/')
+
+
+class CategoryAutocompleteView(AutocompleteCommonView):
+    model = Category
+
+
+class GenreAutocompleteView(AutocompleteCommonView):
+    model = Genre
