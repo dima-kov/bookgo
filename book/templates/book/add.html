@@ -6,7 +6,7 @@
 {% block title %}{% trans "Додати книгу" %} - {{ block.super }}{% endblock title %}
 
 {% block css %}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.5.0/croppie.min.css">
+    <link rel="stylesheet" href="{% static "lib/croppie/croppie.css" %}">
 {% endblock css %}
 
 {% block content %}
@@ -63,7 +63,8 @@
 {% endblock content %}
 
 {% block js %}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.5.0/croppie.min.js" type="text/javascript"></script>
+    <script src="{% static "lib/croppie/croppie.min.js" %}" type="text/javascript"></script>
+
     <script type="text/javascript">
         var cropper = $('#cropper').croppie({
             viewport: { width: 250, height: 150 },
