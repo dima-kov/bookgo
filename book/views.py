@@ -46,12 +46,7 @@ class AddBookView(CreateView):
 
     def form_valid(self, form):
         form.instance.owner = self.request.user
-        self.object = form.save()
-
-        image = Image.open(form.instance.photo)
-        cropped_image = image.crop(form.get_coords())
-        cropped_image.save(form.instance.photo.path)
-        return redirect(self.get_success_url())
+        return super(AddBookView, self).form_valid(form)
 
 
 class BookListView(ListView):

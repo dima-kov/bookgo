@@ -1,5 +1,6 @@
 from phonenumber_field.formfields import PhoneNumberField
 from dal.autocomplete import ModelSelect2
+from croppie.fields import CroppieField
 
 from django import forms
 from django.utils.translation import ugettext_lazy as _
@@ -33,6 +34,18 @@ class BookReadingForm(forms.ModelForm):
 
 class AddBookForm(forms.ModelForm):
 
+    photo = CroppieField(options={
+        'viewport': {
+            'width': 150,
+            'height': 150,
+        },
+        'boundary': {
+            'width': 300,
+            'height': 300,
+        },
+        'showZoomer': True,
+    })
+
     class Meta:
         model = Book
         fields = (
@@ -50,19 +63,3 @@ class AddBookForm(forms.ModelForm):
                 'Do you like it? Why? What feelings did it caused?'
             ),
         }
-
-    def __init__(self, *args, **kwargs):
-        super(AddBookForm, self).__init__(*args, **kwargs)
-        fields = ['left', 'top', 'width', 'height']
-        for field in fields:
-            name = 'point_{}'.format(field)
-            self.fields[name] = forms.CharField(widget=forms.HiddenInput())
-
-    def get_coords(self):
-        data = self.cleaned_data
-        return (
-            int(data['point_left']),
-            int(data['point_top']),
-            int(data['point_width']),
-            int(data['point_height']),
-        )

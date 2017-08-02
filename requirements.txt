@@ -7,3 +7,4 @@ social-auth-app-django
 django-phonenumber-field
 celery
 django-autocomplete-light
+django-croppie

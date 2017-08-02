@@ -6,7 +6,6 @@
 {% block title %}{% trans "Додати книгу" %} - {{ block.super }}{% endblock title %}
 
 {% block css %}
-    <link rel="stylesheet" href="{% static "lib/croppie/croppie.css" %}">
     <style type="text/css">
         .autocomplete .select2-container {
             min-width: 100%;
@@ -85,10 +84,6 @@
                                     <strong>{{ form.description.errors.as_text }}</strong>
                                     {{ form.description }}
 
-                                    {{ form.point_left }}
-                                    {{ form.point_top }}
-                                    {{ form.point_width }}
-                                    {{ form.point_height }}
                                 </div>
                             </div>
 
@@ -110,35 +105,4 @@
 
 {% block js %}
     {{ form.media }}
-    <script src="{% static "lib/croppie/croppie.min.js" %}" type="text/javascript"></script>
-    <script type="text/javascript">
-        var cropper = $('#cropper').croppie({
-            viewport: { width: 250, height: 150 },
-            boundary: { width: 300, height: 200 },
-            showZoomer: true,
-        });
-
-        function readFile(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                    $('#cropper').croppie('bind', {
-                        url: e.target.result
-                    });
-                }
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-
-        $('input#id_photo').on('change', function() {
-            readFile(this);
-        });
-        cropper.on('update', function(cr) {
-            var data = cropper.croppie('get');
-            $('input#id_point_left').val(data.points[0]);
-            $('input#id_point_top').val(data.points[1]);
-            $('input#id_point_width').val(data.points[2]);
-            $('input#id_point_height').val(data.points[3]);
-        });
-    </script>
 {% endblock js %}
