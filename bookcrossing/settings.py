@@ -193,6 +193,14 @@ CELERY_IMPORTS = (
     'common.email',
 )
 
+# BOCROK Settings
+
+BOOK_CARD_IMAGE_WIDTH = 280
+BOOK_CARD_IMAGE_HEIGHT = 380
+
+BOOK_FULL_IMAGE_WIDTH = 450
+BOOK_FULL_IMAGE_HEIGHT = 610
+
 try:
     from .local_settings import *
 except:

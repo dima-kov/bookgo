@@ -1,5 +1,8 @@
 {% load thumbnail %}
+{% load thumbnails_sizes %}
 
-{% thumbnail book.photo "360x240" crop="center" as im %}
+{% get_book_card_size as book_size %}
+
+{% thumbnail book.photo book_size crop="center" as im %}
 	<img src="{{ im.url }}" class="img-responsive" width="{{ im.width }}" height="{{ im.height }}">
 {% endthumbnail %}

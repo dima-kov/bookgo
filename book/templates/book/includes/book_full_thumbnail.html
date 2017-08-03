@@ -1,5 +1,8 @@
 {% load thumbnail %}
+{% load thumbnails_sizes %}
 
-{% thumbnail image "500x740" crop="center" as im %}
+{% get_book_full_size as book_size %}
+
+{% thumbnail image book_size crop="center" as im %}
 	<img src="{{ im.url }}" class="book-image">
 {% endthumbnail %}

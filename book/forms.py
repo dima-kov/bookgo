@@ -4,6 +4,7 @@ from croppie.fields import CroppieField
 
 from django import forms
 from django.utils.translation import ugettext_lazy as _
+from django.conf import settings
 
 from book.models import Book
 from book.models import BookReading
@@ -34,17 +35,19 @@ class BookReadingForm(forms.ModelForm):
 
 class AddBookForm(forms.ModelForm):
 
-    photo = CroppieField(options={
-        'viewport': {
-            'width': 150,
-            'height': 150,
+    photo = CroppieField(
+        options={
+            'viewport': {
+                'width': settings.BOOK_CARD_IMAGE_WIDTH,
+                'height': settings.BOOK_CARD_IMAGE_HEIGHT,
+            },
+            'boundary': {
+                'width': settings.BOOK_CARD_IMAGE_WIDTH + 80,
+                'height': settings.BOOK_CARD_IMAGE_HEIGHT + 80,
+            },
+            'showZoomer': True,
         },
-        'boundary': {
-            'width': 300,
-            'height': 300,
-        },
-        'showZoomer': True,
-    })
+    )
 
     class Meta:
         model = Book
