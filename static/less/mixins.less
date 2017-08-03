@@ -134,13 +134,24 @@
 	    }
 	}
 }
+.vertical-center-flex {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
 .books {
+    .item {
+        margin-bottom: 50px;
+    }
     [class^='imghvr-'],
     [class*=' imghvr-']{
         background-color: @theme-primary;
         figcaption {
             background-color: @theme-primary;
             color: @theme-tertiary;
+            height: 85%;
+            .vertical-center-flex;
         }
         h3 {
             color: @theme-tertiary;

@@ -69,6 +69,14 @@
 .social-list li.social-google-plus a:hover {
   background-color: #d73925;
 }
+.vertical-center-flex {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.books .item {
+  margin-bottom: 50px;
+}
 .books [class^='imghvr-'],
 .books [class*=' imghvr-'] {
   background-color: #fdcc52;
@@ -77,6 +85,10 @@
 .books [class*=' imghvr-'] figcaption {
   background-color: #fdcc52;
   color: #dc2430;
+  height: 85%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
 .books [class^='imghvr-'] h3,
 .books [class*=' imghvr-'] h3 {
@@ -876,6 +888,9 @@ section.books .more-link {
 }
 /* --- end --- Single book page --- end --- */
 /* Catalogue books */
+section.catalogue-books .item {
+  margin-bottom: 50px;
+}
 section.catalogue-books [class^='imghvr-'],
 section.catalogue-books [class*=' imghvr-'] {
   background-color: #fdcc52;
@@ -884,6 +899,10 @@ section.catalogue-books [class^='imghvr-'] figcaption,
 section.catalogue-books [class*=' imghvr-'] figcaption {
   background-color: #fdcc52;
   color: #dc2430;
+  height: 85%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
 section.catalogue-books [class^='imghvr-'] h3,
 section.catalogue-books [class*=' imghvr-'] h3 {
