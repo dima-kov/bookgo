@@ -37,40 +37,12 @@
             <div class="row">
                 <div class="col-md-2">
                     <form id="filter" class="filter" method="GET">
-                        <div class="filter-item">
-                            <span class="">За жанром:</span>
-                            <ul>
-                                <li>
-                                    <input id="genre1" type="checkbox" name="genre" value="1">
-                                    <label class="btn btn-outline-tertiary" for="genre1">Пригодницькі</label>
-                                </li>
-                                <li>
-                                    <input id="genre2" type="checkbox" name="genre" value="2">
-                                    <label class="btn btn-outline-tertiary" for="genre2">Романи</label>
-                                </li>
-                                <li>
-                                    <input id="genre3" type="checkbox" name="genre" value="3">
-                                    <label class="btn btn-outline-tertiary" for="genre3">Лірика</label>
-                                </li>
-                                <li>
-                                    <input id="genre4" type="checkbox" name="genre" value="4">
-                                    <label class="btn btn-outline-tertiary" for="genre4">Прикладні</label>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="filter-item">
-                            <span class="">За мовою:</span>
-                            <ul>
-                                <li>
-                                    <input id="lang1" type="checkbox" name="lang" value="1">
-                                    <label class="btn btn-outline-tertiary" for="lang1">Українська</label>
-                                </li>
-                                <li>
-                                    <input id="lang2" type="checkbox" name="lang" value="2">
-                                    <label class="btn btn-outline-tertiary" for="lang2">Англійська</label>
-                                </li>
-                            </ul>
-                        </div>
+                        {% for field in filter_form %}
+                            <div class="filter-item">
+                                <span>{{ field.label }}:</span>
+                                {{ field }}
+                            </div>
+                        {% endfor %}
                         <input type="submit" name="">
                     </form>
                 </div>

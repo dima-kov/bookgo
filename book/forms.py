@@ -8,6 +8,8 @@ from django.conf import settings
 
 from book.models import Book
 from book.models import BookReading
+from book.models import Genre
+from book.models import Category
 
 
 class BookReadingForm(forms.ModelForm):
@@ -66,3 +68,27 @@ class AddBookForm(forms.ModelForm):
                 'Do you like it? Why? What feelings did it caused?'
             ),
         }
+
+
+class CustomCheckboxSelectMultiple(forms.CheckboxSelectMultiple):
+    option_template_name = 'common/checkbox_option.html'
+
+
+class BookListFilterForm(forms.Form):
+    genre = forms.ModelChoiceField(
+        queryset=Genre.objects.all(),
+        empty_label=None,
+        widget=CustomCheckboxSelectMultiple,
+        label=_('Genre'),
+    )
+    category = forms.ModelChoiceField(
+        queryset=Category.objects.all(),
+        empty_label=None,
+        widget=CustomCheckboxSelectMultiple,
+        label=_('Category'),
+    )
+    language = forms.ChoiceField(
+        choices=Book.LANGUAGES,
+        widget=CustomCheckboxSelectMultiple,
+        label=_('Language'),
+    )

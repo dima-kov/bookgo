@@ -1,6 +1,5 @@
 from datetime import datetime
 from datetime import timedelta
-from PIL import Image
 
 from django.views.generic import DetailView
 from django.views.generic import CreateView
@@ -16,6 +15,7 @@ from book.models import Category
 from book.models import Genre
 from book.forms import BookReadingForm
 from book.forms import AddBookForm
+from book.forms import BookListFilterForm
 from common.helpers import EmailLinkView
 from common.helpers import AutocompleteCommonView
 
@@ -50,13 +50,37 @@ class AddBookView(CreateView):
 
 
 class BookListView(ListView):
-    model = Book
+    queryset = Book.objects.available()
     paginate_by = 20
     template_name = 'book/list.html'
     context_object_name = 'books'
 
     def get_queryset(self):
-        return self.model.objects.available()
+        qs = super(BookListView, self).get_queryset()
+        return qs.filter(**self.filter_form_query_data())
+
+    def request_form_data(self):
+        empty_filter_form = BookListFilterForm()
+        data = {}
+        for field in empty_filter_form.fields:
+            data_list = self.request.GET.getlist(field, None)
+            if data_list:
+                data[field] = data_list
+        return data
+
+    def filter_form_query_data(self):
+        data = self.request_form_data()
+        query_data = {}
+        for item in data:
+            query_data['{}__in'.format(item)] = data[item]
+        return query_data
+
+    def get_context_data(self, **kwargs):
+        context = super(BookListView, self).get_context_data(**kwargs)
+        context['filter_form'] = BookListFilterForm(
+            initial=self.request_form_data()
+        )
+        return context
 
 
 class BookingView(CreateView):
