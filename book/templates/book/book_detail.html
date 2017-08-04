@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load user_tags %}
 
 {% block title %}{{ book.name }} - {% trans "Книга" %} - {{ block.super }}{% endblock title %}
 
@@ -64,7 +65,7 @@
             </div>
             <div class="inner-container">
                 <div class="contacts col-md-10">
-                    <a href="//fb.com/dmyutro" class="social">fb: dima.kov</a>
+                    {% user_social_link user=book.owner %}
                     <a href="{{ book.owner.get_absolute_url }}" class="name">{{ book.owner.get_full_name }}</a>
                     <div class="description">
                         {{ book.owner.about }}
