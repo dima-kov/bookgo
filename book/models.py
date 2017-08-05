@@ -150,6 +150,7 @@ class BookReading(models.Model):
     WAITING_OWNER = 'WO'
     CONFIRMED_BY_OWNER = 'CO'
     SENT_BY_POST = 'SP'
+    DELIVERED = 'DL'
     READING = 'RG'
     READ = 'RD'
 
@@ -157,6 +158,7 @@ class BookReading(models.Model):
         (WAITING_OWNER, _('Waiting for owner')),
         (CONFIRMED_BY_OWNER, _('Confirmed by owner')),
         (SENT_BY_POST, _('Sent by post')),
+        (DELIVERED, _('Delivered')),
         (READING, _('Reading')),
         (READ, _('Read')),
     )

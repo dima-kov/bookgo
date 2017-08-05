@@ -303,6 +303,10 @@ header {
   /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   color: white;
 }
+header.mini {
+  height: 35vh;
+  min-height: 35vh;
+}
 header .header-content {
   text-align: center;
   padding: 150px 0 50px;
@@ -1006,6 +1010,107 @@ section.form-section .statistics .opportunities {
 section.user-header .statistics .opportunities span,
 section.form-section .statistics .opportunities span {
   text-decoration: underline;
+}
+section.readings-status {
+  background: #fdcc52;
+  background: -webkit-linear-gradient(#fdcc52, #fdc539);
+  background: linear-gradient(#fdcc52, #fdc539);
+}
+section.readings-status .row {
+  margin-bottom: 50px;
+  border: 2px solid #FF7043;
+  border-radius: 10px;
+}
+section.readings-status .row hr {
+  max-width: 95%;
+  border-width: 2px;
+  margin: 5px auto 10px;
+}
+section.readings-status .title {
+  margin-left: 20px;
+  text-align: center;
+}
+section.readings-status .title h3 {
+  color: white;
+  font-size: 30px;
+}
+section.readings-status .item {
+  height: 300px;
+  padding: 10px 0;
+}
+section.readings-status .item img {
+  max-height: 100%;
+  max-width: 100%;
+  border-radius: 3px;
+  padding: 10px;
+}
+section.readings-status .item .book,
+section.readings-status .item .user,
+section.readings-status .item .reading-line {
+  height: 100%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+section.readings-status .item .reading-line {
+  padding: 0;
+}
+section.readings-status .item .reading-line .pipeline {
+  font-size: 22px;
+  height: 85%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+section.readings-status .item .reading-line .pipeline ul {
+  list-style-type: none;
+  margin: auto;
+  padding: 0;
+}
+section.readings-status .item .reading-line .pipeline li {
+  margin-bottom: 10px;
+}
+section.readings-status .item .reading-line .pipeline li span {
+  color: #FF7043;
+  margin-left: 45px;
+}
+section.readings-status .item .reading-line .pipeline li a {
+  color: #FF7043;
+}
+section.readings-status .item .reading-line .pipeline li.done {
+  color: #dc2430;
+  text-decoration: underline;
+  font-weight: bold;
+}
+section.readings-status .item .reading-line .pipeline li.done:hover {
+  cursor: default;
+}
+section.readings-status .item .reading-line .pipeline li.disabled span {
+  color: #777777;
+}
+section.readings-status .item .reading-line .pipeline li.disabled:hover {
+  cursor: not-allowed;
+}
+section.readings-status .item .reading-line .pipeline li i {
+  font-size: 35px;
+  margin-right: 15px;
+}
+section.readings-status .item .reading-line .book-time {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+}
+section.readings-status .item .reading-line .book-time progress {
+  width: 100%;
+  height: 30px;
+  display: block;
+}
+section.readings-status .item .reading-line .book-time span {
+  font-size: 12px;
 }
 section.bg-secondary .timeline li:hover > .timeline-panel {
   background: #ff7448;

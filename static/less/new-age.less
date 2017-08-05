@@ -187,6 +187,10 @@ header {
     background: url("../img/bg-pattern.png"), -webkit-linear-gradient(to left, @theme-purple , @theme-tertiary); /* Chrome 10-25, Safari 5.1-6 */
     background: url("../img/bg-pattern.png"), linear-gradient(to left, @theme-purple , @theme-tertiary); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     color: white;
+    &.mini{
+        height: 35vh;
+        min-height: 35vh;
+    }
     .header-content {
         text-align: center;
         padding: 150px 0 50px;
@@ -849,6 +853,102 @@ section.form-section {
             padding: 10px;
             span {
                 text-decoration: underline;
+            }
+        }
+    }
+}
+
+section.readings-status {
+    .bg-primary;
+    .row {
+        margin-bottom: 50px;
+        border: 2px solid @theme-secondary;
+        border-radius: 10px;
+        hr {
+            max-width: 95%;
+            border-width: 2px;
+            margin: 5px auto 10px;
+        }
+    }
+    .title {
+        margin-left: 20px;
+        text-align: center;
+        h3 {
+            color: white;
+            font-size: 30px;
+        }
+    }
+    .item {
+        height: 300px;
+        padding: 10px 0;
+        img {
+            max-height: 100%;
+            max-width: 100%;
+            border-radius: 3px;
+            padding: 10px;
+        }
+        .book, .user, .reading-line {
+            height: 100%;
+            text-align: center;
+            .vertical-center-flex;
+        }
+        .reading-line{
+            padding: 0;
+            .pipeline {
+                font-size: 22px;
+                height: 85%;
+                width: 100%;
+                .vertical-center-flex;
+                ul {
+                    list-style-type: none;
+                    margin: auto;
+                    padding: 0;
+                }
+                li{
+                    margin-bottom: 10px;
+                    span{
+                        color: @theme-secondary;
+                        margin-left: 45px;
+                    }
+                    a {
+                        color: @theme-secondary;
+                    }
+                    &.done{
+                        color: @theme-tertiary;
+                        text-decoration: underline;
+                        font-weight: bold;
+                        &:hover{
+                            cursor: default;
+                        }
+                    }
+                    &.disabled{
+                        span {
+                            color: @gray-light;
+                        }
+                        &:hover{
+                            cursor: not-allowed;
+                        }
+                    }
+                    i {
+                        font-size: 35px;
+                        margin-right: 15px;
+                    }
+                }
+            }
+            .book-time {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                text-align: center;
+                progress {
+                    width: 100%;
+                    height: 30px;
+                    display: block;
+                }
+                span{
+                    font-size: 12px;
+                }
             }
         }
     }

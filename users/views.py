@@ -1,10 +1,13 @@
 from django.views.generic import DetailView
 from django.views.generic import UpdateView
-from django.contrib.auth import logout as auth_logout
 from django.views.generic import RedirectView
+from django.views.generic import TemplateView
+from django.contrib.auth import logout as auth_logout
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from users.models import User
 from users.forms import UserProfileEditForm
+from book.models import BookReading
 
 
 class UserProfileView(DetailView):
@@ -34,3 +37,20 @@ class LogoutView(RedirectView):
     def get(self, request, *args, **kwargs):
         auth_logout(request)
         return super(LogoutView, self).get(request, *args, **kwargs)
+
+
+class ReadingsView(LoginRequiredMixin, TemplateView):
+    template_name = 'users/reading-process.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ReadingsView, self).get_context_data(**kwargs)
+        context['waiting_from_me'] = BookReading.objects.filter(
+            book__owner=self.request.user,
+        ).exclude(status__in=[BookReading.READING, BookReading.READ])
+        context['i_wait'] = BookReading.objects.filter(
+            user=self.request.user,
+        ).exclude(status__in=[BookReading.READING, BookReading.READ])
+        context['reading'] = BookReading.objects.filter(
+            user=self.request.user, status=BookReading.READING,
+        )
+        return context

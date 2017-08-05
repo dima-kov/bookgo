@@ -15,6 +15,11 @@ urlpatterns = [
         name='edit',
     ),
     url(
+        r'^book-readings/$',
+        views.ReadingsView.as_view(),
+        name='readings',
+    ),
+    url(
         r'^logout/$',
         views.LogoutView.as_view(),
         name='logout',
