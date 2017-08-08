@@ -12,6 +12,7 @@
                     <h1>{% trans "Статуси" %}</h1>
                     <p>{% trans "Книги на читання" %}</p>
                 </div>
+                {% block messages %}{{ block.super }}{% endblock messages %}
             </div>
         </div>
     </header>
@@ -37,9 +38,44 @@
                             <div class="col-md-6 reading-line">
                                 <div class="pipeline">
                                     <ul>
-                                        <li class="done"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></i>Confirmed</li>
-                                        <li><a href="#"><span>Sent by post</span></a></li>
-                                        <li><span>Delivered</span></li>
+                                        {% if item.is_confirmed %}
+                                            <li class="done">
+                                                <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                                                {% trans "Confirmed by owner" %}
+                                            </li>
+                                        {% else %}
+                                            {% if request.user == item.book.owner %}
+                                                <li>
+                                                    <form action="{% url 'book:owner-confirm' item.id %}" method="POST">
+                                                        <button type="submit"><span>{% trans "Confirm by owner" %}</span></button>
+                                                        {% csrf_token %}
+                                                    </form>
+                                                </li>
+                                            {% else %}
+                                                <li class="disabled">
+                                                    <span>{% trans "Confirmed by owner" %}</span>
+                                                </li>
+                                            {% endif %}
+                                        {% endif %}
+                                        {% if item.is_read %}
+                                            <li class="done">
+                                                <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                                                {% trans "Read" %}
+                                            </li>
+                                        {% else %}
+                                            {% if request.user == item.user %}
+                                                <li>
+                                                    <form action="{% url 'book:owner-confirm' item.id %}" method="POST">
+                                                        {% csrf_token %}
+                                                        <button type="submit"><span>{% trans "Mark read" %}</span></button>
+                                                    </form>
+                                                </li>
+                                            {% else %}
+                                                <li class="disabled">
+                                                    <span>{% trans "Marked read" %}</span>
+                                                </li>
+                                            {% endif %}
+                                        {% endif %}
                                     </ul>
                                 </div>
                                 <div class="book-time">
@@ -84,9 +120,46 @@
                             <div class="col-md-6 reading-line">
                                 <div class="pipeline">
                                     <ul>
-                                        <li class="done"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></i>Confirmed</li>
-                                        <li><a href="#"><span>Sent by post</span></a></li>
-                                        <li class="disabled"><span>Delivered</span></li>
+                                        <ul>
+                                        {% if item.is_confirmed %}
+                                            <li class="done">
+                                                <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                                                {% trans "Confirmed by owner" %}
+                                            </li>
+                                        {% else %}
+                                            {% if request.user == item.book.owner %}
+                                                <li>
+                                                    <form action="{% url 'book:owner-confirm' item.id %}" method="POST">
+                                                        <button type="submit"><span>{% trans "Confirm by owner" %}</span></button>
+                                                        {% csrf_token %}
+                                                    </form>
+                                                </li>
+                                            {% else %}
+                                                <li class="disabled">
+                                                    <span>{% trans "Confirmed by owner" %}</span>
+                                                </li>
+                                            {% endif %}
+                                        {% endif %}
+                                        {% if item.is_read %}
+                                            <li class="done">
+                                                <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                                                {% trans "Read" %}
+                                            </li>
+                                        {% else %}
+                                            {% if request.user == item.user %}
+                                                <li>
+                                                    <form action="{% url 'book:owner-confirm' item.id %}" method="POST">
+                                                        {% csrf_token %}
+                                                        <button type="submit"><span>{% trans "Mark read" %}</span></button>
+                                                    </form>
+                                                </li>
+                                            {% else %}
+                                                <li class="disabled">
+                                                    <span>{% trans "Read" %}</span>
+                                                </li>
+                                            {% endif %}
+                                        {% endif %}
+                                    </ul>
                                     </ul>
                                 </div>
                                 <div class="book-time">

@@ -217,3 +217,11 @@ class BookReading(models.Model):
 
     def __str__(self):
         return '{} ({} - {})'.format(self.book, self.date_start, self.date_end)
+
+    @property
+    def is_confirmed(self):
+        return self.status == self.CONFIRMED_BY_OWNER
+
+    @property
+    def is_read(self):
+        return self.status == self.READ
