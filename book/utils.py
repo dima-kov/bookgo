@@ -61,10 +61,14 @@ class BasePipelineView(View):
         else:
             permitted_user = getattr(self.book_reading, self.pipeline.user)
 
-        # Compare permited and request user
-        if request.user != permitted_user:
-            return HttpResponseForbidden()
-        return super(BasePipelineView, self).dispatch(request, *args, **kwargs)
+        # Compare permitted and request user. Request.user should be equal
+        # permitted.
+        # Or if the request is send from email view (access is there)
+        email_request = kwargs.pop('email_request', None)
+        if email_request or request.user == permitted_user:
+            return super(BasePipelineView, self) \
+                .dispatch(request, *args, **kwargs)
+        return HttpResponseForbidden()
 
     def post(self, request, *args, **kwargs):
         self.pipeline.process(self.book_reading)
