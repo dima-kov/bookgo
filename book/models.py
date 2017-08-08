@@ -140,7 +140,8 @@ class Book(models.Model):
 
     @property
     def current_owner(self):
-        book_reading = self.book_readings.all().order_by('-date_end').last()
+        book_reading = self.book_readings.filter(status=BookReading.READ) \
+            .order_by('-date_end').last()
         if book_reading:
             return book_reading.user
         return self.owner
@@ -150,7 +151,6 @@ class BookReading(models.Model):
     WAITING_OWNER = 'WO'
     CONFIRMED_BY_OWNER = 'CO'
     SENT_BY_POST = 'SP'
-    DELIVERED = 'DL'
     READING = 'RG'
     READ = 'RD'
 
@@ -158,7 +158,6 @@ class BookReading(models.Model):
         (WAITING_OWNER, _('Waiting for owner')),
         (CONFIRMED_BY_OWNER, _('Confirmed by owner')),
         (SENT_BY_POST, _('Sent by post')),
-        (DELIVERED, _('Delivered')),
         (READING, _('Reading')),
         (READ, _('Read')),
     )
