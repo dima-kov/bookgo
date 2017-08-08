@@ -174,6 +174,7 @@ class BookReading(models.Model):
     )
     date_start = models.DateField(
         verbose_name=_('Date of begining'),
+        auto_now_add=True,
         blank=True,
         null=True,
     )
