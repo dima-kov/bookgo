@@ -52,6 +52,14 @@ class EmailBookReadExpire(BaseEmail):
     subject = _('[BoCRoK] Time for reading passed')
 
 
+class EmailUserBlock(BaseEmail):
+    """
+        An email to user, who does not returned book to site about blocking
+    """
+    template_name = 'common/emails/user_block.html'
+    subject = _('[BoCRoK] User blocking')
+
+
 class EmailBookWillSent(BaseEmail):
     """
         An email too book requester that book owner will send book soon
