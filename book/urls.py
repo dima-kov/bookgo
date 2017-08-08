@@ -10,16 +10,26 @@ booking_patterns = [
         name='booking',
     ),
     url(
-        r'^owner-confirm/(?P<pk>\d+)/'
-        r'(?P<email>[\w.@+-]+)/(?P<token>[\w.:\-_=]+)/$',
+        r'^owner-confirm/(?P<pk>\d+)/$',
         views.BookingOwnerConfirmView.as_view(),
-        name='booking-owner-confirm',
+        name='owner-confirm',
     ),
     url(
-        r'^book-read/(?P<pk>\d+)/'
-        r'(?P<email>[\w.@+-]+)/(?P<token>[\w.:\-_=]+)/$',
+        r'^book-read/(?P<pk>\d+)/',
         views.BookingBookReadView.as_view(),
-        name='booking-book-read',
+        name='book-read',
+    ),
+    url(
+        r'^email/owner-confirm/(?P<pk>\d+)/'
+        r'(?P<email>[\w.@+-]+)/(?P<token>[\w.:\-_=]+)/$',
+        views.EmailBookingOwnerConfirmView.as_view(),
+        name='email-owner-confirm',
+    ),
+    url(
+        r'^email/book-read/(?P<pk>\d+)/'
+        r'(?P<email>[\w.@+-]+)/(?P<token>[\w.:\-_=]+)/$',
+        views.EmailBookingBookReadView.as_view(),
+        name='email-book-read',
     ),
 ]
 
@@ -38,7 +48,7 @@ dal_patterns = [
 
 urlpatterns = [
     url(
-        r'(?P<pk>\d+)/$',
+        r'^(?P<pk>\d+)/$',
         views.BookView.as_view(),
         name='detail',
     ),

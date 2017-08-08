@@ -1,12 +1,8 @@
-from datetime import datetime
-from datetime import timedelta
-
 from django.views.generic import DetailView
 from django.views.generic import CreateView
 from django.views.generic import ListView
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext as _
 from django.contrib import messages
-from django.shortcuts import redirect
 
 from book import tasks
 from book.models import Book
@@ -16,7 +12,9 @@ from book.models import Genre
 from book.forms import BookReadingForm
 from book.forms import AddBookForm
 from book.forms import BookListFilterForm
-from common.utils import EmailLinkView
+from book.pipelines import *
+from book.utils import BasePipelineView
+from common.utils import EmailLinkAppropriateView
 from common.utils import AutocompleteCommonView
 
 
@@ -106,35 +104,25 @@ class BookingView(CreateView):
         return form_valid
 
 
-class BookingOwnerConfirmView(EmailLinkView):
-    def token_valid(self):
-        book_reading = BookReading.objects.get(pk=self.kwargs.get('pk'))
-        book_reading.status = BookReading.CONFIRMED_BY_OWNER
-        book_reading.save()
-        message = _(
-            'You successfully confirmed that you`ll send a book soon!'
-        )
-        messages.success(self.request, message)
-        # two_weeks = datetime.utcnow() + timedelta(days=14)
-        two_weeks = datetime.utcnow() + timedelta(minutes=1)
-        tasks.book_read_time_end.apply_async((book_reading.id,), eta=two_weeks)
-        tasks.book_will_sent.delay(book_reading.id)
-        return redirect('/')
+class BookingOwnerConfirmView(BasePipelineView):
+    pipeline = OwnerConfirmPipeline()
+    message = _('You successfully confirmed that you`ll send a book soon!')
 
 
-class BookingBookReadView(EmailLinkView):
-    def token_valid(self):
-        book_reading = BookReading.objects.get(pk=self.kwargs.get('pk'))
-        book_reading.status = BookReading.READ
-        book_reading.save()
-        book_reading.book.status = Book.AVAILABLE
-        book_reading.book.save()
-        message = _(
-            'You successfully returned book to the site!'
-            'Now everyone can get it to read. Thanks!'
-        )
-        messages.success(self.request, message)
-        return redirect('/')
+class BookingBookReadView(BasePipelineView):
+    pipeline = ReadPipeline()
+    message = _(
+        'You successfully returned book to the site! Now everyone can get '
+        'it to read. Thanks!'
+    )
+
+
+class EmailBookingOwnerConfirmView(EmailLinkAppropriateView):
+    appropriate_view_class = BookingOwnerConfirmView
+
+
+class EmailBookingBookReadView(EmailLinkAppropriateView):
+    appropriate_view_class = BookingBookReadView
 
 
 class CategoryAutocompleteView(AutocompleteCommonView):

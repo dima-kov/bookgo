@@ -3,7 +3,7 @@ from dal import autocomplete
 from django.core.signing import TimestampSigner
 from django.core.signing import BadSignature
 from django.utils.decorators import classonlymethod
-from django.views.generic.base import View
+from django.views.generic import View
 from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import redirect
 from django.contrib import messages
@@ -56,6 +56,25 @@ class EmailLinkView(View):
         )
         messages.error(self.request, message)
         return redirect('/')
+
+
+class EmailLinkAppropriateView(EmailLinkView):
+    """
+        Subclass of EmailLinkView. Usefull when email
+        view handles the same as normal view.
+    """
+    appropriate_view_class = None
+
+    def dispatch(self, request, *args, **kwargs):
+        if self.appropriate_view_class is None:
+            raise Exception('`appropriate_view_class` can not be None')
+        return super(EmailLinkView, self).dispatch(request, *args, **kwargs)
+
+    def token_valid(self):
+        # Fake request method and return appropriate view
+        request = self.request
+        request.method = 'POST'
+        return self.appropriate_view_class.as_view()(request, **self.kwargs)
 
 
 class AutocompleteCommonView(autocomplete.Select2QuerySetView):
