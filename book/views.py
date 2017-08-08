@@ -16,8 +16,8 @@ from book.models import Genre
 from book.forms import BookReadingForm
 from book.forms import AddBookForm
 from book.forms import BookListFilterForm
-from common.helpers import EmailLinkView
-from common.helpers import AutocompleteCommonView
+from common.utils import EmailLinkView
+from common.utils import AutocompleteCommonView
 
 
 class BookView(DetailView):
