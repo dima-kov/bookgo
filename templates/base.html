@@ -54,7 +54,7 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="">Main</a>
+                        <a href="/">Main</a>
                     </li>
                     <li>
                         <a href="{% url 'book:list' %}">Books</a>
@@ -65,8 +65,10 @@
                                 {% include "users/includes/user_avatar_small_thumbnail.html" with image=request.user.avatar %}
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="user-menu">
+                                <li><a href="{% url 'book:add' %}">{% trans "Додати книгу" %}</a></li>
+                                <li><a href="{% url 'users:readings' %}">{% trans "Статус книг" %}</a></li>
                                 <li><a href="{{ request.user.get_absolute_url }}">{% trans "Мій аккаунт" %}</a></li>
-                                <li><a href="{% url 'users:edit' user.pk %}">{% trans "Редагувати аккаунт" %}</a></li>
+                                <li><a href="{% url 'users:edit' user.pk %}">{% trans "Редагувати інфо" %}</a></li>
                                 <li role="separator" class="divider"></li>
                                 <li><a href="{% url 'users:logout' %}">{% trans "Вийти" %}</a></li>
                             </ul>
