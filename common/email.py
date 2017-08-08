@@ -52,12 +52,20 @@ class EmailBookReadExpire(BaseEmail):
     subject = _('[BoCRoK] Time for reading passed')
 
 
-class EmailUserBlock(BaseEmail):
+class UserBlockReturnBookEmail(BaseEmail):
     """
         An email to user, who does not returned book to site about blocking
     """
     template_name = 'common/emails/user_block.html'
-    subject = _('[BoCRoK] User blocking')
+    subject = _('[BoCRoK] You are blocked!')
+
+
+class UserBlockNonConfirmedEmail(BaseEmail):
+    """
+        An enail to user about blocking, if he did not confirm book reading
+    """
+    template_name = 'common/emails/user_block_non_confirm.html'
+    subject = _('[BoCRoK] You are blocked!')
 
 
 class EmailBookWillSent(BaseEmail):
