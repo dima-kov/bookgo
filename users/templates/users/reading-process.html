@@ -19,9 +19,13 @@
     {% if i_wait %}
         <section id="readings-status" class="readings-status">
             <div class="container">
-                <div class="title">
-                    <h3>{% trans "Я очікую книгу" %}</h3>
+                <div class="col-lg-12 text-center">
+                    <div class="section-heading">
+                        <h2>{% trans "Я очікую книгу" %}</h2>
+                        <hr>
+                    </div>
                 </div>
+                <div class="clearfix"></div>
                 <div class="row">
                     {% for item in i_wait %}
                         <div class="item">
@@ -62,9 +66,13 @@
     {% if waiting_from_me %}
         <section id="readings-status" class="readings-status">
             <div class="container">
-                <div class="title">
-                    <h3>{% trans "Очікують книгу від мене" %}</h3>
+                <div class="col-lg-12 text-center">
+                    <div class="section-heading">
+                        <h2>{% trans "Очікують книгу від мене" %}</h2>
+                        <hr>
+                    </div>
                 </div>
+                <div class="clearfix"></div>
                 <div class="row">
                     {% for item in waiting_from_me %}
                         <div class="item">
@@ -105,9 +113,13 @@
     {% if reading %}
         <section id="readings-status" class="readings-status">
             <div class="container">
-                <div class="title">
-                    <h3>{% trans "Я читаю" %}</h3>
+                <div class="col-lg-12 text-center">
+                    <div class="section-heading">
+                        <h2>{% trans "Я читаю" %}</h2>
+                        <hr>
+                    </div>
                 </div>
+                <div class="clearfix"></div>
                 <div class="row">
                     {% for item in reading %}
                         <div class="item">

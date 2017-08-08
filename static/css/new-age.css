@@ -1026,13 +1026,8 @@ section.readings-status .row hr {
   border-width: 2px;
   margin: 5px auto 10px;
 }
-section.readings-status .title {
-  margin-left: 20px;
-  text-align: center;
-}
-section.readings-status .title h3 {
+section.readings-status .section-heading h2 {
   color: white;
-  font-size: 30px;
 }
 section.readings-status .item {
   height: 300px;
