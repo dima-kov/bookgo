@@ -174,7 +174,7 @@ input,
 textarea {
   display: block;
   padding: 10px;
-  margin: 20px 0;
+  margin-bottom: 20px;
   width: 100%;
   line-height: 25px;
   border-radius: 5px;
@@ -189,6 +189,9 @@ textarea:focus {
 input:focus::-webkit-input-placeholder,
 textarea:focus::-webkit-input-placeholder {
   color: #fcbd20;
+}
+label {
+  font-weight: normal;
 }
 .navbar-default {
   background-color: white;
