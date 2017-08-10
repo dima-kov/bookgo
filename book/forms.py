@@ -5,6 +5,8 @@ from croppie.fields import CroppieField
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
+from django.urls import reverse
+from django.core.exceptions import ValidationError
 
 from book.models import Book
 from book.models import BookReading
@@ -26,6 +28,7 @@ class BookReadingForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         request = kwargs.pop('request', None)
+        self.request = request
         super(BookReadingForm, self).__init__(*args, **kwargs)
         if request and request.user.is_authenticated():
             self.fields['full_name'].initial = request.user.get_full_name()
@@ -33,6 +36,16 @@ class BookReadingForm(forms.ModelForm):
             self.fields['city'].initial = request.user.city
             self.fields['novaposhta_number'].initial = \
                 request.user.novaposhta_number
+
+    def clean(self):
+        cleaned_data = super(BookReadingForm, self).clean()
+        if not self.request.user.has_enough_to_read():
+            raise ValidationError(_(
+                'You has not enought Opportunities to read the book. Please, '
+                '<a href="{}">add one book</a> to Bocrok in order to '
+                'get 3 new opprtunies!'.format(reverse('book:add'))
+            ))
+        return cleaned_data
 
 
 class AddBookForm(forms.ModelForm):

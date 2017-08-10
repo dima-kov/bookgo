@@ -162,6 +162,14 @@ p.smaller {
   margin-top: 10px;
   margin-bottom: 10px;
 }
+.form-error {
+  color: #dc2430;
+  font-size: 16px;
+  text-align: center;
+}
+.form-error a {
+  font-weight: 900;
+}
 input,
 textarea {
   display: block;

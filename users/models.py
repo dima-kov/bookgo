@@ -54,7 +54,13 @@ class User(AbstractUser):
 
     @property
     def opportunities(self):
-        return Opportunity.objects.filter(user=self).count_values()['value__sum']
+        return int(Opportunity.objects.filter(user=self).count_values()['value__sum'])
 
     def get_token(self):
         return TimestampSigner().sign(self.email).split(':', 1)[1]
+
+    def has_enough_to_read(self):
+        """
+            Returns whether user has enough opportunities to read book
+        """
+        return self.opportunities >= Opportunity.VALUES[Opportunity.READ_BOOK]

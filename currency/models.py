@@ -26,9 +26,9 @@ class Opportunity(models.Model):
     )
 
     VALUES = {
-        REGISTER: '3',
-        ADD_BOOK: '3',
-        READ_BOOK: '-1',
+        REGISTER: 3,
+        ADD_BOOK: 3,
+        READ_BOOK: -1,
     }
 
     user = models.ForeignKey(
