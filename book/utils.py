@@ -30,7 +30,6 @@ class BasePipeline(object):
 
     def process(self, book_reading):
         book_reading.status = self.status
-        book_reading.save()
         return book_reading
 
 
@@ -71,7 +70,8 @@ class BasePipelineView(View):
         return HttpResponseForbidden()
 
     def post(self, request, *args, **kwargs):
-        self.pipeline.process(self.book_reading)
+        self.book_reading = self.pipeline.process(self.book_reading)
+        self.book_reading.save()
         if self.message:
             messages.success(self.request, self.message)
         return HttpResponseRedirect(self.book_reading.book.get_absolute_url())

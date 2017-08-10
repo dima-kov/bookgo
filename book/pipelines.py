@@ -1,5 +1,6 @@
 from datetime import datetime
 from datetime import timedelta
+from django.utils import timezone
 
 from book.utils import BasePipeline
 from book.models import BookReading
@@ -43,6 +44,7 @@ class ReadPipeline(BasePipeline):
 
     def process(self, book_reading):
         book_reading = super(ReadPipeline, self).process(book_reading)
+        book_reading.date_end = timezone.now
         book_reading.book.status = Book.AVAILABLE
         book_reading.book.save()
         return book_reading
