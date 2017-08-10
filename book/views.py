@@ -51,6 +51,7 @@ class BookingView(CreateView):
         form.instance.book.status = Book.BOOKED
         form.instance.book.save()
 
+        form_valid = super(BookingView, self).form_valid(form)
         tasks.book_owner_email_task.delay(
             form.instance.id,
         )
@@ -58,7 +59,7 @@ class BookingView(CreateView):
             'Your information was send to book owner. '
             'You`ll be notified when he send it to you.')
         messages.success(self.request, message)
-        return super(BookingView, self).form_valid(form)
+        return form_valid
 
     def form_invalid(self, form):
         kwargs = {
