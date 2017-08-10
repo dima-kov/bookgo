@@ -213,21 +213,12 @@ header {
                 margin-bottom: 30px;
                 font-size: 30px;
             }
-            .list-badges {
-                margin-bottom: 25px;
-                img {
-                    height: 50px;
-                    margin-bottom: 25px;
-                }
-            }
         }
     }
     .device-container {
         max-width: 300px;
         margin: 0 auto 100px;
-        .screen img {
-            border-radius: 3px;
-        }
+        padding: 0;
     }
     @media (min-width: @tablet_min) {
         min-height: 100%;
@@ -248,8 +239,12 @@ header {
         }
         .device-container {
             max-width: none;
-            max-height: calc(100vh - 100px);
-            margin: 100px auto 0;
+            height: 100vh;
+            img {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-55%);
+            }
         }
     }
     @media (min-width: @desktop_min) {
