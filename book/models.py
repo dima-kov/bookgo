@@ -183,8 +183,8 @@ class BookReading(models.Model):
         blank=True,
         null=True,
     )
-    feelings = models.TextField(
-        verbose_name=_('Feelings'),
+    feedback = models.TextField(
+        verbose_name=_('Feedback'),
         null=True,
         blank=True,
     )

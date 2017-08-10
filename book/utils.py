@@ -44,7 +44,6 @@ class BasePipelineView(View):
     """
 
     pipeline = None
-    http_method_names = ['post']
 
     def dispatch(self, request, *args, **kwargs):
         """
@@ -62,7 +61,7 @@ class BasePipelineView(View):
 
         # Compare permitted and request user. Request.user should be equal
         # permitted.
-        # Or if the request is send from email view (access is there)
+        # Or if the request is sent from email view (access is there)
         email_request = kwargs.pop('email_request', None)
         if email_request or request.user == permitted_user:
             return super(BasePipelineView, self) \

@@ -746,6 +746,10 @@ section.form-section select {
 section.form-section p {
   font-size: 14px;
 }
+section.form-section.feedback .book img {
+  width: 230px;
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
+}
 section.history .text-muted {
   color: #ecf0f1;
 }

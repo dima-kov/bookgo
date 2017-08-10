@@ -1,9 +1,12 @@
 from django.views.generic import View
 from django.views.generic import DetailView
 from django.views.generic import CreateView
+from django.views.generic import UpdateView
 from django.views.generic import ListView
 from django.utils.translation import ugettext as _
 from django.contrib import messages
+from django.shortcuts import redirect
+from django.http import HttpResponseForbidden
 
 from book import tasks
 from book.models import Book
@@ -90,6 +93,40 @@ class AddBookView(CreateView):
         return super(AddBookView, self).form_valid(form)
 
 
+class BookFeedbackView(UpdateView):
+    template_name = 'book/feedback.html'
+    model = BookReading
+    fields = ['feedback']
+    pk_url_kwarg = 'reading_pk'
+
+    def get_context_data(self, **kwargs):
+        context = super(BookFeedbackView, self).get_context_data(**kwargs)
+        context['book'] = self.object.book
+        return context
+
+    def get(self, request, *args, **kwargs):
+        response = super(BookFeedbackView, self).get(request, *args, **kwargs)
+        if not request.user.id == self.object.user_id:
+            raise HttpResponseForbidden()
+        return response
+
+    def post(self, request, *args, **kwargs):
+        response = super(BookFeedbackView, self).post(request, *args, **kwargs)
+        if not request.user.id == self.object.user_id:
+            raise HttpResponseForbidden()
+        return response
+
+    def form_valid(self, form):
+        message = _(
+            'Thank you very much! Have you already chosen next book to read?'
+        )
+        messages.success(self.request, message)
+        return super(BookFeedbackView, self).form_valid(form)
+
+    def get_success_url(self):
+        return self.object.book.get_absolute_url()
+
+
 class BookListView(ListView):
     queryset = Book.objects.available()
     paginate_by = 20
@@ -135,6 +172,14 @@ class BookingBookReadView(BasePipelineView):
         'You successfully returned book to the site! Now everyone can get '
         'it to read. Thanks!'
     )
+
+    def post(self, request, *args, **kwargs):
+        super(BookingBookReadView, self).post(request, *args, **kwargs)
+        kwargs = {
+            'pk': self.book_reading.book.pk,
+            'reading_pk': self.book_reading.pk,
+        }
+        return redirect('book:feedback', **kwargs)
 
 
 class EmailBookingOwnerConfirmView(EmailLinkAppropriateView):

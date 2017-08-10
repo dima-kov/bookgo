@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "Відгук про книгу" %} "{{ book.name }}" - {{ block.super }}{% endblock title %}
+
+{% block content %}
+    <section id="form-section" class="form-section feedback bg-primary">
+        <form method="POST">
+            {% csrf_token %}
+            <div class="container">
+                <h1>{% trans "Додати відгук про книгу" %}</h1>
+                <div class="row">
+                    {% if form.errors %}
+                        <div class="alert alert-danger" role="alert">{% trans "Виправте помилки нижче" %}</div>
+                    {% endif %}
+                    {% if form.non_field_errors %}
+                        {% for err in form.non_field_errors %}
+                            <strong>{{ err }}</strong>
+                        {% endfor %}
+                    {% endif %}
+                    <div class="col-md-6 col-sm-6">
+                        <div class="row book">
+                            <div class="col-md-6 col-sm-6">
+                                <a href="{{ book.get_absolute_url }}" title="{{ book.name }}">
+                                    {% include "book/includes/book_card_thumbnail.html" with image=book.photo %}
+                                </a>
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                <h3>{{ book.name }}</h3>
+                                <p>{{ book.description|truncatewords:"30" }}</p>
+                                <a class="btn btn-filled-tertiary" href="{{ book.get_absolute_url }}" title="{{ book.name }}">{% trans "Більше" %}</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                        {{ form.feedback }}
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-filled-tertiary btn-xl">{% trans "Надіслати" %}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </section>
+{% endblock content %}

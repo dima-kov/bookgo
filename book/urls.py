@@ -53,6 +53,11 @@ urlpatterns = [
         name='detail',
     ),
     url(
+        r'^(?P<pk>\d+)/feedback/(?P<reading_pk>\d+)/$',
+        views.BookFeedbackView.as_view(),
+        name='feedback',
+    ),
+    url(
         r'^add/$',
         views.AddBookView.as_view(),
         name='add',
