@@ -647,25 +647,23 @@ section.contact ul li.social-google-plus a:hover {
 /* --- Single book page --- */
 section.single-book {
   text-align: left;
+  font-size: 20px;
 }
 section.single-book img.book-image {
-  max-height: 100vh;
-  font-size: 17px;
-  box-shadow: 8px 8px 25px #aaa;
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
 }
 section.single-book div.attributes ul {
   list-style-type: none;
   padding: 0;
 }
-section.single-book div.attributes a {
-  font-weight: bold;
+section.single-book div.attributes li {
+  margin-bottom: 5px;
 }
 section.single-book a {
   color: #dc2430;
 }
 section.single-book p {
-  margin-top: 10px;
-  font-size: 15px;
+  margin-top: 20px;
 }
 section.owner div.inner-container {
   text-align: right;
