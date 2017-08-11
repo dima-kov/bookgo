@@ -41,9 +41,19 @@ class BookReadingForm(forms.ModelForm):
         cleaned_data = super(BookReadingForm, self).clean()
         if not self.request.user.has_enough_to_read():
             raise ValidationError(_(
-                'You has not enought Opportunities to read the book. Please, '
+                'You have not enough Opportunities to read the book. Please, '
                 '<a href="{}">add one book</a> to Bocrok in order to '
                 'get 3 new opprtunies!'.format(reverse('book:add'))
+            ))
+        if self.request.user.has_unfinished_readings():
+            raise ValidationError(_(
+                'You have already taken one book on the site! Read it '
+                'first and turn it back!'
+            ))
+        if not cleaned_data['book'].available_to_take():
+            raise ValidationError(_(
+                'This book is currently read by another person. So, '
+                'wait for her to retire!'
             ))
         return cleaned_data
 
