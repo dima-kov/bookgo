@@ -149,6 +149,10 @@ class Book(models.Model):
     def last_reading(self):
         return self.book_readings.all().order_by('-date_start').first()
 
+    def available_to_take(self):
+        reading = self.book_readings.exclude(status=BookReading.READ).exists()
+        return not reading and self.is_available
+
 
 class BookReading(models.Model):
     WAITING_OWNER = 'WO'

@@ -38,7 +38,7 @@
                             </ul>
                         </div>
                         <div class="col-md-4">
-                            {% if book.is_available %}
+                            {% if book.available_to_take %}
                                 <a href="#form" class="btn btn-outline btn-xl page-scroll">Доступно!</a>
                             {% else %}
                                 <span class="btn btn-outline btn-xl">Не доступно :(</span>
@@ -155,12 +155,17 @@
                                     На жаль, в тебе немає можливостей, щоб взяти почитати цю книгу. <a href="{% url 'book:add' %}">Додай свою книжку</a> на сайт, і отримай за це <span class="delighted">3 можливості</span>.
                                 </p>
                             {% endif %}
+                            {% if not book.available_to_take %}
+                                <p class="text-muted form-error">
+                                    На жаль, цю книгу зараз читає інша людина. Тож, треба почекати, коли вона звільниться!
+                                </p>
+                            {% endif %}
                         {% endif %}
                         <hr>
                     </div>
                 </div>
             </div>
-            {% if request.user.has_enough_to_read %}
+            {% if request.user.has_enough_to_read and book.available_to_take %}
                 <form action="{% url 'book:detail' book.pk %}" method="POST">
                     {% csrf_token %}
                     <div class="row">
