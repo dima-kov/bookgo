@@ -134,7 +134,7 @@
             <div class="row">
                 <div class="container">
                     <div class="col-lg-12">
-                        {% include "book/includes/books_timeline.html" with book_readings=book.book_readings.all %}
+                        {% include "book/includes/books_timeline.html" with book_readings=book.book_readings.read %}
                     </div>
                 </div>
             </div>

@@ -154,6 +154,15 @@ class Book(models.Model):
         return not reading and self.is_available
 
 
+class ReadingQuerySet(models.QuerySet):
+
+    def unread(self):
+        return self.exclude(status=BookReading.READ)
+
+    def read(self):
+        return self.filter(status=BookReading.READ)
+
+
 class BookReading(models.Model):
     WAITING_OWNER = 'WO'
     CONFIRMED_BY_OWNER = 'CO'
@@ -215,6 +224,8 @@ class BookReading(models.Model):
         max_length=10,
         verbose_name=_('Novaposhta Number'),
     )
+
+    objects = ReadingQuerySet.as_manager()
 
     class Meta:
         verbose_name = _('Book Reading')
