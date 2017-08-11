@@ -81,6 +81,7 @@ def user_block_return_book(book_reading_id):
         email = UserBlockReturnBookEmail(context, [book_reading.user.email])
         email.send()
 
+
 @app.task
 def book_read_time_end(book_reading_id):
     """
@@ -90,14 +91,15 @@ def book_read_time_end(book_reading_id):
         Task should be executed in 2 weeks after previous owner sent a book.
     """
     book_reading = BookReading.objects.get(id=book_reading_id)
-    context = {
-        'book': book_reading.book,
-        'book_reading': book_reading,
-        'user': book_reading.user,
-    }
-    email = EmailBookReadExpire(context, [book_reading.user.email])
-    email.send()
+    if book_reading.status != BookReading.READ:
+        context = {
+            'book': book_reading.book,
+            'book_reading': book_reading,
+            'user': book_reading.user,
+        }
+        email = EmailBookReadExpire(context, [book_reading.user.email])
+        email.send()
 
-    # twelve_hours = datetime.utcnow() + timedelta(hours=12)
-    twelve_hours = datetime.utcnow() + timedelta(minutes=2)
-    user_block_return_book.apply_async((book_reading.id,), eta=twelve_hours)
+        # twelve_hours = datetime.utcnow() + timedelta(hours=12)
+        twelve = datetime.utcnow() + timedelta(minutes=2)
+        user_block_return_book.apply_async((book_reading.id,), eta=twelve)
