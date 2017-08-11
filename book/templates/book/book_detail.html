@@ -21,19 +21,19 @@
                             <ul>
                                 <li>
                                     <span>Автор:</span>
-                                    <a href="catalogue.html">{{ book.author }}</a>
+                                    <p>{{ book.author }}</p>
                                 </li>
                                 <li>
                                     <span>Жанр:</span>
-                                    <a href="catalogue.html">{{ book.genre }}</a>
+                                    <a href="{% url 'book:list' %}?genre={{ book.genre.id }}">{{ book.genre }}</a>
                                 </li>
                                 <li>
                                     <span>Категорія:</span>
-                                    <a href="catalogue.html">{{ book.category }}</a>
+                                    <a href="{% url 'book:list' %}?category={{ book.category.id }}">{{ book.category }}</a>
                                 </li>
                                 <li>
                                     <span>Мова:</span>
-                                    <a href="catalogue.html">{{ book.language }}</a>
+                                    <a href="{% url 'book:list' %}?language={{ book.language }}">{{ book.language }}</a>
                                 </li>
                             </ul>
                         </div>

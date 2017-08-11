@@ -656,7 +656,8 @@ section.contact ul li.social-google-plus a:hover {
 section.single-book {
   text-align: left;
 }
-section.single-book a {
+section.single-book a,
+section.single-book p {
   color: #dc2430;
 }
 section.single-book img.book-image {
@@ -671,6 +672,10 @@ section.single-book .attributes ul {
 }
 section.single-book .attributes li {
   margin-bottom: 5px;
+}
+section.single-book .attributes p {
+  display: inline;
+  font-size: 20px;
 }
 section.single-book .description {
   margin-top: 20px;
