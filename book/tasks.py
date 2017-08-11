@@ -26,7 +26,7 @@ def book_owner_email_task(book_reading_id):
     email.send()
 
     # twelve_hours = datetime.utcnow() + timedelta(hours=12) Test only
-    twelve_hours = datetime.utcnow() + timedelta(minutes=1)
+    twelve_hours = datetime.utcnow() + timedelta(minutes=2)
     user_block_non_confirm.apply_async((book_reading.id,), eta=twelve_hours)
 
 
@@ -51,7 +51,7 @@ def user_block_non_confirm(book_reading_id):
         Block user if he did not confirm book reading
     """
     book_reading = BookReading.objects.get(id=book_reading_id)
-    if book_reading.status != BookReading.CONFIRMED_BY_OWNER:
+    if book_reading.status == BookReading.WAITING_OWNER:
         book_reading.user.is_active = False
         book_reading.user.save()
         context = {
@@ -101,5 +101,5 @@ def book_read_time_end(book_reading_id):
         email.send()
 
         # twelve_hours = datetime.utcnow() + timedelta(hours=12)
-        twelve = datetime.utcnow() + timedelta(minutes=2)
+        twelve = datetime.utcnow() + timedelta(minutes=4)
         user_block_return_book.apply_async((book_reading.id,), eta=twelve)
