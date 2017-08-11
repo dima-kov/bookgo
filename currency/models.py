@@ -5,7 +5,10 @@ from django.conf import settings
 
 class OpportunityQuerySet(models.QuerySet):
     def count_values(self):
-        return self.aggregate(models.Sum('value'))
+        count = self.aggregate(models.Sum('value')).get('value__sum')
+        if count is None:
+            return 0
+        return int(count)
 
 
 class OpportunityManager(models.Manager):

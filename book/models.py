@@ -141,10 +141,13 @@ class Book(models.Model):
     @property
     def current_owner(self):
         book_reading = self.book_readings.filter(status=BookReading.READ) \
-            .order_by('-date_end').last()
+            .order_by('-date_end').first()
         if book_reading:
             return book_reading.user
         return self.owner
+
+    def last_reading(self):
+        return self.book_readings.all().order_by('-date_start').first()
 
 
 class BookReading(models.Model):
@@ -172,13 +175,11 @@ class BookReading(models.Model):
         related_name='book_readings',
         verbose_name=_('Book'),
     )
-    date_start = models.DateField(
+    date_start = models.DateTimeField(
         verbose_name=_('Date of begining'),
         auto_now_add=True,
-        blank=True,
-        null=True,
     )
-    date_end = models.DateField(
+    date_end = models.DateTimeField(
         verbose_name=_('Date of ending'),
         blank=True,
         null=True,

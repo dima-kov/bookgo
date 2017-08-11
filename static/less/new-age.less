@@ -88,6 +88,11 @@ label {
     font-weight: normal;
 }
 
+.alert-info {
+    background: @gray-lighter;
+    color: @gray;
+}
+
 // Navigation
 .navbar-default {
     background-color: white;
@@ -511,11 +516,14 @@ section.contact {
 /* --- Single book page --- */
 section.single-book {
     text-align: left;
-    font-size: 20px;
+    a {
+        color: @theme-tertiary;
+    }
     img.book-image{
         box-shadow: 0 19px 38px rgba(0,0,0,.3), 0 15px 12px rgba(0,0,0,.22);
     }
-    div.attributes {
+    .attributes {
+        font-size: 20px;
         ul {
             list-style-type: none;
             padding: 0;
@@ -524,11 +532,21 @@ section.single-book {
             margin-bottom: 5px;
         }
     }
-    a {
-        color: @theme-tertiary;
-    }
-    p {
+    .description{
         margin-top: 20px;
+        font-size: 20px;
+    }
+    .pipeline {
+        margin-top: 50px;
+        i {
+            display: inline;
+            float: left;
+            font-size: 70px;
+            margin-right: 10px;
+        }
+        p {
+            font-size: 14px;
+        }
     }
 }
 

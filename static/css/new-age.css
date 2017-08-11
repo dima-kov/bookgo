@@ -193,6 +193,10 @@ textarea:focus::-webkit-input-placeholder {
 label {
   font-weight: normal;
 }
+.alert-info {
+  background: #eeeeee;
+  color: #555555;
+}
 .navbar-default {
   background-color: white;
   border-color: rgba(34, 34, 34, 0.05);
@@ -647,23 +651,38 @@ section.contact ul li.social-google-plus a:hover {
 /* --- Single book page --- */
 section.single-book {
   text-align: left;
-  font-size: 20px;
-}
-section.single-book img.book-image {
-  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
-}
-section.single-book div.attributes ul {
-  list-style-type: none;
-  padding: 0;
-}
-section.single-book div.attributes li {
-  margin-bottom: 5px;
 }
 section.single-book a {
   color: #dc2430;
 }
-section.single-book p {
+section.single-book img.book-image {
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
+}
+section.single-book .attributes {
+  font-size: 20px;
+}
+section.single-book .attributes ul {
+  list-style-type: none;
+  padding: 0;
+}
+section.single-book .attributes li {
+  margin-bottom: 5px;
+}
+section.single-book .description {
   margin-top: 20px;
+  font-size: 20px;
+}
+section.single-book .pipeline {
+  margin-top: 50px;
+}
+section.single-book .pipeline i {
+  display: inline;
+  float: left;
+  font-size: 70px;
+  margin-right: 10px;
+}
+section.single-book .pipeline p {
+  font-size: 14px;
 }
 section.owner div.inner-container {
   text-align: right;

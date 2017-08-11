@@ -54,7 +54,7 @@ class User(AbstractUser):
 
     @property
     def opportunities(self):
-        return int(Opportunity.objects.filter(user=self).count_values()['value__sum'])
+        return Opportunity.objects.filter(user=self).count_values()
 
     def get_token(self):
         return TimestampSigner().sign(self.email).split(':', 1)[1]
