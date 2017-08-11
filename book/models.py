@@ -232,7 +232,7 @@ class BookReading(models.Model):
         verbose_name_plural = _('Book Readings')
 
     def __str__(self):
-        return '{} ({} - {})'.format(self.book, self.date_start, self.date_end)
+        return '{} - {}'.format(self.user, self.book)
 
     @property
     def is_confirmed(self):
