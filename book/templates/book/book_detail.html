@@ -65,7 +65,7 @@
                                                 Користувач, в якого зараз ця книга підтвердив, що надішле цю книгу не пізніще як через 2 дні, або вже надіслав. Коли ви закінчите читати, поверніть книгу на сайт, натиснувши кнопку нижче. На читання книги, у вас 14 днів.
                                             {% endblocktrans %}    
                                             <form action="{% url 'book:book-read' reading.id %}" method="POST">{% csrf_token %}
-                                                <button type="submit" class="btn btn-filled-tertiary btn-xl">{% trans "Прочитав!" %}</button>
+                                                <button type="submit" class="btn btn-filled-tertiary">{% trans "Прочитав!" %}</button>
                                             </form>
                                         {% elif reading.is_read %}
                                             {% blocktrans %}
@@ -74,18 +74,19 @@
                                         {% endif %}
                                     {% elif reading.book.current_owner == request.user %}
                                         {% if not reading.is_confirmed and not reading.is_read %}
-                                            {% blocktrans %}
-                                                Ви - власник, цієї книги. Користувач <a href="reading.user.get_absolute_url">{{ reading.user.get_full_name }}</a> хоче взяти її почитати. Натисніть кнопку, щоб підтвердити, що ви надішлете книгу Новою Поштою за <a href="">вказаними даними</a> протягом 2 днів.
+                                            {% blocktrans with user_url=reading.user.get_absolute_url user_name=reading.user.get_full_name %}
+                                                Ви - власник, цієї книги. Користувач <a href="{{ user_url }}">{{ user_name }}</a> хоче взяти її почитати. Натисніть кнопку, щоб підтвердити, що ви надішлете книгу Новою Поштою за <a href="">вказаними даними</a> протягом 2 днів.
                                             {% endblocktrans %}    
                                             <form action="{% url 'book:owner-confirm' reading.id %}" method="POST">{% csrf_token %}
-                                                <button type="submit" class="btn btn-filled-tertiary btn-xl">{% trans "Підтверджую!" %}</button>
+                                                <button type="submit" class="btn btn-filled-tertiary">{% trans "Підтверджую!" %}</button>
                                             </form>
                                         {% elif reading.is_confirmed %}
-                                            {% blocktrans %}
-                                                Ви підтвердили надсилання книги Новою Поштою! <a href="reading.user.get_absolute_url">{{ reading.user.get_full_name }}</a> отримав сповіщення і, можливо, вже читає книгу! Дякуємо вам!
+                                            {% blocktrans with user_url=reading.user.get_absolute_url user_name=reading.user.get_full_name %}
+                                                Ви підтвердили надсилання книги Новою Поштою! <a href="{{ user_url }}">{{ user_name }}</a> отримав сповіщення і, можливо, вже читає книгу! Дякуємо вам!
                                             {% endblocktrans %}    
                                         {% endif %}
                                     {% endif %}
+                                    <div class="clearfix"></div>
                                 </p>
                             </div>
                         {% endif %}

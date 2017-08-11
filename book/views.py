@@ -16,6 +16,7 @@ from book.models import Genre
 from book.forms import BookReadingForm
 from book.forms import AddBookForm
 from book.forms import BookListFilterForm
+from book.forms import BookFeedbackForm
 from book.pipelines import *
 from book.utils import BasePipelineView
 from common.utils import EmailLinkAppropriateView
@@ -96,7 +97,7 @@ class AddBookView(CreateView):
 class BookFeedbackView(UpdateView):
     template_name = 'book/feedback.html'
     model = BookReading
-    fields = ['feedback']
+    form_class = BookFeedbackForm
     pk_url_kwarg = 'reading_pk'
 
     def get_context_data(self, **kwargs):
@@ -107,13 +108,13 @@ class BookFeedbackView(UpdateView):
     def get(self, request, *args, **kwargs):
         response = super(BookFeedbackView, self).get(request, *args, **kwargs)
         if not request.user.id == self.object.user_id:
-            raise HttpResponseForbidden()
+            return HttpResponseForbidden()
         return response
 
     def post(self, request, *args, **kwargs):
         response = super(BookFeedbackView, self).post(request, *args, **kwargs)
         if not request.user.id == self.object.user_id:
-            raise HttpResponseForbidden()
+            return HttpResponseForbidden()
         return response
 
     def form_valid(self, form):

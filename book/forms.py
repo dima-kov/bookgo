@@ -115,3 +115,15 @@ class BookListFilterForm(forms.Form):
         widget=CustomCheckboxSelectMultiple,
         label=_('Language'),
     )
+
+
+class BookFeedbackForm(forms.ModelForm):
+    class Meta:
+        model = BookReading
+        fields = ['feedback']
+        widgets = {
+            'feedback': forms.Textarea(attrs={
+                'rows': 8,
+                'placeholder': _('Say something about book')
+            })
+        }

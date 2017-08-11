@@ -55,7 +55,7 @@ class BasePipelineView(View):
         # Get permitted user
         if self.pipeline.user == 'owner':
             book = getattr(self.book_reading, 'book')
-            permitted_user = getattr(book, 'owner')
+            permitted_user = getattr(book, 'current_owner')
         else:
             permitted_user = getattr(self.book_reading, self.pipeline.user)
 

@@ -190,6 +190,10 @@ input:focus::-webkit-input-placeholder,
 textarea:focus::-webkit-input-placeholder {
   color: #fcbd20;
 }
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+  color: #fdcc52;
+}
 label {
   font-weight: normal;
 }
@@ -684,6 +688,9 @@ section.single-book .pipeline i {
 section.single-book .pipeline p {
   font-size: 14px;
 }
+section.single-book .pipeline button {
+  margin-top: 10px;
+}
 section.owner div.inner-container {
   text-align: right;
   float: right;
@@ -737,7 +744,6 @@ section.form-section select {
   padding: 5px;
   border: 1px solid #dc2430;
   color: #dc2430;
-  font-weight: 700;
 }
 section.form-section input:focus,
 section.form-section textarea:focus,
@@ -761,7 +767,10 @@ section.form-section select {
 section.form-section p {
   font-size: 14px;
 }
-section.form-section.feedback .book img {
+section.feedback p a {
+  color: #dc2430;
+}
+section.feedback .book img {
   width: 230px;
   box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
 }

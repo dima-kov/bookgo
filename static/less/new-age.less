@@ -82,8 +82,11 @@ input, textarea {
             color: darken(@theme-primary, 10%);
         }
     }
-
+    &::-webkit-input-placeholder{
+        color: @theme-primary;
+    }
 }
+
 label {
     font-weight: normal;
 }
@@ -547,6 +550,9 @@ section.single-book {
         p {
             font-size: 14px;
         }
+        button {
+            margin-top: 10px;
+        }
     }
 }
 
@@ -601,7 +607,6 @@ section.form-section {
         padding: 5px;
         border: 1px solid @theme-tertiary;
         color: @theme-tertiary;
-        font-weight: 700;
         &:focus {
             box-shadow: 0 0 10px @theme-tertiary;
         }
@@ -625,10 +630,15 @@ section.form-section {
     }
 }
 
-section.form-section.feedback .book{
-    img {
-        width: 230px;
-        box-shadow: 0 19px 38px rgba(0,0,0,.3), 0 15px 12px rgba(0,0,0,.22);
+section.feedback {
+    p a {
+        color: @theme-tertiary;
+    }
+    .book{
+        img {
+            width: 230px;
+            box-shadow: 0 19px 38px rgba(0,0,0,.3), 0 15px 12px rgba(0,0,0,.22);
+        }
     }
 }
 
