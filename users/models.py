@@ -63,4 +63,4 @@ class User(AbstractUser):
         """
             Returns whether user has enough opportunities to read book
         """
-        return self.opportunities >= Opportunity.VALUES[Opportunity.READ_BOOK]
+        return self.opportunities >= 1
