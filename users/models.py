@@ -7,6 +7,7 @@ from django.core.signing import TimestampSigner
 from phonenumber_field.modelfields import PhoneNumberField
 
 from currency.models import Opportunity
+from book.models import BookReading
 
 
 class User(AbstractUser):
@@ -64,3 +65,6 @@ class User(AbstractUser):
             Returns whether user has enough opportunities to read book
         """
         return self.opportunities >= 1
+
+    def has_unfinished_readings(self):
+        return self.book_readings.exclude(status=BookReading.READ).exists()

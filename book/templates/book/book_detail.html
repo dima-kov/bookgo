@@ -148,16 +148,30 @@
                         <h2>Взяти почитати</h2>
                         {% if request.user.is_authenticated %}
                             <p class="text-muted">
-                                Швидше заповнюй цю форму! Власник книги отримає сповіщення про те, що ти хочеш почитати книгу "{{ book.name }}" і надішле тобі книгу за цими даними.
+                                {% blocktrans %}
+                                    Швидше заповнюй цю форму! Власник книги отримає сповіщення про те, що ти хочеш почитати книгу "{{ book.name }}" і надішле тобі книгу за цими даними.
+                                {% endblocktrans %}
                             </p>
                             {% if not request.user.has_enough_to_read %}
                                 <p class="text-muted form-error">
-                                    На жаль, в тебе немає можливостей, щоб взяти почитати цю книгу. <a href="{% url 'book:add' %}">Додай свою книжку</a> на сайт, і отримай за це <span class="delighted">3 можливості</span>.
+                                    {% url 'book:add' as add_book_link %}
+                                    {% blocktrans %}
+                                        На жаль, в тебе немає можливостей, щоб взяти почитати цю книгу. <a href="{{ add_book_link }}">Додай свою книжку</a> на сайт, і отримай за це <span class="delighted">3 можливості</span>.
+                                    {% endblocktrans %}
                                 </p>
                             {% endif %}
                             {% if not book.available_to_take %}
                                 <p class="text-muted form-error">
-                                    На жаль, цю книгу зараз читає інша людина. Тож, треба почекати, коли вона звільниться!
+                                    {% blocktrans %}
+                                        На жаль, цю книгу зараз читає інша людина. Тож, треба почекати, коли вона звільниться!
+                                    {% endblocktrans %}
+                                </p>
+                            {% endif %}
+                            {% if request.user.has_unfinished_readings %}
+                                <p class="text-muted form-error">
+                                    {% blocktrans %}
+                                        Ви вже взяли одну книгу на сайті! Спершу прочитайте та поверніть її!
+                                    {% endblocktrans %}
                                 </p>
                             {% endif %}
                         {% endif %}
@@ -165,7 +179,7 @@
                     </div>
                 </div>
             </div>
-            {% if request.user.has_enough_to_read and book.available_to_take %}
+            {% if request.user.has_enough_to_read and book.available_to_take and not request.user.has_unfinished_readings %}
                 <form action="{% url 'book:detail' book.pk %}" method="POST">
                     {% csrf_token %}
                     <div class="row">
