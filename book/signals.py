@@ -11,7 +11,8 @@ def opportunities_on_book_creating(sender, instance, created, **kwargs):
     if created:
         Opportunity.objects.create(
             user=instance.owner,
-            type=Opportunity.ADD_BOOK
+            type=Opportunity.ADD_BOOK,
+            book=instance,
         )
 
 
@@ -21,4 +22,5 @@ def opportunities_on_book_reading(sender, instance, created, **kwargs):
         Opportunity.objects.create(
             user=instance.user,
             type=Opportunity.READ_BOOK,
+            reading=instance,
         )

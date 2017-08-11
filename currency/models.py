@@ -47,6 +47,18 @@ class Opportunity(models.Model):
         verbose_name=_('Value'),
         blank=True,
     )
+    book = models.ForeignKey(
+        'book.Book',
+        verbose_name=_('Book'),
+        blank=True,
+        null=True,
+    )
+    reading = models.ForeignKey(
+        'book.BookReading',
+        verbose_name=_('Book Reading'),
+        blank=True,
+        null=True,
+    )
     objects = OpportunityManager()
 
     class Meta:
@@ -60,3 +72,10 @@ class Opportunity(models.Model):
         if self.value is None:
             self.value = self.VALUES[self.type]
         super(Opportunity, self).save(*args, **kwargs)
+
+    @property
+    def content_object(self):
+        if self.type == self.ADD_BOOK:
+            return self.book
+        elif self.type == self.READ_BOOK:
+            return self.reading
