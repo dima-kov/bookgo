@@ -60,3 +60,13 @@
         </div>
     </section>
 {% endblock content %}
+
+{% block js %}
+    {% if request.GET %}
+        <script type="text/javascript">
+            $('html, body').animate({
+                scrollTop: $("#catalogue-books").offset().top
+            }, 1250, 'easeInOutExpo');
+        </script>
+    {% endif %}
+{% endblock js %}
