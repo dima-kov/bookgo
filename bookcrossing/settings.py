@@ -201,7 +201,11 @@ BOOK_CARD_IMAGE_HEIGHT = 380
 BOOK_FULL_IMAGE_WIDTH = 450
 BOOK_FULL_IMAGE_HEIGHT = 610
 
+
+# Secret key only for quick test
+SECRET_KEY = '8#_ff2^xo@f=dvtgk&dhl9b0d5%ds3&g^$g&h_@tcx0!0mxq8s'
+
 try:
     from .local_settings import *
-except:
-    raise
+except ImportError:
+    pass
