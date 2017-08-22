@@ -11,7 +11,10 @@
             <div class="cta-content">
                 <div class="container">
                     <h2>Не думай.<br>Приєднуйся!</h2>
-                    <a href="" class="btn btn-outline btn-xl" data-toggle="modal" data-target="#register-login">Починаймо разом!</a>
+                    {% if not request.user.is_authenticated %}
+                        <a href="" class="btn btn-outline btn-xl" data-toggle="modal" data-target="#register-login">Реєстрація!</a>
+                    {% endif %}
+                    <a href="{% url 'book:add' %}" class="btn btn-outline btn-xl">Додати книгу!</a>
                 </div>
             </div>
             <div class="overlay"></div>
@@ -33,5 +36,5 @@
                 </ul>
             </div>
         </section>
-        {% endblock end_content %}
+    {% endblock end_content %}
 {% endblock content %}

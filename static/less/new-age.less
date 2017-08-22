@@ -96,6 +96,73 @@ label {
     color: @gray;
 }
 
+a.scroll-icon {
+    color: white;
+    margin-bottom: 20px;
+    margin-top: 5px;
+    position: absolute;
+    bottom: 0;
+    padding-top: 80px;
+    &:hover{
+        color: @gray-light;
+        font-family: pt-sans;
+
+        text-decoration: none;
+    }
+    span {
+        position: absolute;
+        top: 0px;
+        left: 50%;
+        width: 24px;
+        height: 24px;
+        margin-left: -12px;
+        border-left: 1px solid #fff;
+        border-bottom: 1px solid #fff;
+        -webkit-transform: rotate(-45deg);
+        transform: rotate(-45deg);
+        -webkit-animation: sdb07 2s infinite;
+        animation: sdb07 2s infinite;
+        opacity: 0;
+        box-sizing: border-box;
+        &:nth-of-type(1) {
+            -webkit-animation-delay: 0s;
+            animation-delay: 0s;
+        }
+        &:nth-of-type(2) {
+            top: 16px;
+            -webkit-animation-delay: .15s;
+            animation-delay: .15s;
+        }
+        &:nth-of-type(3) {
+            top: 32px;
+            -webkit-animation-delay: .3s;
+            animation-delay: .3s;
+        }
+    }
+    @-webkit-keyframes sdb07 {
+        0% {
+            opacity: 0;
+        }
+        50% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 0;
+        }
+    }
+    @keyframes sdb07 {
+        0% {
+            opacity: 0;
+        }
+        50% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 0;
+        }
+    }
+}
+
 // Navigation
 .navbar-default {
     background-color: white;
@@ -280,72 +347,6 @@ header.catalogue {
             .header-content-inner {
                 position: relative;
             }
-        a.scroll-icon {
-            color: white;
-            margin-bottom: 20px;
-            margin-top: 5px;
-            position: absolute;
-            bottom: 0;
-            padding-top: 80px;
-            &:hover{
-                color: @gray-light;
-                font-family: pt-sans;
-
-                text-decoration: none;
-            }
-            span {
-                position: absolute;
-                top: 0px;
-                left: 50%;
-                width: 24px;
-                height: 24px;
-                margin-left: -12px;
-                border-left: 1px solid #fff;
-                border-bottom: 1px solid #fff;
-                -webkit-transform: rotate(-45deg);
-                transform: rotate(-45deg);
-                -webkit-animation: sdb07 2s infinite;
-                animation: sdb07 2s infinite;
-                opacity: 0;
-                box-sizing: border-box;
-                &:nth-of-type(1) {
-                    -webkit-animation-delay: 0s;
-                    animation-delay: 0s;
-                }
-                &:nth-of-type(2) {
-                    top: 16px;
-                    -webkit-animation-delay: .15s;
-                    animation-delay: .15s;
-                }
-                &:nth-of-type(3) {
-                    top: 32px;
-                    -webkit-animation-delay: .3s;
-                    animation-delay: .3s;
-                }
-            }
-            @-webkit-keyframes sdb07 {
-                0% {
-                    opacity: 0;
-                }
-                50% {
-                    opacity: 1;
-                }
-                100% {
-                    opacity: 0;
-                }
-            }
-            @keyframes sdb07 {
-                0% {
-                    opacity: 0;
-                }
-                50% {
-                    opacity: 1;
-                }
-                100% {
-                    opacity: 0;
-                }
-            }
-        }
     }
     @media (min-width: @tablet_min) {
         .header-content .header-content-inner h1 {
@@ -408,6 +409,9 @@ section.features {
             margin-bottom: 0;
         }
         margin-bottom: 100px;
+    }
+    img{
+        box-shadow: 0 19px 38px rgba(0,0,0,.3), 0 15px 12px rgba(0,0,0,.22);
     }
     .device-container,
     .feature-item {
@@ -810,8 +814,11 @@ section.history {
 }
 
 section.books {
-    .more-link {
+    .links {
         margin-top: 60px;
+        a {
+            margin-left: 20px;
+        }
     }
 }
 /* --- end --- Single book page --- end --- */
