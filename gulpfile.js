@@ -62,12 +62,6 @@ gulp.task('copy', function() {
         .pipe(gulp.dest('static/lib/simple-line-icons'))
 
     gulp.src([
-            'node_modules/croppie/*.css',
-            'node_modules/croppie/*.min.js',
-        ])
-        .pipe(gulp.dest('static/lib/croppie'))
-
-    gulp.src([
             'node_modules/font-awesome/**',
             '!node_modules/font-awesome/**/*.map',
             '!node_modules/font-awesome/.npmignore',
