@@ -31,6 +31,8 @@
   font-weight: bold;
   font-family: 'Francois One', 'Open Sans', 'Arial', 'sans-serif';
   font-size: 1.2em;
+  display: inline-block;
+  vertical-align: middle;
 }
 .delighted::selection {
   background-color: #eeeeee;
@@ -554,6 +556,27 @@ section.features .feature-item i {
     max-width: none;
   }
 }
+section.rules ol {
+  counter-reset: rules;
+  list-style: none;
+}
+section.rules li {
+  counter-increment: rules;
+  font-size: 17px;
+  line-height: 30px;
+}
+section.rules li::before {
+  content: counter(rules) ". ";
+  display: inline-block;
+  position: absolute;
+  left: 25px;
+  font-weight: bold;
+  font-size: 18px;
+  background: -webkit-linear-gradient(to left, #7b4397, #dc2430);
+  background: linear-gradient(to left, #7b4397, #dc2430);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 section.statistics .stat {
   margin-top: 30px;
   text-align: center;
@@ -937,6 +960,11 @@ section.books .links {
 }
 section.books .links a {
   margin-left: 20px;
+}
+section.books .links p {
+  margin-top: 10px;
+  line-height: 16px;
+  font-size: 14px;
 }
 /* --- end --- Single book page --- end --- */
 /* Catalogue books */

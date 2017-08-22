@@ -111,6 +111,30 @@
         </div>
     </section>
 
+    <section id="rules" class="rules bg-primary">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <h2 class="section-heading text-center">Правила</h2>
+                    <p>
+                        <ol>
+                            <li>Додати книгу треба за <a class="delighted" href="{% url 'book:add' %}">посиланням;</a></li>
+                            <li>Коли будь-який інший користувач захоче почитати вашу книгу, вам прийде сповіщення про це на пошту;</li>
+                            <li>Протягом 1 дня, Ви повинні підтвердити, що надішлете книгу за вказаною адресою;</li>
+                            <li>З цього моменту розпочнеться відлік часу на читання: <span class="delighted">15 днів</span>. В середньому, доставка триває 2-4 дні, тож у вашому розпорядженні книга буде 11-13 днів або й більше, якщо до того часу її не захоче читати хтось інший;</li>
+                            <li>Коли книгу <span class="delighted">прочитано,</span> ви повинні повернути її на платформу (натиснувши відповідну кнопку на сторінці книги) або ж вам прийде відповідне повідомлення на пошту, з посиланням;</li>
+                            <li>Книгу <span class="delighted">залишаєте в себе</span>, допоки інша людина не захоче її почитати;</li>
+                            <li>Беручи книгу зараз, ви мусите пам'ятати про <span class="delighted">обов'язок</span> віддати її в майбутньому;</li>
+                            <li>Якщо ви <span class="delighted">не повернете</span> книги у визначений час, вас буде заблоковано, а <span class="delighted">всі ваші можливості</span> назавжди анулюються!</li>
+                        </ol>
+                    </p>
+                    <div class="badges text-center">
+                        <a href="#books" class="btn btn-outline btn-xl page-scroll">Які є книги?</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
     {% comment %}
     Commented to time when will be more activity!
     <section id="statistics" class="statistics bg-primary">
@@ -170,6 +194,7 @@
             <div class="text-center links">
                 <a href="{% url 'book:list' %}" class="btn btn-filled-tertiary btn-xl" type="submit">Більше книг</a>
                 <a href="{% url 'book:add' %}" class="btn btn-filled-tertiary btn-xl" type="submit">Додати свою книгу</a>
+                <p>Додай свою книгу і отримай <span class="delighted">+3 можливостей</span></p>
             </div>
         </div>
     </section>
