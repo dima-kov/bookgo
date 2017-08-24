@@ -206,6 +206,6 @@ BOOK_FULL_IMAGE_HEIGHT = 610
 SECRET_KEY = '8#_ff2^xo@f=dvtgk&dhl9b0d5%ds3&g^$g&h_@tcx0!0mxq8s'
 
 try:
-    from .local_settings import *
+    from bookcrossing.local_settings import *
 except ImportError:
     pass
