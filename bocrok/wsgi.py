@@ -1,5 +1,5 @@
 """
-WSGI config for bookcrossing project.
+WSGI config for bocrok project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "bookcrossing.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "bocrok.settings")
 
 application = get_wsgi_application()

@@ -4,9 +4,9 @@ import os
 from celery import Celery
 
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'bookcrossing.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'bocrok.settings')
 
-app = Celery('bookcrossing')
+app = Celery('bocrok')
 
 app.conf.timezone = 'Europe/Kiev'
 

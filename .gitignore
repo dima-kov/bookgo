@@ -4,7 +4,7 @@ media/
 node_modules/
 
 *.pyc
-bookcrossing/local_settings.py
+bocrok/local_settings.py
 .DS_Store
 django.mo
 celerybeat-schedule
