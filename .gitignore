@@ -4,7 +4,12 @@ media/
 node_modules/
 
 *.pyc
-bocrok/local_settings.py
-.DS_Store
-django.mo
+*.DS_Store
+*.mo
+*.sqlite
+
 celerybeat-schedule
+
+bocrok/settings/local.py
+bocrok/settings/prod.py
+bocrok/settings/front.py

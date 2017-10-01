@@ -1,0 +1,22 @@
+DEBUG = False
+
+ALLOWED_HOSTS = ['bocrok.com']
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'bookcrossing',
+        'USER': 'bookcrossing',
+        'PASSWORD': 'bookcrossing',  # Change this!
+    }
+}
+
+ADMINS = [('Dima', 'dmyutro@ukr.net')]
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'email@gmail.com'  # Change it
+EMAIL_HOST_PASSWORD = 'password'  # Change it
+EMAIL_PORT = 587
+
+SECRET_KEY = None  # Change it!
