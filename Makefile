@@ -10,6 +10,11 @@ DJANGO_POSTFIX := --settings=$(DJANGO_SETTINGS_MODULE)
 
 PYTHON_BIN := $(VIRTUAL_ENV)/bin
 
+
+DB_NAME = bookcrossing
+DB_USER = bookcrossing
+DB_PASSWORD = bookcrossing
+
 .PHONY: clean pip virtualenv virtual_env_set;
 
 
@@ -23,11 +28,13 @@ endef
 install_prod:
 	make install_base;
 	$(call generate_settings,prod);
+	make db_create;
 	make check;
 	make migrate;
 
 install_local:
 	make install_base;
+	make db_create;
 	$(call generate_settings,local);
 	make check;
 	make migrate;
@@ -80,8 +87,11 @@ pip:
 virtualenv:
 	virtualenv --no-site-packages $(VIRTUALENV_NAME)
 
-activate_env:
-	. $(VIRTUALENV_NAME)/bin/activate; \
+db_create:
+	sudo mysql -u root -e "create database $(DB_NAME);"
+	sudo mysql -u root -e "create user $(DB_USER) identified by '$(DB_PASSWORD)';"
+	sudo mysql -u root -e "grant all on $(DB_NAME).* to '$(DB_USER)'@'%';"
+	sudo mysql -u root -e "flush privileges;"
 
 all:
 	collectstatic refresh;
