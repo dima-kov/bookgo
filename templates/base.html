@@ -44,7 +44,7 @@
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+                    <span class="sr-only">Toggle navigation</span> <i class="fa fa-bars"></i>
                 </button>
                 <a class="navbar-brand page-scroll" href="/">BoCRoK</a>
             </div>
@@ -53,10 +53,10 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="/">Main</a>
+                        <a href="/">{% trans "Головна" %}</a>
                     </li>
                     <li>
-                        <a href="{% url 'book:list' %}">Books</a>
+                        <a href="{% url 'book:list' %}">{% trans "Книги" %}</a>
                     </li>
                     {% if request.user.is_authenticated %}
                         <li class="dropdown">
@@ -97,18 +97,9 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2016 Start Bootstrap. All Rights Reserved.</p>
-            <ul class="list-inline">
-                <li>
-                    <a href="#">Privacy</a>
-                </li>
-                <li>
-                    <a href="#">Terms</a>
-                </li>
-                <li>
-                    <a href="#">FAQ</a>
-                </li>
-            </ul>
+            <p>2018 Bocrok</p>
+            <p>&copy; All Rights Reserved</p>
+            <p>Start Bootstrap Theme</p>
         </div>
     </footer>
 
