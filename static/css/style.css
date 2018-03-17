@@ -10,9 +10,9 @@
 
 @font-face {
 	font-family: Merriweather;
-	src: url(../fonts/landing/Merriweather-Regular.ttf),
-	url(../fonts/landing/Merriweather-Light.ttf),
-	url(../fonts/landing/Merriweather-Bold.ttf);
+	src: url(../fonts/Merriweather-Regular.ttf),
+	url(../fonts/Merriweather-Light.ttf),
+	url(../fonts/Merriweather-Bold.ttf);
 }
 
 @font-face {
@@ -20,9 +20,12 @@
 	src: url(../fonts/Montserrat-Black.ttf);
 }
 
+html {
+	font-size: 14px;
+}
+
 body {
 	font-family: Merriweather;
-	font-size: 14px;
 }
 
 .pink {
@@ -106,6 +109,10 @@ section#main {
 	line-height: 26px;
 }
 
+section#main img.mobile {
+	display: none;
+}
+
 section#main .scroll a {
 	padding-top: 80px;
 }
@@ -187,7 +194,9 @@ section#steps {
 	background: #e8e8e8;
 }
 
-section#steps .head {}
+section#steps .inner{
+	margin-bottom: 10px;
+}
 
 section#steps h2.title {
 	color: #ff8264;
@@ -205,6 +214,7 @@ section#steps div.items {
 	display: flex;
 	justify-content: space-around;
 	margin: 2rem;
+	flex-wrap: wrap;
 }
 
 section#steps div.items .item {
@@ -215,7 +225,6 @@ section#steps div.items .item p {
 	max-width: 300px;
 	line-height: 22px;
 }
-
 
 
 /* Remains counter: books to start */
@@ -240,6 +249,7 @@ section#remains-counter p {
 section#add-book {
 	background-color: #ff6464;
 }
+
 section#add-book .inner {
 	width: 40vw;
 	margin-right: auto;
@@ -321,6 +331,34 @@ section#add-book form .form-group button:hover {
 	transition: background 0.4s;
 }
 
+@media (max-width: 768px) {
+	section#main img.desktop {
+		display: none;
+	}
+	section#main img.mobile {
+		display: inline;
+	}
+	section#steps div.items .item {
+		flex-grow: 1;
+		width: 100%;
+	}
+	section#steps div.items .item p{
+		max-width: none;
+	}
+
+	section#add-book .inner {
+		width: 80vw;
+	}
+
+	section#share-buttons .inner ul li i{
+	    font-size: 3rem;
+	    width: 45px;
+	    height: 45px;
+	    padding: 20px;
+	    margin: 0 15px;
+	}
+
+}
 
 /* Share section */
 
@@ -353,7 +391,7 @@ section#add-book form .form-group button:hover {
     margin: 0 30px;
     background: #ff6464;
     padding: 30px;
-    border-radius: 107px;
+    border-radius: 100px;
     width: 110px;
     height: 110px;
 }

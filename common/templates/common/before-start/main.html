@@ -5,12 +5,14 @@
 <html>
 <head>
     <title>{% trans "Bookgo.me - обмінюємось книгами онлайн" %}</title>
+    <meta name="viewport" content="width=device-width" />
 </head>
 <body>
     <div id="fullpage">
         <section id="main" class="section">
             <div class="content center">
-                <img src="{% static "img/landing/logo.png" %}">
+                <img src="{% static "img/landing/logo.png" %}" class="desktop">
+                <img src="{% static "img/landing/logo-small.png" %}" class="mobile">
                 <p>{% trans "Онлайн платформа для обміну книгами, де<br>кожен може поділитись хорошою книгою" %}</p>
 
                 <div class="button-wrapper">
@@ -24,30 +26,32 @@
         </section>
 
         <section id="steps" class="section">
-            <div class="head">
-                <h2 class="title center">{% trans "Як це працює?" %}</h2>
-                <p class="center slogan">{% trans "Надзвичайно просто і круто" %}</p>
-            </div>
-            <div class="items">
-                <div class="item">
-                    <img src="{% static "img/landing/art1.png" %}">
-                    <h3>{% trans "Крок 1. Додай книгу" %}</h3>
-                    <p>{% trans "Отримай 3 можливості за кожну додану книгу" %}</p>
+            <div class="inner">
+                <div class="head">
+                    <h2 class="title center">{% trans "Як це працює?" %}</h2>
+                    <p class="center slogan">{% trans "Надзвичайно просто і круто" %}</p>
                 </div>
-                <div class="item">
-                    <img src="{% static "img/landing/art2.png" %}">
-                    <h3>{% trans "Крок 2. Візьми книгу" %}</h3>
-                    <p>{% trans "Бери цікаві книги інших користувачів за ціною 1 книга = 1 можливість" %}</p>
+                <div class="items">
+                    <div class="item">
+                        <img src="{% static "img/landing/art1.png" %}">
+                        <h3>{% trans "Крок 1. Додай книгу" %}</h3>
+                        <p>{% trans "Отримай 3 можливості за кожну додану книгу" %}</p>
+                    </div>
+                    <div class="item">
+                        <img src="{% static "img/landing/art2.png" %}">
+                        <h3>{% trans "Крок 2. Візьми книгу" %}</h3>
+                        <p>{% trans "Бери цікаві книги інших користувачів за ціною 1 книга = 1 можливість" %}</p>
+                    </div>
+                    <div class="item">
+                        <img src="{% static "img/landing/art3.png" %}">
+                        <h3>{% trans "Крок 3. Повтори" %}</h3>
+                        <p>{% trans "Обмінюйся книгами та читай більше цікавої літератури заощадливо!" %}</p>
+                    </div>
                 </div>
-                <div class="item">
-                    <img src="{% static "img/landing/art3.png" %}">
-                    <h3>{% trans "Крок 3. Повтори" %}</h3>
-                    <p>{% trans "Обмінюйся книгами та читай більше цікавої літератури заощадливо!" %}</p>
+                <div class="center">
+                    <p class="pink">{% trans "* за кожну додану книгу до запуску - отримуєш <strong>5</strong> можливостей" %}</p>
+                    <a href="#counter" class="button-grey">{% trans "Коли старт?" %}</a>
                 </div>
-            </div>
-            <div class="center">
-                <p class="pink">{% trans "* за кожну додану книгу до запуску - отримуєш <strong>5</strong> можливостей" %}</p>
-                <a href="#counter" class="button-grey">{% trans "Коли старт?" %}</a>
             </div>
         </section>
 
@@ -130,6 +134,7 @@
                 scrollingSpeed: 1000,
                 controlArrows: true,
                 verticalCentered: true,
+                responsiveWidth: 1100,
             });
         });;
     </script>
