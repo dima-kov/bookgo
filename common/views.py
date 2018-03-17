@@ -4,7 +4,7 @@ from book.models import Book
 
 
 class MainView(TemplateView):
-    template_name = 'common/main.html'
+    template_name = 'common/before-start/main.html'
 
     def get_context_data(self, **kwargs):
         context = super(MainView, self).get_context_data(**kwargs)

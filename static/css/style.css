@@ -1,0 +1,377 @@
+/*
+	Colors
+#ff6464
+#ff8264
+#70ffe2
+#e8e8e8
+#1d1d1d
+
+*/
+
+@font-face {
+	font-family: Merriweather;
+	src: url(../fonts/landing/Merriweather-Regular.ttf),
+	url(../fonts/landing/Merriweather-Light.ttf),
+	url(../fonts/landing/Merriweather-Bold.ttf);
+}
+
+@font-face {
+	font-family: Montserrat;
+	src: url(../fonts/Montserrat-Black.ttf);
+}
+
+body {
+	font-family: Merriweather;
+	font-size: 14px;
+}
+
+.pink {
+	color: #ff6464;
+}
+
+.orange {
+	color: #ff8264;
+}
+
+.whitegray {
+	color: #e8e8e8;
+}
+
+.darkgray {
+	color: #1d1d1d;
+}
+
+.button {
+	color: #e8e8e8;
+	background: none;
+	border: 2px solid #e8e8e8;
+	border-radius: 30px;
+	text-decoration: none;
+	padding: 10px 30px;
+	display: inline-block;
+	transition: 0.3s;
+}
+
+.button:hover{
+	background: #e8e8e8;
+	color: #ff6464;
+	transition: 0.3s;
+}
+
+.button-grey {
+	color: #1d1d1d;
+	background: none;
+	border: 2px solid #1d1d1d;
+	border-radius: 30px;
+	text-decoration: none;
+	padding: 10px 30px;
+	display: inline-block;
+	transition: 0.3s;
+}
+
+.button-grey:hover {
+	color: #e8e8e8;
+	background: #1d1d1d;
+	transition: 0.3s;
+}
+
+.button-green {
+	color: #70ffe2;
+	background: none;
+	border: 1px solid #70ffe2;
+	border-radius: 30px;
+	text-decoration: none;
+	padding: 10px 30px;
+	display: inline-block;
+	transition: 0.3s;
+}
+
+.button-green:hover {
+	color: #1d1d1d;
+	background: #70ffe2;
+	transition: 0.3s;
+}
+
+.center {
+	text-align: center;
+	margin-right: auto;
+	margin-left: auto;
+	display: block;
+}
+
+section#main {
+	background-image: -webkit-linear-gradient(rgba(255, 130, 100, 0.8), rgba(255, 130, 100, 0.8)), url('../images/header.jpg');
+	color: white;
+	font-size: 18px;
+	line-height: 26px;
+}
+
+section#main .scroll a {
+	padding-top: 80px;
+}
+
+section#main .scroll a span {
+	position: absolute;
+	top: 0;
+	left: 50%;
+	width: 24px;
+	height: 24px;
+	margin-left: -12px;
+	border-left: 1px solid #fff;
+	border-bottom: 1px solid #fff;
+	-webkit-transform: rotate(-45deg);
+	transform: rotate(-45deg);
+	-webkit-animation: sdb07 2s infinite;
+	animation: sdb07 2s infinite;
+	opacity: 0;
+	box-sizing: border-box;
+}
+
+section#main .button-wrapper {
+	margin-top: 20px;
+	margin-bottom: 30px;
+}
+
+section#main .scroll {
+	position: absolute;
+	bottom: 75px;
+	right: 50%;
+}
+
+section#main .scroll a span:nth-of-type(1) {
+	-webkit-animation-delay: 0s;
+	animation-delay: 0s;
+}
+
+section#main .scroll a span:nth-of-type(2) {
+	top: 16px;
+	-webkit-animation-delay: .15s;
+	animation-delay: .15s;
+}
+
+section#main .scroll a span:nth-of-type(3) {
+	top: 32px;
+	-webkit-animation-delay: .3s;
+	animation-delay: .3s;
+}
+
+
+@-webkit-keyframes sdb07 {
+	0% {
+		opacity: 0;
+	}
+	50% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+
+@keyframes sdb07 {
+	0% {
+		opacity: 0;
+	}
+	50% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+
+
+/* Steps section */
+
+section#steps {
+	background: #e8e8e8;
+}
+
+section#steps .head {}
+
+section#steps h2.title {
+	color: #ff8264;
+	font-size: 3rem;
+	text-transform: uppercase;
+	margin-bottom: 8px;
+}
+
+section#steps p.slogan {
+	color: #ff8264;
+	font-size: 0.9rem;
+}
+
+section#steps div.items {
+	display: flex;
+	justify-content: space-around;
+	margin: 2rem;
+}
+
+section#steps div.items .item {
+	text-align: center;
+}
+
+section#steps div.items .item p {
+	max-width: 300px;
+	line-height: 22px;
+}
+
+
+
+/* Remains counter: books to start */
+
+section#remains-counter {
+	background-image: -webkit-linear-gradient(rgba(29, 29, 29, 0.8), rgba(29, 29, 29, 0.8)), url('../images/header.jpg');
+	color: #ff8264;
+}
+
+section#remains-counter span {
+	font-size: 12rem;
+	font-weight: bold;
+}
+
+section#remains-counter p {
+	font-size: 2rem;
+}
+
+
+/* Add book section */
+
+section#add-book {
+	background-color: #ff6464;
+}
+section#add-book .inner {
+	width: 40vw;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+section#add-book h3{
+	font-size: 3rem;
+	color: white;
+	font-weight: lighter;
+}
+
+section#add-book form .form-group {
+	position: relative;
+}
+
+section#add-book form .form-group p{
+	color: white;
+	margin: 0;
+}
+
+section#add-book form .form-group input{
+	padding: 15px;
+	background: #f28084;
+	color: white;
+	border: none;
+	width: 100%;
+	box-sizing: border-box;
+	letter-spacing: 1px;
+}
+
+section#add-book form .form-group input:focus ~ span.focus-border{
+	position: absolute;
+	bottom: 20px;
+	width: 100%;
+	background: white;
+	height: 2px;
+	transition: 1s;
+}
+
+section#add-book form .form-group input:focus ~ span.label{
+	top: -65px;
+	left: 0;
+	font-size: 13px;
+	transition: 0.4s;
+	visibility: initial;
+}
+
+
+section#add-book form .form-group span.label{
+	position: relative;
+	top: -33px;
+	left: 16px;
+	font-size: 17px;
+	line-height: 20px;
+	color: white;
+	transition: 0.4s;
+	pointer-events: none;
+}
+
+section#add-book form .form-group button {
+	background: none;
+    border: 3px solid;
+    color: #e8e8e8;
+    border-radius: 2px;
+    margin: 0;
+    padding: 15px 40px;
+    font-size: 17px;
+	float: right;
+	font-family: Merriweather;
+	transition: 0.4s;
+}
+
+section#add-book form .form-group button:hover {
+    margin: 3px;
+	background: #e8e8e8;
+    border: none;
+    color: #ff8264;
+	transition: background 0.4s;
+}
+
+
+/* Share section */
+
+#share-buttons {
+	background: #e8e8e8;
+	color: #ff6464;
+}
+
+#share-buttons .inner {
+	text-align: center;
+}
+
+#share-buttons .inner h3{
+	font-size: 3rem;
+}
+
+#share-buttons .inner ul{
+	list-style: none;
+	padding: 0;
+}
+#share-buttons .inner ul li{
+	display: inline;
+}
+#share-buttons .inner ul li a{
+	text-decoration: none;
+}
+#share-buttons .inner ul li i{
+    color: white;
+    font-size: 7rem;
+    margin: 0 30px;
+    background: #ff6464;
+    padding: 30px;
+    border-radius: 107px;
+    width: 110px;
+    height: 110px;
+}
+
+#share-buttons .inner ul li i:hover{
+	background: rgba(255, 100, 100, 0.8);
+}
+
+#share-buttons .inner p {
+    margin-top: 40px;
+    font-size: 1.1rem;
+}
+
+:focus {
+	outline: none;
+}
+
+#fp-nav ul li a span {
+	background: white;
+    box-shadow: 0px 0px 20px 0px #00000044;
+}
