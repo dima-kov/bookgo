@@ -3,6 +3,7 @@ from django.views.generic import CreateView
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.contrib import messages
+from django.conf import settings
 
 from book.models import Book
 from users.models import User
@@ -16,6 +17,8 @@ class MainView(TemplateView):
         context = super(MainView, self).get_context_data(**kwargs)
         context['books'] = Book.objects.available()
         context['add_book_form'] = forms.AddBookForm()
+        context['books_to_start'] = settings.BOOKS_TO_START_NEED - \
+            Book.objects.all().count()
         return context
 
 
