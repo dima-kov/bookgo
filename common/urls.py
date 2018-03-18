@@ -8,4 +8,9 @@ urlpatterns = [
         views.MainView.as_view(),
         name='main',
     ),
+    url(
+        r'^add-book/$',
+        views.AddBookView.as_view(),
+        name='add-book',
+    )
 ]

@@ -281,7 +281,8 @@ section#add-book form .form-group input{
 	letter-spacing: 1px;
 }
 
-section#add-book form .form-group input:focus ~ span.focus-border{
+section#add-book form .form-group input:focus ~ span.focus-border,
+section#add-book form .form-group input[filled="true"] ~ span.focus-border{
 	position: absolute;
 	bottom: 20px;
 	width: 100%;
@@ -290,7 +291,8 @@ section#add-book form .form-group input:focus ~ span.focus-border{
 	transition: 1s;
 }
 
-section#add-book form .form-group input:focus ~ span.label{
+section#add-book form .form-group input:focus ~ span.label,
+section#add-book form .form-group input[filled="true"] ~ span.label{
 	top: -65px;
 	left: 0;
 	font-size: 13px;

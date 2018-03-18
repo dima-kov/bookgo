@@ -89,30 +89,36 @@ class Book(models.Model):
     )
     description = models.TextField(
         verbose_name=_('Description'),
+        default="",
     )
     photo = models.ImageField(
         upload_to='books_image',
         verbose_name=_('Image'),
+        default="",
     )
     owner = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         verbose_name=_('Owner'),
         related_name='books',
+        null=True,
     )
     category = models.ForeignKey(
         Category,
         related_name='books',
-        verbose_name=_('Category')
+        verbose_name=_('Category'),
+        default=1,
     )
     language = models.CharField(
         max_length=2,
         choices=LANGUAGES,
         verbose_name=_('Language'),
+        default=UKRAINIAN,
     )
     genre = models.ForeignKey(
         Genre,
         related_name='books',
-        verbose_name=_('Genre')
+        verbose_name=_('Genre'),
+        default=1,
     )
     status = models.CharField(
         choices=BOOK_STATUS,

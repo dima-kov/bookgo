@@ -11,7 +11,7 @@ def opportunities_on_book_creating(sender, instance, created, **kwargs):
     if created:
         Opportunity.objects.create(
             user=instance.owner,
-            type=Opportunity.ADD_BOOK,
+            type=Opportunity.BOOK_BEFORE_START,
             book=instance,
         )
 

@@ -22,17 +22,20 @@ class OpportunityManager(models.Manager):
 class Opportunity(models.Model):
 
     REGISTER = 'RE'
+    BOOK_BEFORE_START = 'BS'
     ADD_BOOK = 'AB'
     READ_BOOK = 'RD'
 
     TYPE = (
         (REGISTER, 'Register'),
+        (BOOK_BEFORE_START, 'Book before start'),
         (ADD_BOOK, 'Add book'),
         (READ_BOOK, 'Read book'),
     )
 
     VALUES = {
         REGISTER: 3,
+        BOOK_BEFORE_START: 5,
         ADD_BOOK: 3,
         READ_BOOK: -1,
     }

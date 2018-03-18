@@ -66,19 +66,20 @@
         <section id="add-book" class="section">
             <div class="inner">
                 <h3>{% trans "Додати книгу" %}</h3>
-                <form action="." method="POST">
+                <form action="{% url 'common:add-book' %}" method="POST">
+                    {% csrf_token %}
                     <div class="form-group">
-                        <input type="text" name="bookname">
+                        {{ add_book_form.name }}
                         <span class="focus-border"></span>
                         <span class="label">{% trans "Назва книги" %}</span>
                     </div>
                     <div class="form-group">
-                        <input type="text" name="author">
+                        {{ add_book_form.author }}
                         <span class="focus-border"></span>
                         <span class="label">{% trans "Автор" %}</span>
                     </div>
                     <div class="form-group">
-                        <input type="email" name="email">
+                        {{ add_book_form.email }}
                         <span class="focus-border"></span>
                         <span class="label">{% trans "Email" %}</span>
                     </div>
@@ -137,6 +138,14 @@
                 responsiveWidth: 1100,
             });
         });;
+        $('#add-book form .form-group input').on("input", function() {
+            _this = $(this)
+            if (_this.val() != "") {
+                _this.attr("filled", "true")
+            }else{
+                _this.attr("filled", "false")
+            }
+        });
     </script>
 </body>
 </html>

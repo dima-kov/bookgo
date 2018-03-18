@@ -19,6 +19,7 @@ class User(AbstractUser):
     )
     about = models.TextField(
         verbose_name=_('About'),
+        null=True,
     )
     favourite_book = models.CharField(
         max_length=255,
