@@ -102,6 +102,37 @@ body {
 	display: block;
 }
 
+#messages {
+	position: fixed;
+	top: 30px;
+	right: 30px;
+}
+
+#messages .item {
+	animation-name: animScale;
+	animation-duration: 0.25s;
+    box-shadow: 0 25px 10px -15px rgba(0,0,0,0.05);
+	background: #ffc1b1;
+    border-radius: 4px;
+    padding: 15px 35px 15px 30px;
+    font-size: 16px;
+    font-family: Arial;
+    color: white;
+}
+
+#messages .item .close {
+    position: absolute;
+    top: 7px;
+    right: 7px;
+    font-size: 0.8em;
+    color: white;
+}
+
+@keyframes animScale {
+	0% { opacity: 0; transform: translate3d(0,40px,0) scale3d(0.1,0.6,1); }
+	100% { opacity: 1; transform: translate3d(0,0,0) scale3d(1,1,1); }
+}
+
 section#main {
 	background-image: -webkit-linear-gradient(rgba(255, 130, 100, 0.8), rgba(255, 130, 100, 0.8)), url('../images/header.jpg');
 	color: white;

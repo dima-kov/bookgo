@@ -2,6 +2,7 @@ from django.views.generic import TemplateView
 from django.views.generic import CreateView
 from django.shortcuts import redirect
 from django.urls import reverse
+from django.contrib import messages
 
 from book.models import Book
 from users.models import User
@@ -28,6 +29,11 @@ class AddBookView(CreateView):
         book = form.save(commit=False)
         book.owner = user
         book.save()
+        messages.success(
+            self.request,
+            "Воу, Ви з нами! Вам прийде email з "
+            "деталями при запуску"
+        )
         return redirect(self.get_success_url())
 
     def get_success_url(self):

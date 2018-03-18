@@ -116,6 +116,16 @@
             </div>
         </section>
     </div>
+    {% if messages %}
+        <div id="messages">
+            {% for message in messages %}
+                <div class="item">
+                    <i class="fas fa-times close"></i>
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
 
     <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -146,6 +156,9 @@
                 _this.attr("filled", "false")
             }
         });
+        $('#messages .item .close').click(function () {
+            $(this).closest('.item').fadeOut()
+        })
     </script>
 </body>
 </html>
