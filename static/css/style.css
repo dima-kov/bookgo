@@ -10,14 +10,14 @@
 
 @font-face {
 	font-family: Merriweather;
-	src: url(../fonts/Merriweather-Regular.ttf),
-	url(../fonts/Merriweather-Light.ttf),
-	url(../fonts/Merriweather-Bold.ttf);
+	src: url(../fonts/landing/Merriweather-Regular.ttf),
+	url(../fonts/landing/Merriweather-Light.ttf),
+	url(../fonts/landing/Merriweather-Bold.ttf);
 }
 
 @font-face {
 	font-family: Montserrat;
-	src: url(../fonts/Montserrat-Black.ttf);
+	src: url(../fonts/landing/Montserrat-Black.ttf);
 }
 
 html {
@@ -134,7 +134,7 @@ body {
 }
 
 section#main {
-	background-image: -webkit-linear-gradient(rgba(255, 130, 100, 0.8), rgba(255, 130, 100, 0.8)), url('../images/header.jpg');
+	background-image: -webkit-linear-gradient(rgba(255, 130, 100, 0.8), rgba(255, 130, 100, 0.8)), url('../img/landing/header.jpg');
 	color: white;
 	font-size: 18px;
 	line-height: 26px;
@@ -261,7 +261,7 @@ section#steps div.items .item p {
 /* Remains counter: books to start */
 
 section#remains-counter {
-	background-image: -webkit-linear-gradient(rgba(29, 29, 29, 0.8), rgba(29, 29, 29, 0.8)), url('../images/header.jpg');
+	background-image: -webkit-linear-gradient(rgba(29, 29, 29, 0.8), rgba(29, 29, 29, 0.8)), url('../img/landing/header.jpg');
 	color: #ff8264;
 }
 
