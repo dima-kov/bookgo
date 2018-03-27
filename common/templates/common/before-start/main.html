@@ -88,11 +88,19 @@
         </section>
 
         <section id="remains-counter" class="section center">
-            <span>{{ books_to_start }}</span>
-            <p>{% trans "залишилось книг до старту проекту..." %}</p>
-            <div class="button-wrapper">
-                <a href="#book" class="button-green">{% trans "Додати книгу" %}</a>
-            </div>
+            {% if books_to_start > 0 %}
+                <span>{{ books_to_start }}</span>
+                <p>{% trans "залишилось книг до старту проекту..." %}</p>
+                <div class="button-wrapper">
+                    <a href="#book" class="button-green">{% trans "Додати книгу" %}</a>
+                </div>
+            {% else %}
+                <span>Ура!</span>
+                <p>{% trans "ми зібрали 40 книг! Стартуємо 27 березня о 24:00" %}</p>
+                <div class="button-wrapper">
+                    <a href="#book" class="button-green">{% trans "Додати книгу ще" %}</a>
+                </div>
+            {% endif %}
         </section>
 
         <section id="add-book" class="section">
@@ -116,7 +124,7 @@
                         <span class="label">{% trans "Email" %}</span>
                     </div>
                     <div class="form-group">
-                        <p>* обмін стартує коли буде додано 50 книг</p>
+                        <p>* обмін стартує коли буде додано 40 книг</p>
                         <button type="submit">{% trans "Я теж, +1" %}</button>
                     </div>
                 </form>
