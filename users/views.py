@@ -3,6 +3,8 @@ from django.views.generic import UpdateView
 from django.views.generic import RedirectView
 from django.views.generic import TemplateView
 from django.contrib.auth import login
+from django.contrib.auth import authenticate
+
 from django.urls import reverse
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -30,11 +32,9 @@ class RegisterAfterStart(UpdateView):
         return initial
 
     def check_token(self, token):
-        print(token)
         try:
             TimestampSigner().unsign(token)
         except BadSignature:
-            print('bad')
             return False
         return True
 
@@ -55,11 +55,20 @@ class RegisterAfterStart(UpdateView):
         return self.object
 
     def form_valid(self, form):
-        super(RegisterAfterStart, self).form_valid(form)
+        user = form.save(commit=False)
+        password = form.cleaned_data['password']
+        user.set_password(password)
+        user.is_active = True
+        user.save()
+        auth_user = authenticate(
+            self.request,
+            username=user.username,
+            password=password
+        )
         login(
             self.request,
-            self.object,
-            backend='django.contrib.auth.backends.ModelBackend'
+            auth_user,
+            backend='django.contrib.auth.backends.ModelBackend',
         )
         return redirect(self.get_success_url())
 
