@@ -16,3 +16,13 @@ class UserProfileEditForm(forms.ModelForm):
             'about': forms.Textarea(attrs={'rows': 7}),
             'phone': forms.TextInput(attrs={'placeholder': '+380'}),
         }
+
+
+class RegisterForm(forms.ModelForm):
+
+    class Meta:
+        model = User
+        fields = ('password', 'username', )
+        widgets = {
+            'password': forms.PasswordInput(),
+        }

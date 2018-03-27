@@ -3,6 +3,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import AbstractUser
 from django.urls import reverse
 from django.core.signing import TimestampSigner
+from django.core.signing import Signer
 
 from phonenumber_field.modelfields import PhoneNumberField
 
@@ -69,3 +70,10 @@ class User(AbstractUser):
 
     def has_unfinished_readings(self):
         return self.book_readings.exclude(status=BookReading.READ).exists()
+
+    def generate_signature(self):
+        # only start
+        return TimestampSigner().sign(self.email)
+
+    def signature_valid(self, signature):
+        pass

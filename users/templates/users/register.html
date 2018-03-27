@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block title %}{{ user.get_full_name }} - {% trans "Редагувати" %} - {{ block.super }}{% endblock title %}
+
+{% block content %}
+    <section id="form-section" class="form-section bg-primary">
+        <form method="POST">
+            {% csrf_token %}
+            <div class="container">
+                <h1>{% trans "Реєстрація" %}</h1>
+                <div class="row">
+                    {% if form.errors %}
+                        <div class="alert alert-danger" role="alert">{% trans "Виправте помилки нижче" %}</div>
+                    {% endif %}
+                    {% if form.non_field_errors %}
+                        {% for err in form.non_field_errors %}
+                            <strong>{{ err }}</strong>
+                        {% endfor %}
+                    {% endif %}
+                    {{ form }}
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-filled-tertiary btn-xl">{% trans "Оновити" %}</button>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </form>
+    </section>
+{% endblock content %}

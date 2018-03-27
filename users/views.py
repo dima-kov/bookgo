@@ -2,12 +2,69 @@ from django.views.generic import DetailView
 from django.views.generic import UpdateView
 from django.views.generic import RedirectView
 from django.views.generic import TemplateView
+from django.contrib.auth import login
+from django.urls import reverse
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponseBadRequest
+from django.shortcuts import get_object_or_404
+from django.core.signing import TimestampSigner
+from django.core.signing import BadSignature
+from django.shortcuts import redirect
 
 from users.models import User
 from users.forms import UserProfileEditForm
 from book.models import BookReading
+from users.forms import RegisterForm
+
+import base64
+
+
+class RegisterAfterStart(UpdateView):
+    form_class = RegisterForm
+    template_name = 'users/register.html'
+
+    def get_initial(self):
+        initial = super(RegisterAfterStart, self).get_initial()
+        initial['password'] = ''
+        return initial
+
+    def check_token(self, token):
+        print(token)
+        try:
+            TimestampSigner().unsign(token)
+        except BadSignature:
+            print('bad')
+            return False
+        return True
+
+    def get_email_from_token(self, token):
+        return TimestampSigner().unsign(token)
+
+    def dispatch(self, request, *args, **kwargs):
+        token = base64.urlsafe_b64decode(self.kwargs['token'])
+        if self.check_token(token):
+            email = self.get_email_from_token(token)
+            self.object = get_object_or_404(User, email=email, is_active=False)
+            return super(RegisterAfterStart, self) \
+                .dispatch(request, *args, **kwargs)
+        else:
+            return HttpResponseBadRequest()
+
+    def get_object(self, queryset=None):
+        return self.object
+
+    def form_valid(self, form):
+        super(RegisterAfterStart, self).form_valid(form)
+        login(
+            self.request,
+            self.object,
+            backend='django.contrib.auth.backends.ModelBackend'
+        )
+        return redirect(self.get_success_url())
+
+    def get_success_url(self):
+        return reverse('users:edit', args=[self.object.id])
 
 
 class UserProfileView(DetailView):
