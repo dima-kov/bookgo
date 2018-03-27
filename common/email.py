@@ -74,3 +74,11 @@ class EmailBookWillSent(BaseEmail):
     """
     template_name = 'common/emails/book_will_send.html'
     subject = _('[BoCRoK] Book will be sent soon')
+
+
+class EmailStartBookgo(BaseEmail):
+    """
+        An email too book requester that book owner will send book soon
+    """
+    template_name = 'common/emails/bookgo-start.html'
+    subject = _('bookgo.me Починаємо!')

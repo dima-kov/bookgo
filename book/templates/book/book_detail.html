@@ -107,7 +107,6 @@
             </div>
             <div class="inner-container">
                 <div class="contacts col-md-10">
-                    {% user_social_link user=book.owner %}
                     <a href="{{ book.owner.get_absolute_url }}" class="name">{{ book.owner.get_full_name }}</a>
                     <div class="description">
                         {{ book.owner.about }}

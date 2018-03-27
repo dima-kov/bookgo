@@ -1,9 +1,10 @@
+import base64
+
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import AbstractUser
 from django.urls import reverse
 from django.core.signing import TimestampSigner
-from django.core.signing import Signer
 
 from phonenumber_field.modelfields import PhoneNumberField
 
@@ -73,7 +74,8 @@ class User(AbstractUser):
 
     def generate_signature(self):
         # only start
-        return TimestampSigner().sign(self.email)
+        token = TimestampSigner().sign(self.email)
+        return base64.urlsafe_b64encode(bytes(token, 'utf8'))
 
     def signature_valid(self, signature):
         pass

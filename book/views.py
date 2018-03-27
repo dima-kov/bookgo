@@ -136,6 +136,7 @@ class BookListView(ListView):
 
     def get_queryset(self):
         qs = super(BookListView, self).get_queryset()
+        print(qs)
         return qs.filter(**self.filter_form_query_data())
 
     def request_form_data(self):
