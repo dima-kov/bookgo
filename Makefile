@@ -88,10 +88,10 @@ virtualenv:
 	virtualenv --no-site-packages $(VIRTUALENV_NAME)
 
 db_create:
-	sudo mysql -u root -e "create database $(DB_NAME);"
-	sudo mysql -u root -e "create user $(DB_USER) identified by '$(DB_PASSWORD)';"
-	sudo mysql -u root -e "grant all on $(DB_NAME).* to '$(DB_USER)'@'%';"
-	sudo mysql -u root -e "flush privileges;"
+	sudo mysql -u root -p -e "create database $(DB_NAME);"
+	sudo mysql -u root -p -e "create user $(DB_USER) identified by '$(DB_PASSWORD)';"
+	sudo mysql -u root -p -e "grant all on $(DB_NAME).* to '$(DB_USER)'@'%';"
+	sudo mysql -u root -p -e "flush privileges;"
 
 all:
 	collectstatic refresh;
