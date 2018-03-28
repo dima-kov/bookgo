@@ -42,7 +42,7 @@
                         {% if request.user == user %}
                             {% if user.city or user.novaposhta_number %}
                                 <div class="personal">
-                                    <h4>{% trans "Персональна інфо:" %}</h4>
+                                    <h4>{% trans "Персональна інфо (видима тільки вам):" %}</h4>
                                     <ul>
                                         <li>
                                             {% trans "Місто:" %} {{ user.city }}
