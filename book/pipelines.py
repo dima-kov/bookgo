@@ -18,8 +18,7 @@ class OwnerConfirmPipeline(BasePipeline):
     def process(self, book_reading):
         book_reading = super(OwnerConfirmPipeline, self).process(book_reading)
 
-        # two_weeks = datetime.utcnow() + timedelta(days=14) only for testing
-        two_weeks = datetime.utcnow() + timedelta(minutes=1)
+        two_weeks = datetime.utcnow() + timedelta(days=14)
         tasks.book_read_time_end.apply_async((book_reading.id,), eta=two_weeks)
         tasks.book_will_sent.delay(book_reading.id)
         return book_reading
