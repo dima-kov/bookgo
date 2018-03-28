@@ -81,4 +81,4 @@ class EmailStartBookgo(BaseEmail):
         An email too book requester that book owner will send book soon
     """
     template_name = 'common/emails/bookgo-start.html'
-    subject = _('bookgo.me Починаємо!')
+    subject = _('bookgo.me - полетіли!')

@@ -10,6 +10,11 @@ urlpatterns = [
         name='register-after-start'
     ),
     url(
+        r'^invite/(?P<token>[\w.:\-_=]+)/$',
+        views.InviteView.as_view(),
+        name='invite'
+    ),
+    url(
         r'^(?P<pk>\d+)/$',
         views.UserProfileView.as_view(),
         name='profile',
