@@ -136,7 +136,6 @@ class BookFeedbackView(UpdateView):
 
 class BookListView(ListView):
     queryset = Book.objects.available()
-    paginate_by = 20
     template_name = 'book/list.html'
     context_object_name = 'books'
 

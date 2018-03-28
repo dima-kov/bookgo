@@ -5,7 +5,7 @@
         {% include "book/includes/book_card_thumbnail.html" with image=book.photo %}
         <figcaption>
             <h3>{{ book.name }}</h3>
-            <p>{{ book.description }}</p>
+            <p>{{ book.description|truncatechars:"30" }}</p>
             <a href="{{ book.get_absolute_url }}#form" class="btn btn-outline btn-xl">{% trans "Доступно!" %}</a>
         </figcaption>
         <a href="{{ book.get_absolute_url }}"></a>
