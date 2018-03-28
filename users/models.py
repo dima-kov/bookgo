@@ -14,11 +14,15 @@ from currency.models import Opportunity
 from book.models import BookReading
 
 
+DEFAULT_USER_AVATAR = 'default-avatar.png'
+
+
 class User(AbstractUser):
 
     avatar = models.ImageField(
         upload_to='avatars',
         verbose_name=_('Avatar'),
+        default=DEFAULT_USER_AVATAR,
         null=True,
     )
     about = models.TextField(
