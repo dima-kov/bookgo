@@ -14,4 +14,5 @@ class Command(BaseCommand):
             }
             email = EmailStartBookgo(context, [user.email])
             email.send()
+            self.stdout.write("Sent {}".format(user.email))
         self.stdout.write("Message was sent")
