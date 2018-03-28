@@ -102,19 +102,19 @@ class BookListFilterForm(forms.Form):
         queryset=Genre.objects.all(),
         empty_label=None,
         widget=CustomCheckboxSelectMultiple,
-        label=_('Genre'),
+        label=_('Жанр'),
     )
     category = forms.ModelChoiceField(
         queryset=Category.objects.all(),
         empty_label=None,
         widget=CustomCheckboxSelectMultiple,
-        label=_('Category'),
+        label=_('Категорія'),
     )
-    language = forms.ChoiceField(
-        choices=Book.LANGUAGES,
-        widget=CustomCheckboxSelectMultiple,
-        label=_('Language'),
-    )
+    # language = forms.ChoiceField(
+    #     choices=Book.LANGUAGES,
+    #     widget=CustomCheckboxSelectMultiple,
+    #     label=_('Language'),
+    # )
 
 
 class BookFeedbackForm(forms.ModelForm):
