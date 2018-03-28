@@ -14,7 +14,7 @@ from currency.models import Opportunity
 from book.models import BookReading
 
 
-DEFAULT_USER_AVATAR = 'default-avatar.png'
+DEFAULT_USER_AVATAR = 'avatars/default-avatar.png'
 
 
 class User(AbstractUser):

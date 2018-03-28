@@ -15,6 +15,7 @@ from django.shortcuts import get_object_or_404
 from django.core.signing import TimestampSigner
 from django.core.signing import BadSignature
 from django.shortcuts import redirect
+from django.contrib.auth.views import LoginView as BaseLoginView
 
 from users.models import User
 from users.models import Invite
@@ -117,13 +118,12 @@ class InviteView(CreateView):
         return user.get_absolute_url()
 
 
-from django.contrib.auth.views import LoginView as BaseLoginView
-
-
 class LoginView(BaseLoginView):
     template_name = 'users/login.html'
 
     def get_success_url(self):
+        if self.request.user.is_authenticated():
+            return self.request.user.get_absolute_url()
         return '/'
 
 
