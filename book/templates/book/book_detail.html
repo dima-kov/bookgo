@@ -38,10 +38,18 @@
                             </ul>
                         </div>
                         <div class="col-md-4">
-                            {% if book.available_to_take %}
-                                <a href="#form" class="btn btn-outline btn-xl page-scroll">Доступно!</a>
-                            {% else %}
-                                <span class="btn btn-outline btn-xl">Не доступно :(</span>
+                            <div>
+                                {% if book.available_to_take %}
+                                    <a href="#form" class="btn btn-outline btn-xl page-scroll">Доступно!</a>
+                                {% else %}
+                                    <span class="btn btn-outline btn-xl">Не доступно :(</span>
+                                {% endif %}
+                            </div>
+                            {% if request.user == book.owner or request.user.is_superuser %}
+                                <br>
+                                <div>
+                                   <a href="{% url 'book:edit' book.id %}" class="btn btn-outline">Редагувати!</a>
+                                </div>
                             {% endif %}
                         </div>
                         <div class="clearfix"></div>
@@ -114,7 +122,7 @@
                 </div>
                 <div class="avatar col-md-2">
                     <a href="{{ book.owner.get_absolute_url }}">
-                        <img src="{{ book.owner.avatar.url }}" class="img-responsive img-circle">
+                        {% include "users/includes/user_avatar_profile_thumbnail.html" with image=book.owner.avatar %}
                     </a>
                 </div>
             </div>

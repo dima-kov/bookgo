@@ -94,6 +94,12 @@ class AddBookView(CreateView):
         return super(AddBookView, self).form_valid(form)
 
 
+class EditBookView(UpdateView):
+    model = Book
+    form_class = AddBookForm
+    template_name = 'book/add.html'
+
+
 class BookFeedbackView(UpdateView):
     template_name = 'book/feedback.html'
     model = BookReading
