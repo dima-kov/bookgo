@@ -68,6 +68,15 @@ class User(AbstractUser):
     def get_absolute_url(self):
         return reverse('users:profile', kwargs={'pk': self.pk})
 
+    def get_full_name(self):
+        """
+        Returns the first_name plus the last_name, with a space in between.
+        """
+        full_name = super(User, self).get_full_name()
+        if full_name == "":
+            full_name = self.email
+        return full_name
+
     @property
     def opportunities(self):
         return Opportunity.objects.filter(user=self).count_values()
