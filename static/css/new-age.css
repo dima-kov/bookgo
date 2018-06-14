@@ -468,6 +468,13 @@ section.main h2 {
   margin-top: 0;
   font-size: 50px;
 }
+section.main .how-works {
+  margin-top: 60px;
+}
+section.main .how-works h3 {
+  font-size: 1.5em;
+  display: block;
+}
 section.main .badges .badge-link {
   display: block;
   margin-bottom: 25px;

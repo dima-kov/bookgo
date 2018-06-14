@@ -35,21 +35,23 @@
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
                     <h2 class="section-heading">Як це працює?</h2>
+                    <hr>
                 </div>
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="how-works col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                         <img src="{% static "img/landing/art1.png" %}">
-                        <h3>{% trans "Крок 1. Додай книгу" %}</h3>
-                        <p>{% trans "Отримай 3 можливості за кожну додану книгу" %}</p>
+                        <h3 class='delighted'>{% trans "Додай книгу" %}</h3>
+                        <p>{% trans "Отримай 3 можливості за кожну додану <span class='delighted'>книгу</span>" %}</p>
+
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                         <img src="{% static "img/landing/art2.png" %}">
-                        <h3>{% trans "Крок 2. Візьми книгу" %}</h3>
-                        <p>{% trans "Бери цікаві книги інших користувачів за ціною 1 книга = 1 можливість" %}</p>
+                        <h3 class='delighted'>{% trans "Візьми книгу" %}</h3>
+                        <p>{% trans "Бери цікаві <span class='delighted'>книги</span> інших користувачів за ціною 1 книга = 1 <span class='delighted'>можливість</span>" %}</p>
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                         <img src="{% static "img/landing/art3.png" %}">
-                        <h3>{% trans "Крок 3. Повтори" %}</h3>
+                        <h3 class='delighted'>{% trans "Повтори" %}</h3>
                         <p>{% trans "Обмінюйся книгами та читай більше цікавої літератури заощадливо!" %}</p>
                     </div>
                 </div>
@@ -136,7 +138,7 @@
                             <li>Якщо ви <span class="delighted">не повернете</span> книги у визначений час, вас буде заблоковано, а <span class="delighted">всі ваші можливості</span> назавжди анулюються!</li>
                         </ol>
                     </p>
-                    <div class="badges text-center">
+                    <div class="text-center">
                         <a href="#books" class="btn btn-outline btn-xl page-scroll">Які є книги?</a>
                     </div>
                 </div>
