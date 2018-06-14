@@ -68,6 +68,9 @@
                         <a href="{% url 'book:list' %}">{% trans "Книги" %}</a>
                     </li>
                     {% if request.user.is_authenticated %}
+                        <li>
+                            <a href="{% url 'book:add' %}" class="btn btn-outline">{% trans "Додати книгу" %}</a>
+                        </li>
                         <li class="dropdown">
                             <a id="user-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                 {% include "users/includes/user_avatar_small_thumbnail.html" with image=request.user.avatar %}
