@@ -279,17 +279,18 @@ header {
         min-height: 35vh;
     }
     .header-content {
-        text-align: center;
         padding: 150px 0 50px;
         position: relative;
         .header-content-inner {
             position: relative;
-            max-width: 500px;
             margin: 0 auto;
             h1 {
                 margin-top: 0;
                 margin-bottom: 30px;
-                font-size: 30px;
+                font-size: 4rem;
+            }
+            img {
+                margin: auto;
             }
         }
     }
@@ -301,18 +302,13 @@ header {
     @media (min-width: @tablet_min) {
         min-height: 100%;
         .header-content {
-            text-align: left;
             padding: 0;
             height: 100vh;
             .header-content-inner {
                 max-width: none;
                 margin: 0;
-                position: absolute;
                 top: 50%;
                 transform: translateY(-50%);
-                h1 {
-                    font-size: 35px;
-                }
             }
         }
         .device-container {
@@ -323,11 +319,6 @@ header {
                 top: 50%;
                 transform: translateY(-55%);
             }
-        }
-    }
-    @media (min-width: @desktop_min) {
-        .header-content .header-content-inner h1 {
-            font-size: 50px;
         }
     }
 }
@@ -343,20 +334,7 @@ header.catalogue {
         background: rgba(0, 0, 0, 0.5)
     }
     .header-content {
-            text-align: center;
-            .header-content-inner {
-                position: relative;
-            }
-    }
-    @media (min-width: @tablet_min) {
-        .header-content .header-content-inner h1 {
-            font-size: 50px;
-        }
-    }
-    @media (min-width: @desktop_min) {
-        .header-content .header-content-inner h1 {
-            font-size: 70px;
-        }
+        text-align: center;
     }
 }
 

@@ -8,21 +8,18 @@
     <header>
         <div class="container">
             <div class="row">
-                <div class="col-sm-7">
-                    <div class="header-content">
-                        <div class="header-content-inner">
-                            <h1>{% trans "BoCRoK — онлайн буккросинг паперових книг!" %}</h1>
-                            <a href="#main" class="btn btn-outline btn-xl page-scroll">{% trans "Що це?" %}</a>
+                <div class="col-sm-12">
+                    <div class="header-content text-center">
+                        <div class="header-content-inner ">
+                            <img src="{% static "img/landing/logo.png" %}" class="visible-md visible-lg">
+                            <img src="{% static "img/landing/logo-small.png" %}" class="visible-xs visible-sm">
+
+                            <h1>{% trans "Онлайн платформа для обміну книгами, де кожен може поділитись хорошою книгою" %}</h1>
                             <hr>
                             {% block messages %}
                                 {{ block.super }}
                             {% endblock messages %}
                         </div>
-                    </div>
-                </div>
-                <div class="col-sm-5">
-                    <div class="device-container">
-                        <img src="{% static "img/books.png" %}" class="img-responsive" alt="">
                     </div>
                 </div>
                 <div class="clearfix"></div>
@@ -37,12 +34,23 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
-                    <h2 class="section-heading">Ще більше книг</h2>
-                    <p><span class="delighted">BoCRoK</span> це — платформа, де кожен може взяти почитати будь-яку книгу, повністю безкоштовно! Всього лише, потрібно заплатити віртуальною валютою: <span class="delighted">можливостями,</span> які можна отримати додавши свою книгу на сайт.</p>
-                    <p>Просто вибери книгу, заповни форму і очікуй доставку!</p>
-                    <div class="badges">
-                        <a href="" class="btn btn-outline btn-xl page-scroll" data-toggle="modal" data-target="#register-login">Реєстрація</a>
-                        <a href="#books" class="btn btn-outline btn-xl page-scroll">Каталог</a>
+                    <h2 class="section-heading">Як це працює?</h2>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <img src="{% static "img/landing/art1.png" %}">
+                        <h3>{% trans "Крок 1. Додай книгу" %}</h3>
+                        <p>{% trans "Отримай 3 можливості за кожну додану книгу" %}</p>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <img src="{% static "img/landing/art2.png" %}">
+                        <h3>{% trans "Крок 2. Візьми книгу" %}</h3>
+                        <p>{% trans "Бери цікаві книги інших користувачів за ціною 1 книга = 1 можливість" %}</p>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <img src="{% static "img/landing/art3.png" %}">
+                        <h3>{% trans "Крок 3. Повтори" %}</h3>
+                        <p>{% trans "Обмінюйся книгами та читай більше цікавої літератури заощадливо!" %}</p>
                     </div>
                 </div>
             </div>
