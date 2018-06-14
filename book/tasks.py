@@ -2,7 +2,7 @@ from __future__ import absolute_import, unicode_literals
 from datetime import datetime
 from datetime import timedelta
 
-from bocrok.celeryapp import app
+from bookgo.celeryapp import app
 from book.models import BookReading
 from common.email import EmailTakeBook
 from common.email import EmailBookReadExpire

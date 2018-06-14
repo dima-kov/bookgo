@@ -42,7 +42,7 @@ class BookReadingForm(forms.ModelForm):
         if not self.request.user.has_enough_to_read():
             raise ValidationError(_(
                 'You have not enough Opportunities to read the book. Please, '
-                '<a href="{}">add one book</a> to Bocrok in order to '
+                '<a href="{}">add one book</a> to bookgo in order to '
                 'get 3 new opprtunies!'.format(reverse('book:add'))
             ))
         if self.request.user.has_unfinished_readings():

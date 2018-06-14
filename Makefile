@@ -1,6 +1,6 @@
 SHELL := /bin/sh
 
-PROJECT := bocrok
+PROJECT := bookgo
 VIRTUALENV_NAME := ../env
 LOCALPATH := .
 PYTHONPATH := $(LOCALPATH)/

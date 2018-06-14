@@ -42,7 +42,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'bocrok.urls'
+ROOT_URLCONF = 'bookgo.urls'
 
 TEMPLATES = [
     {
@@ -65,7 +65,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'bocrok.wsgi.application'
+WSGI_APPLICATION = 'bookgo.wsgi.application'
 
 
 # Password validation
@@ -157,7 +157,7 @@ CELERY_IMPORTS = (
     'common.email',
 )
 
-# BOCROK Settings
+# bookgo Settings
 
 BOOK_CARD_IMAGE_WIDTH = 280
 BOOK_CARD_IMAGE_HEIGHT = 380
