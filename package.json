@@ -1,8 +1,8 @@
 {
-  "name": "bocrok",
-  "title": "BoCRoK",
+  "name": "bookgo",
+  "title": "bookgo",
   "version": "1.0.0",
-  "homepage": "http://bocrok.org.ua",
+  "homepage": "http://bookgo.org.ua",
   "author": "Dima Kovalchuk",
   "license": {
     "type": "BSD",

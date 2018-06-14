@@ -43,7 +43,7 @@
                                 {{ field }}
                             </div>
                         {% endfor %}
-                        <input type="submit" name="">
+                        <input type="submit" name="" class="btn btn-outline">
                     </form>
                 </div>
                 <div class="col-md-10">
@@ -52,9 +52,11 @@
                             {% include "book/includes/book_card.html" with book=book %}
                         {% endfor %}
                     </div>
+                    {% comment %}
                     <div class="text-center load-more">
                         <button class="btn btn-filled-tertiary btn-xl" type="submit">Завантажити ще</button>
                     </div>
+                    {% endcomment %}
                 </div>
             </div>
         </div>

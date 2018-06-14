@@ -1,5 +1,5 @@
 {% load thumbnail %}
 
 {% thumbnail image "250x250" crop="center" as im %}
-	<img src="{{ im.url }}">
+	<img src="{{ im.url }}" class="img-circle img-responsive">
 {% endthumbnail %}

@@ -1,8 +1,12 @@
+import base64
+
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
+from django.core.signing import TimestampSigner
 from django.contrib.auth.models import AbstractUser
 from django.urls import reverse
-from django.core.signing import TimestampSigner
+from django.utils.translation import ugettext_lazy as _
+from django.utils.crypto import get_random_string
+from django.conf import settings
 
 from phonenumber_field.modelfields import PhoneNumberField
 
@@ -10,11 +14,15 @@ from currency.models import Opportunity
 from book.models import BookReading
 
 
+DEFAULT_USER_AVATAR = 'avatars/default-avatar.png'
+
+
 class User(AbstractUser):
 
     avatar = models.ImageField(
         upload_to='avatars',
         verbose_name=_('Avatar'),
+        default=DEFAULT_USER_AVATAR,
         null=True,
     )
     about = models.TextField(
@@ -50,9 +58,24 @@ class User(AbstractUser):
         verbose_name=_('Novaposhta department number'),
         null=True,
     )
+    invited_by = models.ForeignKey(
+        "users.Invite",
+        related_name='invited_users',
+        verbose_name='Invited by invite',
+        null=True,
+    )
 
     def get_absolute_url(self):
         return reverse('users:profile', kwargs={'pk': self.pk})
+
+    def get_full_name(self):
+        """
+        Returns the first_name plus the last_name, with a space in between.
+        """
+        full_name = super(User, self).get_full_name()
+        if full_name == "":
+            full_name = self.email
+        return full_name
 
     @property
     def opportunities(self):
@@ -69,3 +92,49 @@ class User(AbstractUser):
 
     def has_unfinished_readings(self):
         return self.book_readings.exclude(status=BookReading.READ).exists()
+
+    def generate_signature(self):
+        # only start
+        token = TimestampSigner().sign(self.email)
+        return base64.urlsafe_b64encode(bytes(token, 'utf8'))
+
+    def get_or_create_invite(self):
+        if not hasattr(self, 'invite'):
+            inv = Invite.objects.create(
+                user=self,
+                token=generate_unique_token()
+            )
+        else:
+            inv = self.invite
+        return inv.token
+
+
+class Invite(models.Model):
+
+    user = models.OneToOneField(
+        User,
+        verbose_name='User',
+        related_name='invite'
+    )
+    token = models.CharField(
+        max_length=100,
+        verbose_name='Token',
+        unique=True,
+    )
+
+    class Meta:
+        verbose_name = "Invite"
+        verbose_name_plural = "Invites"
+
+    def __str__(self):
+        return '{} {}'.format(self.user.username, self.token)
+
+    def is_valid(self):
+        return self.invited_users.count() < settings.USERS_NUM_TO_INVITE
+
+
+def generate_unique_token():
+    token = get_random_string(length=10)
+    if Invite.objects.filter(token=token):
+        return generate_unique_token()
+    return token

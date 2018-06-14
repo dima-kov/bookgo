@@ -94,6 +94,12 @@ class AddBookView(CreateView):
         return super(AddBookView, self).form_valid(form)
 
 
+class EditBookView(UpdateView):
+    model = Book
+    form_class = AddBookForm
+    template_name = 'book/add.html'
+
+
 class BookFeedbackView(UpdateView):
     template_name = 'book/feedback.html'
     model = BookReading
@@ -130,12 +136,12 @@ class BookFeedbackView(UpdateView):
 
 class BookListView(ListView):
     queryset = Book.objects.available()
-    paginate_by = 20
     template_name = 'book/list.html'
     context_object_name = 'books'
 
     def get_queryset(self):
         qs = super(BookListView, self).get_queryset()
+        print(qs)
         return qs.filter(**self.filter_form_query_data())
 
     def request_form_data(self):

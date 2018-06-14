@@ -38,10 +38,18 @@
                             </ul>
                         </div>
                         <div class="col-md-4">
-                            {% if book.available_to_take %}
-                                <a href="#form" class="btn btn-outline btn-xl page-scroll">Доступно!</a>
-                            {% else %}
-                                <span class="btn btn-outline btn-xl">Не доступно :(</span>
+                            <div>
+                                {% if book.available_to_take %}
+                                    <a href="#form" class="btn btn-outline btn-xl page-scroll">Доступно!</a>
+                                {% else %}
+                                    <span class="btn btn-outline btn-xl">Не доступно :(</span>
+                                {% endif %}
+                            </div>
+                            {% if request.user == book.owner or request.user.is_superuser %}
+                                <br>
+                                <div>
+                                   <a href="{% url 'book:edit' book.id %}" class="btn btn-outline">Редагувати!</a>
+                                </div>
                             {% endif %}
                         </div>
                         <div class="clearfix"></div>
@@ -107,7 +115,6 @@
             </div>
             <div class="inner-container">
                 <div class="contacts col-md-10">
-                    {% user_social_link user=book.owner %}
                     <a href="{{ book.owner.get_absolute_url }}" class="name">{{ book.owner.get_full_name }}</a>
                     <div class="description">
                         {{ book.owner.about }}
@@ -115,7 +122,7 @@
                 </div>
                 <div class="avatar col-md-2">
                     <a href="{{ book.owner.get_absolute_url }}">
-                        <img src="{{ book.owner.avatar.url }}" class="img-responsive img-circle">
+                        {% include "users/includes/user_avatar_profile_thumbnail.html" with image=book.owner.avatar %}
                     </a>
                 </div>
             </div>
@@ -221,13 +228,13 @@
             <h2>Розкажи всім <i class="fa fa-share-alt"></i> про <br> таку чудову книгу!</h2>
             <ul class="list-inline list-social">
                 <li class="social-twitter">
-                    <a href="#"><i class="fa fa-twitter"></i></a>
+                    <a href="https://twitter.com/intent/tweet?text={{ share_text }}&url={{ request.build_absolute_uri }}" target="_blank"><i class="fa fa-twitter"></i></a>
                 </li>
                 <li class="social-facebook">
-                    <a href="#"><i class="fa fa-facebook"></i></a>
+                    <a href="https://www.facebook.com/share.php?u={{ request.build_absolute_uri }}"  target="_blank"><i class="fa fa-facebook"></i></a>
                 </li>
                 <li class="social-google-plus">
-                    <a href="#"><i class="fa fa-google-plus"></i></a>
+                    <a href="http://pinterest.com/pin/create/button/?url={{ request.build_absolute_uri }}&description={{ share_text }}&media=" target="_blank"><i class="fa fa-pinterest"></i></a>
                 </li>
             </ul>
         </div>

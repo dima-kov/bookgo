@@ -42,7 +42,7 @@ class BookReadingForm(forms.ModelForm):
         if not self.request.user.has_enough_to_read():
             raise ValidationError(_(
                 'You have not enough Opportunities to read the book. Please, '
-                '<a href="{}">add one book</a> to Bocrok in order to '
+                '<a href="{}">add one book</a> to bookgo in order to '
                 'get 3 new opprtunies!'.format(reverse('book:add'))
             ))
         if self.request.user.has_unfinished_readings():
@@ -102,19 +102,19 @@ class BookListFilterForm(forms.Form):
         queryset=Genre.objects.all(),
         empty_label=None,
         widget=CustomCheckboxSelectMultiple,
-        label=_('Genre'),
+        label=_('Жанр'),
     )
     category = forms.ModelChoiceField(
         queryset=Category.objects.all(),
         empty_label=None,
         widget=CustomCheckboxSelectMultiple,
-        label=_('Category'),
+        label=_('Категорія'),
     )
-    language = forms.ChoiceField(
-        choices=Book.LANGUAGES,
-        widget=CustomCheckboxSelectMultiple,
-        label=_('Language'),
-    )
+    # language = forms.ChoiceField(
+    #     choices=Book.LANGUAGES,
+    #     widget=CustomCheckboxSelectMultiple,
+    #     label=_('Language'),
+    # )
 
 
 class BookFeedbackForm(forms.ModelForm):

@@ -5,6 +5,21 @@ from users import views
 
 urlpatterns = [
     url(
+        r'^register/(?P<token>[\w.:\-_=]+)/$',
+        views.RegisterAfterStart.as_view(),
+        name='register-after-start'
+    ),
+    url(
+        r'^invite/(?P<token>[\w.:\-_=]+)/$',
+        views.InviteView.as_view(),
+        name='invite'
+    ),
+    url(
+        r'^login/$',
+        views.LoginView.as_view(),
+        name='login'
+    ),
+    url(
         r'^(?P<pk>\d+)/$',
         views.UserProfileView.as_view(),
         name='profile',

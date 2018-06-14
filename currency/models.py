@@ -35,7 +35,7 @@ class Opportunity(models.Model):
 
     VALUES = {
         REGISTER: 3,
-        BOOK_BEFORE_START: 5,
+        BOOK_BEFORE_START: 6,
         ADD_BOOK: 3,
         READ_BOOK: -1,
     }

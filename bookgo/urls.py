@@ -1,4 +1,4 @@
-"""bocrok URL Configuration
+"""bookgo URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/1.11/topics/http/urls/
@@ -21,9 +21,9 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    # url(r'^book/', include('book.urls', namespace='book')),
-    # url(r'^users/', include('users.urls', namespace='users')),
+    url(r'^book/', include('book.urls', namespace='book')),
+    url(r'^users/', include('users.urls', namespace='users')),
     url(r'^', include('common.urls', namespace='common')),
-    # url('', include('social_django.urls', namespace='social')),
+    url('', include('social_django.urls', namespace='social')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) \
     + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

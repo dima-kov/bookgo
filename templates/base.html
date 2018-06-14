@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>{% block title %}BoCRoK{% endblock title %}</title>
+    <title>{% block title %}bookgo.me{% endblock title %}</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="{% static "lib/bootstrap/css/bootstrap.min.css" %}" rel="stylesheet">
@@ -34,6 +34,15 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-116201182-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-116201182-1');
+    </script>
 
 </head>
 
@@ -46,7 +55,7 @@
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span> <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand page-scroll" href="/">BoCRoK</a>
+                <a class="navbar-brand page-scroll" href="/">bookgo.me</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -74,7 +83,7 @@
                         </li>
                     {% else %}
                         <li>
-                            <a href="#" class="btn btn-outline" data-toggle="modal" data-target="#register-login">{% trans "Ввійти" %}</a>
+                            <a href="{% url 'users:login' %}" class="btn btn-outline">{% trans "Ввійти" %}</a>
                         </li>
                     {% endif %}
                 </ul>
@@ -97,9 +106,8 @@
 
     <footer>
         <div class="container">
-            <p>2018 Bocrok</p>
+            <p>2018 Bookgo.me</p>
             <p>&copy; All Rights Reserved</p>
-            <p>Start Bootstrap Theme</p>
         </div>
     </footer>
 

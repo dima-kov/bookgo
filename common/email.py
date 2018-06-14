@@ -40,7 +40,7 @@ class EmailTakeBook(BaseEmail):
         An email to book owner that someone wants to take a book
     """
     template_name = 'common/emails/take_book.html'
-    subject = _('[BoCRoK] Someone wants to take your book to read')
+    subject = _('[bookgo.me] Хтось хоче прочитати вашу книгу')
 
 
 class EmailBookReadExpire(BaseEmail):
@@ -49,7 +49,7 @@ class EmailBookReadExpire(BaseEmail):
         and he should retrun book to the site
     """
     template_name = 'common/emails/return_book.html'
-    subject = _('[BoCRoK] Time for reading passed')
+    subject = _('[bookgo.me] Час читання книги вичерпано')
 
 
 class UserBlockReturnBookEmail(BaseEmail):
@@ -57,7 +57,7 @@ class UserBlockReturnBookEmail(BaseEmail):
         An email to user, who does not returned book to site about blocking
     """
     template_name = 'common/emails/user_block.html'
-    subject = _('[BoCRoK] You are blocked!')
+    subject = _('[bookgo.me] You are blocked!')
 
 
 class UserBlockNonConfirmedEmail(BaseEmail):
@@ -65,7 +65,7 @@ class UserBlockNonConfirmedEmail(BaseEmail):
         An enail to user about blocking, if he did not confirm book reading
     """
     template_name = 'common/emails/user_block_non_confirm.html'
-    subject = _('[BoCRoK] You are blocked!')
+    subject = _('[bookgo.me] You are blocked!')
 
 
 class EmailBookWillSent(BaseEmail):
@@ -73,4 +73,12 @@ class EmailBookWillSent(BaseEmail):
         An email too book requester that book owner will send book soon
     """
     template_name = 'common/emails/book_will_send.html'
-    subject = _('[BoCRoK] Book will be sent soon')
+    subject = _('[bookgo.me] Книга буде надіслана незабаром')
+
+
+class EmailStartBookgo(BaseEmail):
+    """
+        An email too book requester that book owner will send book soon
+    """
+    template_name = 'common/emails/bookgo-start.html'
+    subject = _('bookgo.me - Полетіли!')

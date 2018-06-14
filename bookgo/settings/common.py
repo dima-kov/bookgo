@@ -42,7 +42,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'bocrok.urls'
+ROOT_URLCONF = 'bookgo.urls'
 
 TEMPLATES = [
     {
@@ -65,7 +65,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'bocrok.wsgi.application'
+WSGI_APPLICATION = 'bookgo.wsgi.application'
 
 
 # Password validation
@@ -122,9 +122,6 @@ MEDIA_URL = '/media/'
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/'
 
 AUTHENTICATION_BACKENDS = (
-    'social_core.backends.twitter.TwitterOAuth',
-    'social_core.backends.google.GoogleOAuth2',
-    'social_core.backends.facebook.FacebookOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 )
 
@@ -160,7 +157,7 @@ CELERY_IMPORTS = (
     'common.email',
 )
 
-# BOCROK Settings
+# bookgo Settings
 
 BOOK_CARD_IMAGE_WIDTH = 280
 BOOK_CARD_IMAGE_HEIGHT = 380
@@ -170,6 +167,9 @@ BOOK_FULL_IMAGE_HEIGHT = 610
 
 
 BOOKS_TO_START_NEED = 40
+
+
+USERS_NUM_TO_INVITE = 3
 
 # Secret key only for a quick test
 SECRET_KEY = '8#_ff2^xo@f=dvtgk&dhl9b0d5%ds3&g^$g&h_@tcx0!0mxq8s'

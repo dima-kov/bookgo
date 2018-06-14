@@ -63,6 +63,11 @@ urlpatterns = [
         name='add',
     ),
     url(
+        r'^(?P<pk>\d+)/edit/$',
+        views.EditBookView.as_view(),
+        name='edit',
+    ),
+    url(
         r'^list/$',
         views.BookListView.as_view(),
         name='list',

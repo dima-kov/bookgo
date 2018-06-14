@@ -2,7 +2,7 @@ from __future__ import absolute_import, unicode_literals
 from datetime import datetime
 from datetime import timedelta
 
-from bocrok.celeryapp import app
+from bookgo.celeryapp import app
 from book.models import BookReading
 from common.email import EmailTakeBook
 from common.email import EmailBookReadExpire
@@ -25,8 +25,7 @@ def book_owner_email_task(book_reading_id):
     email = EmailTakeBook(context, [book_reading.book.current_owner.email])
     email.send()
 
-    # twelve_hours = datetime.utcnow() + timedelta(hours=12) Test only
-    twelve_hours = datetime.utcnow() + timedelta(minutes=2)
+    twelve_hours = datetime.utcnow() + timedelta(hours=12)
     user_block_non_confirm.apply_async((book_reading.id,), eta=twelve_hours)
 
 
@@ -100,6 +99,5 @@ def book_read_time_end(book_reading_id):
         email = EmailBookReadExpire(context, [book_reading.user.email])
         email.send()
 
-        # twelve_hours = datetime.utcnow() + timedelta(hours=12)
-        twelve = datetime.utcnow() + timedelta(minutes=4)
-        user_block_return_book.apply_async((book_reading.id,), eta=twelve)
+        twelve_hours = datetime.utcnow() + timedelta(hours=12)
+        user_block_return_book.apply_async((book_reading.id,), eta=twelve_hours)
