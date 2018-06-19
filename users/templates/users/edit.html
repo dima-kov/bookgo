@@ -69,8 +69,8 @@
                         </div>
                     </div>
                     <div class="col-md-5 col-sm-12 text-center">
-                        <div class="image">
-                            {% include "users/includes/user_avatar_profile_thumbnail.html" with image=user.avatar %}
+                        <div class="row">
+                            <div id="cropper"></div>
                         </div>
                         <div class="statistics">
                             <span>{% trans "Можливостей:" %}</span>
@@ -83,3 +83,8 @@
         </form>
     </section>
 {% endblock content %}
+
+
+{% block js %}
+    {{ form.media }}
+{% endblock js %}

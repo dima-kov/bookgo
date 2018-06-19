@@ -1,16 +1,19 @@
 from django import forms
-
+from croppie.fields import CroppieField
 
 from users.models import User
 
 
 class UserProfileEditForm(forms.ModelForm):
+
+    avatar = CroppieField()
+
     class Meta:
         model = User
         fields = (
             'first_name', 'last_name', 'email', 'about', 'favourite_book',
             'favourite_author', 'reading_preferences', 'city',
-            'novaposhta_number', 'phone',
+            'novaposhta_number', 'phone', 'avatar',
         )
         widgets = {
             'about': forms.Textarea(attrs={'rows': 7}),
