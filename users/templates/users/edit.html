@@ -6,7 +6,7 @@
 
 {% block content %}
     <section id="form-section" class="form-section bg-primary">
-        <form method="POST">
+        <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="container">
                 <div class="row">
@@ -39,6 +39,11 @@
                                 {{ form.about }}
                             </div>
                             <div class="col-md-6 col-sm-6">
+
+                                {{ form.avatar.label_tag }}
+                                <strong>{{ form.avatar.errors.as_text }}</strong>
+                                {{ form.avatar }}
+
                                 {{ form.favourite_book.label_tag }}
                                 <strong>{{ form.favourite_book.errors.as_text }}</strong>
                                 {{ form.favourite_book }}
@@ -83,7 +88,6 @@
         </form>
     </section>
 {% endblock content %}
-
 
 {% block js %}
     {{ form.media }}

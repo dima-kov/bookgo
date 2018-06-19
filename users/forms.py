@@ -1,12 +1,27 @@
 from django import forms
+from django.conf import settings
 from croppie.fields import CroppieField
+from croppie.fields import CroppieImageRatioWidget
 
 from users.models import User
 
 
 class UserProfileEditForm(forms.ModelForm):
 
-    avatar = CroppieField()
+    avatar = CroppieField(
+        options={
+            'viewport': {
+                'width': settings.USER_AVATAR_WIDTH,
+                'height': settings.USER_AVATAR_WIDTH,
+                'type': 'circle',
+            },
+            'boundary': {
+                'width': settings.USER_AVATAR_WIDTH + 80,
+                'height': settings.USER_AVATAR_WIDTH + 80,
+            },
+            'showZoomer': True,
+        },
+    )
 
     class Meta:
         model = User

@@ -30,39 +30,47 @@ class User(AbstractUser):
         verbose_name=_('Avatar'),
         default=DEFAULT_USER_AVATAR,
         null=True,
+        blank=True,
     )
     about = models.TextField(
         verbose_name=_('About'),
         null=True,
+        blank=True,
     )
     favourite_book = models.CharField(
         max_length=255,
         verbose_name=_('Favourite book'),
         null=True,
+        blank=True,
     )
     favourite_author = models.CharField(
         max_length=255,
         verbose_name=_('Favourite author'),
         null=True,
+        blank=True,
     )
     reading_preferences = models.CharField(
         max_length=255,
         verbose_name=_('Reading preferences'),
         null=True,
+        blank=True,
     )
     phone = PhoneNumberField(
         verbose_name=_('Phone'),
         null=True,
+        blank=True,
     )
     city = models.CharField(
         max_length=100,
         verbose_name=_('City'),
         null=True,
+        blank=True,
     )
     novaposhta_number = models.CharField(
         max_length=20,
         verbose_name=_('Novaposhta department number'),
         null=True,
+        blank=True,
     )
     invited_by = models.ForeignKey(
         "users.Invite",
