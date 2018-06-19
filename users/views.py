@@ -67,7 +67,7 @@ class RegisterAfterStart(UpdateView):
         user.save()
         auth_user = authenticate(
             self.request,
-            username=user.username,
+            username=user.email,
             password=password
         )
         login(self.request, auth_user)
@@ -103,12 +103,11 @@ class InviteView(CreateView):
         password = form.cleaned_data['password']
         user.set_password(password)
         user.is_active = True
-        user.username = form.cleaned_data['email']
         user.invited_by = self.invite
         user.save()
         auth_user = authenticate(
             self.request,
-            username=user.username,
+            username=user.email,
             password=password
         )
         login(self.request, auth_user)

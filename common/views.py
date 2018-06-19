@@ -28,7 +28,7 @@ class AddBookView(CreateView):
 
     def form_valid(self, form):
         email = form.cleaned_data["email"]
-        user, ok = User.objects.get_or_create(email=email, username=email)
+        user, ok = User.objects.get_or_create(email=email)
         book = form.save(commit=False)
         book.owner = user
         book.save()

@@ -22,7 +22,7 @@ class RegisterForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('username', 'password', )
+        fields = ('email', 'password', )
         widgets = {
             'password': forms.PasswordInput(),
         }

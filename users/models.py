@@ -1,5 +1,6 @@
 import base64
 
+from django.contrib.auth.base_user import BaseUserManager
 from django.db import models
 from django.core.signing import TimestampSigner
 from django.contrib.auth.models import AbstractUser
@@ -19,6 +20,11 @@ DEFAULT_USER_AVATAR = 'avatars/default-avatar.png'
 
 class User(AbstractUser):
 
+    email = models.EmailField(
+        _('Email address'),
+        blank=False,
+        unique=True,
+    )
     avatar = models.ImageField(
         upload_to='avatars',
         verbose_name=_('Avatar'),
@@ -64,6 +70,10 @@ class User(AbstractUser):
         verbose_name='Invited by invite',
         null=True,
     )
+    username = None
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
 
     def get_absolute_url(self):
         return reverse('users:profile', kwargs={'pk': self.pk})
@@ -109,6 +119,40 @@ class User(AbstractUser):
         return inv.token
 
 
+class UserManager(BaseUserManager):
+    """Define a model manager for User model with no username field."""
+
+    use_in_migrations = True
+
+    def _create_user(self, email, password, **extra_fields):
+        """Create and save a User with the given email and password."""
+        if not email:
+            raise ValueError('The given email must be set')
+        email = self.normalize_email(email)
+        user = self.model(email=email, **extra_fields)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_user(self, email, password=None, **extra_fields):
+        """Create and save a regular User with the given email and password."""
+        extra_fields.setdefault('is_staff', False)
+        extra_fields.setdefault('is_superuser', False)
+        return self._create_user(email, password, **extra_fields)
+
+    def create_superuser(self, email, password, **extra_fields):
+        """Create and save a SuperUser with the given email and password."""
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+
+        if extra_fields.get('is_staff') is not True:
+            raise ValueError('Superuser must have is_staff=True.')
+        if extra_fields.get('is_superuser') is not True:
+            raise ValueError('Superuser must have is_superuser=True.')
+
+        return self._create_user(email, password, **extra_fields)
+
+
 class Invite(models.Model):
 
     user = models.OneToOneField(
@@ -127,7 +171,7 @@ class Invite(models.Model):
         verbose_name_plural = "Invites"
 
     def __str__(self):
-        return '{} {}'.format(self.user.username, self.token)
+        return '{} {}'.format(self.user.email, self.token)
 
     def is_valid(self):
         return self.invited_users.count() < settings.USERS_NUM_TO_INVITE
