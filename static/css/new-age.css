@@ -1048,6 +1048,7 @@ section.user-header .image img,
 section.form-section .image img {
   width: 250px;
   height: 250px;
+  margin: auto;
   box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
 }
 section.user-header .statistics,
