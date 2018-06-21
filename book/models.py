@@ -170,6 +170,7 @@ class ReadingQuerySet(models.QuerySet):
 
 
 class BookReading(models.Model):
+
     WAITING_OWNER = 'WO'
     CONFIRMED_BY_OWNER = 'CO'
     SENT_BY_POST = 'SP'
@@ -188,6 +189,7 @@ class BookReading(models.Model):
         settings.AUTH_USER_MODEL,
         related_name='book_readings',
         verbose_name=_('User'),
+        null=True,
     )
     book = models.ForeignKey(
         Book,
@@ -195,7 +197,7 @@ class BookReading(models.Model):
         verbose_name=_('Book'),
     )
     date_start = models.DateTimeField(
-        verbose_name=_('Date of begining'),
+        verbose_name=_('Date of beginning'),
         auto_now_add=True,
     )
     date_end = models.DateTimeField(
@@ -214,6 +216,10 @@ class BookReading(models.Model):
         default=WAITING_OWNER,
         verbose_name=_('Status')
     )
+    before_register = models.BooleanField(
+        default=False,
+    )
+
     # User data
     full_name = models.CharField(
         max_length=255,

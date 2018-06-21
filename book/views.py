@@ -1,3 +1,5 @@
+from django.contrib.auth import authenticate, login
+from django.utils.crypto import get_random_string
 from django.views.generic import View
 from django.views.generic import DetailView
 from django.views.generic import CreateView
@@ -21,6 +23,7 @@ from book.pipelines import *
 from book.utils import BasePipelineView
 from common.utils import EmailLinkAppropriateView
 from common.utils import AutocompleteCommonView
+from users.models import User
 
 
 class BookDetailView(DetailView):
@@ -51,6 +54,9 @@ class BookingView(CreateView):
         return kwargs
 
     def form_valid(self, form):
+        if not self.request.user.is_authenticated:
+            return self.redirect_to_register(form)
+
         form.instance.user = self.request.user
         form.instance.book.status = Book.BOOKED
         form.instance.book.save()
@@ -59,10 +65,11 @@ class BookingView(CreateView):
         tasks.book_owner_email_task.delay(
             form.instance.id,
         )
-        message = _(
+        success_message = _(
             'Your information was send to book owner. '
-            'You`ll be notified when he send it to you.')
-        messages.success(self.request, message)
+            'You`ll be notified when he send it to you.'
+        )
+        messages.success(self.request, success_message)
         return form_valid
 
     def form_invalid(self, form):
@@ -70,7 +77,31 @@ class BookingView(CreateView):
             'book': form.instance.book,
             'anchor': 'form',
         }
+
         return self.render_to_response(self.get_context_data(**kwargs))
+
+    def redirect_to_register(self, form):
+        password = get_random_string()
+        new_user = User.objects.create_user(
+            email=form.cleaned_data['email'], password=password
+        )
+
+        auth_user = authenticate(
+            self.request,
+            username=new_user.email,
+            password=password
+        )
+        login(self.request, auth_user)
+
+        form.instance.before_register = True
+        form.instance.user = new_user
+        form.instance.save()
+
+        success_message = _(
+            'Now add your own book to get opportunities to get book to read'
+        )
+        messages.success(self.request, success_message)
+        return redirect('book:add')
 
 
 class BookView(View):

@@ -164,30 +164,69 @@
                                 <p class="text-muted form-error">
                                     {% url 'book:add' as add_book_link %}
                                     {% blocktrans %}
-                                        На жаль, в тебе немає можливостей, щоб взяти почитати цю книгу. <a href="{{ add_book_link }}">Додай свою книжку</a> на сайт, і отримай за це <span class="delighted">3 можливості</span>.
+                                        Недостятньо можливостей! <a href="{{ add_book_link }}">Додай свою книжку</a>, і отримай за це <span class="delighted">3 можливості</span>.
                                     {% endblocktrans %}
                                 </p>
                             {% endif %}
                             {% if not book.available_to_take %}
                                 <p class="text-muted form-error">
                                     {% blocktrans %}
-                                        На жаль, цю книгу зараз читає інша людина. Тож, треба почекати, коли вона звільниться!
+                                        Цю книгу зараз читає інша людина почекайте, поки вона звільниться!
                                     {% endblocktrans %}
                                 </p>
                             {% endif %}
                             {% if request.user.has_unfinished_readings %}
                                 <p class="text-muted form-error">
                                     {% blocktrans %}
-                                        Ви вже взяли одну книгу на сайті! Спершу прочитайте та поверніть її!
+                                        Ви вже взяли одну книгу на сайті, спершу прочитайте та поверніть її.
                                     {% endblocktrans %}
                                 </p>
                             {% endif %}
+                        {% else %}
+                            <p class="text-muted form-error">
+                                {% blocktrans %}
+                                    Щоб прочитати, заповнюй цю форму, додавай свою книгу і читай!
+                                {% endblocktrans %}
+                            </p>
                         {% endif %}
                         <hr>
                     </div>
                 </div>
             </div>
-            {% if request.user.has_enough_to_read and book.available_to_take and not request.user.has_unfinished_readings %}
+            {% if not request.user.is_authenticated %}
+                <form action="{% url 'book:detail' book.pk %}" method="POST">
+                    {% csrf_token %}
+                    <div class="row">
+                        {% if form.non_field_errors %}
+                            {% for err in form.non_field_errors %}
+                                <p class="form-error">{{ err }}</p>
+                            {% endfor %}
+                        {% endif %}
+                        <div class="col-lg-6 col-md-6">
+                            {{ form.email.label_tag }}
+                            <strong>{{ form.email.errors.as_text }}</strong>
+                            {{ form.email }}
+
+                            {{ form.phone.label_tag }}
+                            <strong>{{ form.phone.errors.as_text }}</strong>
+                            {{ form.phone }}
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            {{ form.city.label_tag }}
+                            <strong>{{ form.city.errors.as_text }}</strong>
+                            {{ form.city }}
+
+                            {{ form.novaposhta_number.label_tag }}
+                            <strong>{{ form.novaposhta_number.errors.as_text }}</strong>
+                            {{ form.novaposhta_number }}
+                        </div>
+                        {{ form.book }}
+                    </div>
+                    <div class="text-center vertical-center">
+                        <button class="btn btn-filled-tertiary btn-xl" type="submit">Надіслати</button>
+                    </div>
+                </form>
+            {% elif request.user.has_enough_to_read and book.available_to_take and not request.user.has_unfinished_readings %}
                 <form action="{% url 'book:detail' book.pk %}" method="POST">
                     {% csrf_token %}
                     <div class="row">

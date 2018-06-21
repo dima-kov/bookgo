@@ -34,6 +34,9 @@
             {% csrf_token %}
             <div class="container">
                 <div class="row">
+                    {% block messages %}
+                        {{ block.super }}
+                    {% endblock messages %}
                     <div class="col-md-7 col-sm-12">
                         <div class="row">
                             <h1>{% trans "Додати книгу" %}</h1>
