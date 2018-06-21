@@ -10,9 +10,6 @@ from django.contrib import messages
 from django.shortcuts import redirect
 from django.http import HttpResponseForbidden
 
-from book import tasks
-from book.models import Book
-from book.models import BookReading
 from book.models import Category
 from book.models import Genre
 from book.forms import BookReadingForm
@@ -122,7 +119,24 @@ class AddBookView(CreateView):
 
     def form_valid(self, form):
         form.instance.owner = self.request.user
-        return super(AddBookView, self).form_valid(form)
+        form.instance.save()
+        self.check_unfinished_readings()
+        return redirect(form.instance.get_absolute_url())
+
+    def check_unfinished_readings(self):
+        book_reading = BookReading.objects.filter(user=self.request.user, before_register=True)
+        if book_reading.exists():
+            book_reading = book_reading.first()
+            book_reading.before_register = False
+            book_reading.save()
+            tasks.book_owner_email_task.delay(
+                book_reading.id,
+            )
+            success_message = _(
+                'Your information was send to the book owner. '
+                'You`ll be notified when he send it to you.'
+            )
+            messages.success(self.request, success_message)
 
 
 class EditBookView(UpdateView):
