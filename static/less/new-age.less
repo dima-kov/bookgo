@@ -921,6 +921,22 @@ section.form-section {
     }
 }
 
+section.about {
+    .bg-primary;
+    .row {
+        margin-bottom: 50px;
+    }
+    p {
+        line-height: 32px;
+        color: @gray-dark;
+    }
+    h3, a {
+        color: @theme-tertiary;
+        text-decoration: underline;
+        font-weight: bold;
+    }
+}
+
 section.readings-status {
     .bg-primary;
     .row {
@@ -1030,7 +1046,6 @@ footer {
     background-color: @gray-darker;
     padding: 25px 0;
     color: fade(white, 30%);
-    text-align: center;
     p {
         font-size: 12px;
         margin: 0;
@@ -1038,6 +1053,7 @@ footer {
     ul {
         margin-bottom: 0;
         li {
+            display: inline;
             a {
                 font-size: 12px;
                 color: fade(white, 30%);

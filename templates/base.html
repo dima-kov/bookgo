@@ -65,6 +65,9 @@
                         <a href="/">{% trans "Головна" %}</a>
                     </li>
                     <li>
+                        <a href="{% url 'common:about' %}">{% trans "Про проект" %}</a>
+                    </li>
+                    <li>
                         <a href="{% url 'book:list' %}">{% trans "Книги" %}</a>
                     </li>
                     {% if request.user.is_authenticated %}
@@ -109,8 +112,15 @@
 
     <footer>
         <div class="container">
-            <p>2018 Bookgo.me</p>
-            <p>&copy; All Rights Reserved</p>
+            <div class="col-lg-9 col-md-9 col-sm-6 col-xs-12">
+                <p>2018 Bookgo.me</p>
+                <p>&copy; All Rights Reserved</p>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <ul>
+                    <li><a href="{% url 'common:about' %}">Що це таке?</a></li>
+                </ul>
+            </div>
         </div>
     </footer>
 

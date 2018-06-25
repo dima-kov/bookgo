@@ -9,6 +9,11 @@ urlpatterns = [
         name='main',
     ),
     url(
+        r'^about/$',
+        views.AboutView.as_view(),
+        name='about',
+    ),
+    url(
         r'^add-book/$',
         views.AddBookView.as_view(),
         name='add-book',

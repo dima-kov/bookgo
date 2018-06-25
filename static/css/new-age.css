@@ -1073,6 +1073,24 @@ section.user-header .statistics .opportunities span,
 section.form-section .statistics .opportunities span {
   text-decoration: underline;
 }
+section.about {
+  background: #fdcc52;
+  background: -webkit-linear-gradient(#fdcc52, #fdc539);
+  background: linear-gradient(#fdcc52, #fdc539);
+}
+section.about .row {
+  margin-bottom: 50px;
+}
+section.about p {
+  line-height: 32px;
+  color: #333333;
+}
+section.about h3,
+section.about a {
+  color: #dc2430;
+  text-decoration: underline;
+  font-weight: bold;
+}
 section.readings-status {
   background: #fdcc52;
   background: -webkit-linear-gradient(#fdcc52, #fdc539);
@@ -1177,7 +1195,6 @@ footer {
   background-color: #222222;
   padding: 25px 0;
   color: rgba(255, 255, 255, 0.3);
-  text-align: center;
 }
 footer p {
   font-size: 12px;
@@ -1185,6 +1202,9 @@ footer p {
 }
 footer ul {
   margin-bottom: 0;
+}
+footer ul li {
+  display: inline;
 }
 footer ul li a {
   font-size: 12px;
@@ -1495,5 +1515,9 @@ body {
   }
   section.history .timeline > li .line {
     display: none;
+  }
+  section.about .container {
+    margin-left: 20px;
+    margin-right: 20px;
   }
 }

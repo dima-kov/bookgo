@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block title %}
+    {% trans "Про нас" %} - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    <header class="mini vertical-center-flex">
+        <div class="container">
+            <div class="row">
+                <h1>{% trans "Про нас" %}</h1>
+                <p>{% trans "Що це таке?" %}</p>
+            </div>
+            {% block messages %}{{ block.super }}{% endblock messages %}
+        </div>
+    </header>
+
+    <section id="about" class="about">
+        <div class="container">
+            <div class="row">
+
+                {% url 'book:list' as book_list_url %}
+                {% blocktrans with book_list_url=book_list_url %}
+                    <p><span class="delighted">Bookgo.me</span> - онлайн платформа для обміну книгами. Мета bookgo - створити цінність для користувачів, у вигляді можливості обміну книгами.</p>
+                    <hr>
+
+                    <h3>Як відбувається обмін?</h3>
+                    <p>Обмін відбувається через Нову Пошту, якщо власник і отримувач книги живуть в різних містах, або при зустрічі.</p>
+                    <hr>
+
+                    <h3>Скільки все вартує?</h3>
+                    <p>Взяти почитати одну книгу вартує 1 можливість. Можливості - внутрішня валюта, яку можна отримати лише додавши свої книги.
+                        Єдині витрати: доведеться заплатити при отриманні книги вам тільки треба буде заплатити за послуги Нової Пошти.</p>
+
+                    <hr>
+                    <h3>Як взяти першу книгу?</h3>
+                    <p>Знайдіть книгу, яку хочете почитати <a href="{{ book_list_url }}">тут</a> залиште дані про себе і натисніть "Взяти почитати".
+                        Далі додайте свою книгу і отримайте 3 можливості, за одну з них ви і отримаєте обрану книгу.
+                    </p>
+                {% endblocktrans %}
+            </div>
+        </div>
+    </section>
+{% endblock content %}

@@ -22,6 +22,10 @@ class MainView(TemplateView):
         return context
 
 
+class AboutView(TemplateView):
+    template_name = 'common/about.html'
+
+
 class AddBookView(CreateView):
     http_method_names = ['post']
     form_class = forms.AddBookForm
