@@ -447,9 +447,6 @@ header.catalogue h1 {
   font-weight: bold;
   font-size: 70px;
 }
-header.catalogue .header-overlay {
-  background: rgba(0, 0, 0, 0.5);
-}
 header.catalogue .header-content {
   text-align: center;
 }
