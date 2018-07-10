@@ -99,5 +99,5 @@ def book_read_time_end(book_reading_id):
         email = EmailBookReadExpire(context, [book_reading.user.email])
         email.send()
 
-        twelve_hours = datetime.utcnow() + timedelta(hours=12)
-        user_block_return_book.apply_async((book_reading.id,), eta=twelve_hours)
+        # twelve_hours = datetime.utcnow() + timedelta(hours=12)
+        # user_block_return_book.apply_async((book_reading.id,), eta=twelve_hours)
