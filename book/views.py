@@ -156,12 +156,6 @@ class BookFeedbackView(UpdateView):
         context['book'] = self.object.book
         return context
 
-    def get(self, request, *args, **kwargs):
-        response = super(BookFeedbackView, self).get(request, *args, **kwargs)
-        if not request.user.id == self.object.user_id:
-            return HttpResponseForbidden()
-        return response
-
     def post(self, request, *args, **kwargs):
         response = super(BookFeedbackView, self).post(request, *args, **kwargs)
         if not request.user.id == self.object.user_id:
