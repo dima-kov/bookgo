@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.crypto import get_random_string
 from django.views.generic import View
 from django.views.generic import DetailView
@@ -112,10 +113,11 @@ class BookView(View):
         return view(request, *args, **kwargs)
 
 
-class AddBookView(CreateView):
+class AddBookView(LoginRequiredMixin, CreateView):
     model = Book
     form_class = AddBookForm
     template_name = 'book/add.html'
+    login_url = '/users/login/'
 
     def form_valid(self, form):
         form.instance.owner = self.request.user

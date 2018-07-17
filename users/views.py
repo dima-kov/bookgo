@@ -157,6 +157,7 @@ class LogoutView(RedirectView):
 
 class ReadingsView(LoginRequiredMixin, TemplateView):
     template_name = 'users/reading-process.html'
+    login_url = '/users/login/'
 
     def get_context_data(self, **kwargs):
         context = super(ReadingsView, self).get_context_data(**kwargs)
