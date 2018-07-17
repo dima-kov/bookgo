@@ -1075,6 +1075,9 @@ section.about {
   background: -webkit-linear-gradient(#fdcc52, #fdc539);
   background: linear-gradient(#fdcc52, #fdc539);
 }
+section.about .tertiary {
+  color: #dc2430;
+}
 section.about .row {
   margin-bottom: 50px;
 }
@@ -1092,6 +1095,9 @@ section.readings-status {
   background: #fdcc52;
   background: -webkit-linear-gradient(#fdcc52, #fdc539);
   background: linear-gradient(#fdcc52, #fdc539);
+}
+section.readings-status .tertiary {
+  color: #dc2430;
 }
 section.readings-status .row {
   margin-bottom: 50px;
@@ -1253,6 +1259,9 @@ footer ul li a.active {
   background: #fdcc52;
   background: -webkit-linear-gradient(#fdcc52, #fdc539);
   background: linear-gradient(#fdcc52, #fdc539);
+}
+.bg-primary .tertiary {
+  color: #dc2430;
 }
 .bg-principal {
   background: #16a085;

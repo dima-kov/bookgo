@@ -90,7 +90,7 @@ class User(AbstractUser):
         blank=True,
     )
     phone = PhoneNumberField(
-        verbose_name=_('Phone'),
+        verbose_name=_('Номер телефону'),
         null=True,
         blank=True,
     )

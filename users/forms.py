@@ -1,7 +1,6 @@
 from django import forms
 from django.conf import settings
 from croppie.fields import CroppieField
-from croppie.fields import CroppieImageRatioWidget
 
 from users.models import User
 
@@ -55,7 +54,7 @@ class RegisterInviteForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('password', 'email', )
+        fields = ('password', 'email', 'phone')
         widgets = {
             'password': forms.PasswordInput()
         }
