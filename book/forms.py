@@ -104,9 +104,9 @@ class AddBookForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
-        self.request = kwargs.pop('request')
+        self.request = kwargs.pop('request', None)
         super(AddBookForm, self).__init__(*args, **kwargs)
-        if not self.request.user.is_authenticated():
+        if self.request and not self.request.user.is_authenticated():
             self.fields['email'] = forms.EmailField(label="Ваш email")
 
 
