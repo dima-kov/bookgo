@@ -51,6 +51,11 @@
                                 {% endif %}
 
                                 <div class="col-md-6 col-sm-6">
+                                    {% if not request.user.is_authenticated %}
+                                        {{ form.email.label_tag }}
+                                        <strong>{{ form.email.errors.as_text }}</strong>
+                                        {{ form.email }}
+                                    {% endif %}
 
                                     {{ form.photo.label_tag }}
                                     <strong>{{ form.photo.errors.as_text }}</strong>

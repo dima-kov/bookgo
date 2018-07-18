@@ -103,6 +103,12 @@ class AddBookForm(forms.ModelForm):
             ),
         }
 
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop('request')
+        super(AddBookForm, self).__init__(*args, **kwargs)
+        if not self.request.user.is_authenticated():
+            self.fields['email'] = forms.EmailField(label="Ваш email")
+
 
 class CustomCheckboxSelectMultiple(forms.CheckboxSelectMultiple):
     option_template_name = 'common/checkbox_option.html'

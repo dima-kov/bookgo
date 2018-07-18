@@ -113,14 +113,22 @@ class BookView(View):
         return view(request, *args, **kwargs)
 
 
-class AddBookView(LoginRequiredMixin, CreateView):
+class AddBookView(CreateView):
     model = Book
     form_class = AddBookForm
     template_name = 'book/add.html'
     login_url = '/users/login/'
 
+    def get_form_kwargs(self):
+        kwargs = super(AddBookView, self).get_form_kwargs()
+        kwargs['request'] = self.request
+        return kwargs
+
     def form_valid(self, form):
-        form.instance.owner = self.request.user
+        user = None
+        if not self.request.user.is_authenticated():
+            user = self.create_new_user(form.cleaned_data['email'])
+        form.instance.owner = user or self.request.user
         form.instance.save()
         self.check_unfinished_readings()
         return redirect(form.instance.get_absolute_url())
@@ -139,6 +147,20 @@ class AddBookView(LoginRequiredMixin, CreateView):
                 'You`ll be notified when he send it to you.'
             )
             messages.success(self.request, success_message)
+
+    def create_new_user(self, email):
+        password = get_random_string()
+        new_user = User.objects.create_user(
+            email=email, password=password
+        )
+
+        auth_user = authenticate(
+            self.request,
+            username=new_user.email,
+            password=password
+        )
+        login(self.request, auth_user)
+        return new_user
 
 
 class EditBookView(UpdateView):
