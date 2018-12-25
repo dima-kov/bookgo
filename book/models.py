@@ -101,12 +101,14 @@ class Book(models.Model):
         verbose_name=_('Owner'),
         related_name='books',
         null=True,
+        on_delete=models.CASCADE,
     )
     category = models.ForeignKey(
         Category,
         related_name='books',
         verbose_name=_('Category'),
         default=1,
+        on_delete=models.CASCADE,
     )
     language = models.CharField(
         max_length=2,
@@ -119,6 +121,7 @@ class Book(models.Model):
         related_name='books',
         verbose_name=_('Genre'),
         default=1,
+        on_delete=models.CASCADE,
     )
     status = models.CharField(
         choices=BOOK_STATUS,
@@ -190,11 +193,13 @@ class BookReading(models.Model):
         related_name='book_readings',
         verbose_name=_('User'),
         null=True,
+        on_delete=models.CASCADE,
     )
     book = models.ForeignKey(
         Book,
         related_name='book_readings',
         verbose_name=_('Book'),
+        on_delete=models.CASCADE,
     )
     date_start = models.DateTimeField(
         verbose_name=_('Date of beginning'),

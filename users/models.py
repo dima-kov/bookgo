@@ -110,6 +110,7 @@ class User(AbstractUser):
         "users.Invite",
         related_name='invited_users',
         verbose_name='Invited by invite',
+        on_delete=models.CASCADE,
         null=True,
     )
     username = None
@@ -168,7 +169,8 @@ class Invite(models.Model):
     user = models.OneToOneField(
         User,
         verbose_name='User',
-        related_name='invite'
+        related_name='invite',
+        on_delete = models.CASCADE,
     )
     token = models.CharField(
         max_length=100,

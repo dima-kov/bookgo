@@ -43,6 +43,7 @@ class Opportunity(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         verbose_name=_('User'),
+        on_delete=models.CASCADE,
     )
     type = models.CharField(
         max_length=2,
@@ -56,6 +57,7 @@ class Opportunity(models.Model):
     book = models.ForeignKey(
         Book,
         verbose_name=_('Book'),
+        on_delete=models.CASCADE,
         blank=True,
         null=True,
     )
@@ -64,6 +66,7 @@ class Opportunity(models.Model):
         verbose_name=_('Book Reading'),
         blank=True,
         null=True,
+        on_delete=models.CASCADE,
     )
     objects = OpportunityManager()
 
