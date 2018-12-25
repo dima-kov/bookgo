@@ -170,7 +170,6 @@ USER_AVATAR_HEIGHT = 250
 
 BOOKS_TO_START_NEED = 40
 
-
 USERS_NUM_TO_INVITE = 3
 
 # Secret key only for a quick test

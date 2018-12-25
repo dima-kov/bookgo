@@ -4,7 +4,7 @@ from django.conf import settings
 register = template.Library()
 
 
-@register.assignment_tag
+@register.simple_tag
 def get_book_card_size():
     return '{}x{}'.format(
         settings.BOOK_CARD_IMAGE_WIDTH,
@@ -12,7 +12,7 @@ def get_book_card_size():
     )
 
 
-@register.assignment_tag
+@register.simple_tag
 def get_book_full_size():
     return '{}x{}'.format(
         settings.BOOK_FULL_IMAGE_WIDTH,
