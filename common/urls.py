@@ -1,20 +1,22 @@
-from django.conf.urls import url
+from django.urls import path
 
 from common import views
 
+app_name = 'common'
+
 urlpatterns = [
-    url(
-        r'^$',
+    path(
+        '',
         views.MainView.as_view(),
         name='main',
     ),
-    url(
-        r'^about/$',
+    path(
+        'about/',
         views.AboutView.as_view(),
         name='about',
     ),
-    url(
-        r'^add-book/$',
+    path(
+        'add-book/',
         views.AddBookView.as_view(),
         name='add-book',
     )

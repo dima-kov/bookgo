@@ -1,83 +1,85 @@
-from django.conf.urls import url
+from django.urls import path
 from django.conf.urls import include
 
 from book import views
 
+app_name = 'book'
+
 booking_patterns = [
-    url(
-        r'^$',
+    path(
+        '',
         views.BookingView.as_view(),
         name='booking',
     ),
-    url(
-        r'^owner-confirm/(?P<pk>\d+)/$',
+    path(
+        'owner-confirm/<int:pk>',
         views.BookingOwnerConfirmView.as_view(),
         name='owner-confirm',
     ),
-    url(
-        r'^book-read/(?P<pk>\d+)/',
+    path(
+        'book-read/<int:pk>/',
         views.BookingBookReadView.as_view(),
         name='book-read',
     ),
-    url(
-        r'^email/owner-confirm/(?P<pk>\d+)/'
-        r'(?P<email>[\w.@+-]+)/(?P<token>[\w.:\-_=]+)/$',
+    path(
+        'email/owner-confirm/<int:pk>/'
+        '<str:email>/<str:token>',
         views.EmailBookingOwnerConfirmView.as_view(),
         name='email-owner-confirm',
     ),
-    url(
-        r'^email/book-read/(?P<pk>\d+)/'
-        r'(?P<email>[\w.@+-]+)/(?P<token>[\w.:\-_=]+)/$',
+    path(
+        'email/book-read/<int:pk>/'
+        '<str:email>/<str:token>',
         views.EmailBookingBookReadView.as_view(),
         name='email-book-read',
     ),
 ]
 
 dal_patterns = [
-    url(
-        r'^category/',
+    path(
+        'category/',
         views.CategoryAutocompleteView.as_view(),
         name='category-autocomplete',
     ),
-    url(
-        r'^genre/',
+    path(
+        'genre/',
         views.GenreAutocompleteView.as_view(),
         name='genre-autocomplete',
     ),
 ]
 
 urlpatterns = [
-    url(
-        r'^(?P<pk>\d+)/$',
+    path(
+        '<int:pk>',
         views.BookView.as_view(),
         name='detail',
     ),
-    url(
-        r'^(?P<pk>\d+)/feedback/(?P<reading_pk>\d+)/$',
+    path(
+        '<int:pk>/feedback/<int:reading_pk>',
         views.BookFeedbackView.as_view(),
         name='feedback',
     ),
-    url(
-        r'^add/$',
+    path(
+        'add',
         views.AddBookView.as_view(),
         name='add',
     ),
-    url(
-        r'^(?P<pk>\d+)/edit/$',
+    path(
+        '<int:pk>/edit',
         views.EditBookView.as_view(),
         name='edit',
     ),
-    url(
-        r'^list/$',
+    path(
+        'list',
         views.BookListView.as_view(),
         name='list',
     ),
-    url(
-        r'^booking/',
+    path(
+        'booking/',
         include(booking_patterns),
     ),
-    url(
-        r'^autocomplete/',
+    path(
+        'autocomplete/',
         include(dal_patterns),
     ),
 ]
