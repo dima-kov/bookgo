@@ -5,6 +5,7 @@ from django.urls import reverse
 
 from phonenumber_field.modelfields import PhoneNumberField
 
+from club.models import Club
 
 class Category(models.Model):
 
@@ -128,6 +129,11 @@ class Book(models.Model):
         max_length=2,
         default=AVAILABLE,
         verbose_name=_('Status')
+    )
+    club = models.ForeignKey(
+        Club,
+        verbose_name=_('Club'),
+        on_delete=models.CASCADE,
     )
 
     objects = BookManager()
