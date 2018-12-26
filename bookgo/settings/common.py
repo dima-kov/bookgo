@@ -28,6 +28,7 @@ INSTALLED_APPS = [
 
     'users',
     'book',
+    'club',
     'currency',
     'common',
 ]
