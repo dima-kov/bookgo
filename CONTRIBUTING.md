@@ -20,24 +20,24 @@
 
 ## Sub domains system usage
 
-1. Sites
-    Edit default Site object (with id=1 !Important), set
+1. **Sites**
+    Edit default Site object **(with id=1 !Important)**, set
+
         slug=`bookgo.com`  
-        display_name=```
+        display_name=`bookgo.com`
 
-1. Club. Create some clubs. E.g.:
-    Club(slug='pekar')
+2. **Club**. Create some clubs for example:
+    `Club(slug='local-club')`
     
-1. Edit /etc/hosts for local development:
-    
-    127.0.0.1 pekar.bookgo.com
-    127.0.0.1 bookgo.com
-
-1. Access via:
-    
+3. Edit `/etc/hosts` for local development:
     ```
-    pekar.bookgo.com:8000
+    127.0.0.1 local-club.bookgo.com
+    127.0.0.1 bookgo.com
+    ```
     
+4. *Access via:*
+    ```
+    local-club.bookgo.com:8000   
     bookgo.com:8000
     
     127.0.0.1:8000
