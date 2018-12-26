@@ -1,8 +1,6 @@
 from django.db import models
 from django.utils.translation import gettext as _
 
-from users.models import User
-
 
 class Club(models.Model):
     name = models.CharField(
@@ -13,13 +11,13 @@ class Club(models.Model):
         verbose_name=_('Slug')
     )
     manger = models.ForeignKey(
-        User,
+        'users.User',
         related_name='club_manager',
         verbose_name=_('Менеджер'),
         on_delete=models.CASCADE,
     )
     members = models.ManyToManyField(
-        User,
+        'users.User',
         related_name='club_member',
         through='ClubMember',
         through_fields=('club', 'member'),
@@ -38,7 +36,7 @@ class ClubMember(models.Model):
     )
 
     member = models.ForeignKey(
-        User,
+        'users.User',
         verbose_name=_('Член'),
         on_delete=models.CASCADE,
     )
