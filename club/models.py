@@ -10,7 +10,8 @@ class Club(models.Model):
         verbose_name=_('Назва'),
     )
     slug = models.SlugField(
-        verbose_name=_('Slug')
+        verbose_name=_('Slug'),
+        unique=True,
     )
     manger = models.ForeignKey(
         User,

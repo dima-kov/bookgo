@@ -16,3 +16,29 @@
 1. `gulp less` - generate css from less
 2. `gulp minify-css` - minify css
 3. See more in `gulpfile.js`
+
+
+## Sub domains system usage
+
+1. Sites
+    Edit default Site object (with id=1 !Important), set
+        slug=`bookgo.com`  
+        display_name=```
+
+1. Club. Create some clubs. E.g.:
+    Club(slug='pekar')
+    
+1. Edit /etc/hosts for local development:
+    
+    127.0.0.1 pekar.bookgo.com
+    127.0.0.1 bookgo.com
+
+1. Access via:
+    
+    ```
+    pekar.bookgo.com:8000
+    
+    bookgo.com:8000
+    
+    127.0.0.1:8000
+    ```
