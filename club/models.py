@@ -11,7 +11,7 @@ class Club(models.Model):
         verbose_name=_('Slug'),
         unique=True,
     )
-    manger = models.ForeignKey(
+    manager = models.ForeignKey(
         'users.User',
         related_name='club_manager',
         verbose_name=_('Менеджер'),
