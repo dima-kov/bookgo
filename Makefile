@@ -86,6 +86,10 @@ run:
 	. $(VIRTUALENV_NAME)/bin/activate; \
 	python manage.py runserver $(DJANGO_POSTFIX)
 
+shell:
+	. $(VIRTUALENV_NAME)/bin/activate; \
+	python manage.py shell
+
 clean:
 	find . -name "*.pyc" -print0 | xargs -0 rm -rf
 	-rm -rf htmlcov
