@@ -13,7 +13,6 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 from currency.models import Opportunity
 from book.models import BookReading
-from club.models import Club
 
 
 DEFAULT_USER_AVATAR = 'avatars/default-avatar.png'
@@ -113,11 +112,6 @@ class User(AbstractUser):
         verbose_name='Invited by invite',
         on_delete=models.CASCADE,
         null=True,
-    )
-    clubs = models.ManyToManyField(
-        Club,
-        through='ClubMember',
-        through_fields=('club', 'member'),
     )
     username = None
 

@@ -14,11 +14,13 @@ class Club(models.Model):
     )
     manger = models.ForeignKey(
         User,
+        related_name='club_manager',
         verbose_name=_('Менеджер'),
         on_delete=models.CASCADE,
     )
     members = models.ManyToManyField(
         User,
+        related_name='club_member',
         through='ClubMember',
         through_fields=('club', 'member'),
     )
