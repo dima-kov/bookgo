@@ -134,6 +134,7 @@ class Book(models.Model):
         Club,
         verbose_name=_('Club'),
         on_delete=models.CASCADE,
+        null=True, blank=True,
     )
 
     objects = BookManager()

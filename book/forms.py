@@ -31,7 +31,7 @@ class BookReadingForm(forms.ModelForm):
         request = kwargs.pop('request', None)
         self.user = request.user
         super(BookReadingForm, self).__init__(*args, **kwargs)
-        if request and request.user.is_authenticated():
+        if request and request.user.is_authenticated:
             self.fields['full_name'].initial = request.user.get_full_name()
             self.fields['phone'].initial = request.user.phone
             self.fields['city'].initial = request.user.city
@@ -106,7 +106,7 @@ class AddBookForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop('request', None)
         super(AddBookForm, self).__init__(*args, **kwargs)
-        if self.request and not self.request.user.is_authenticated():
+        if self.request and not self.request.user.is_authenticated:
             self.fields['email'] = forms.EmailField(label="Ваш email")
 
 
