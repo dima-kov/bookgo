@@ -10,6 +10,7 @@ from django.utils.translation import ugettext as _
 from django.contrib import messages
 from django.shortcuts import redirect
 from django.http import HttpResponseForbidden
+from django.views.generic.list import MultipleObjectMixin
 
 from book.models import Category
 from book.models import Genre
@@ -19,12 +20,12 @@ from book.forms import BookListFilterForm
 from book.forms import BookFeedbackForm
 from book.pipelines import *
 from book.utils import BasePipelineView
-from common.utils import EmailLinkAppropriateView
+from common.utils import EmailLinkAppropriateView, BookClubFilterQuerysetMixin
 from common.utils import AutocompleteCommonView
 from users.models import User
 
 
-class BookDetailView(DetailView):
+class BookDetailView(BookClubFilterQuerysetMixin, DetailView):
     template_name = 'book/book_detail.html'
     model = Book
     context_object_name = 'book'
@@ -126,7 +127,7 @@ class AddBookView(CreateView):
 
     def form_valid(self, form):
         user = None
-        if not self.request.user.is_authenticated():
+        if not self.request.user.is_authenticated:
             user = self.create_new_user(form.cleaned_data['email'])
         form.instance.owner = user or self.request.user
         form.instance.save()
@@ -197,14 +198,13 @@ class BookFeedbackView(UpdateView):
         return self.object.book.get_absolute_url()
 
 
-class BookListView(ListView):
+class BookListView(BookClubFilterQuerysetMixin, ListView):
     queryset = Book.objects.available()
     template_name = 'book/list.html'
     context_object_name = 'books'
 
     def get_queryset(self):
         qs = super(BookListView, self).get_queryset()
-        print(qs)
         return qs.filter(**self.filter_form_query_data())
 
     def request_form_data(self):

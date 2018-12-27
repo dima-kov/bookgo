@@ -121,7 +121,7 @@ class LoginView(BaseLoginView):
     template_name = 'users/login.html'
 
     def get_success_url(self):
-        if self.request.user.is_authenticated():
+        if self.request.user.is_authenticated:
             return self.request.user.get_absolute_url()
         return '/'
 

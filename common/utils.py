@@ -119,7 +119,7 @@ class AutocompleteCommonView(autocomplete.Select2QuerySetView):
         return super(AutocompleteCommonView, cls).as_view(**initkwargs)
 
     def get_queryset(self):
-        if not self.request.user.is_authenticated():
+        if not self.request.user.is_authenticated:
             return self.model.objects.none()
         qs = self.model.objects.all()
 
@@ -129,3 +129,10 @@ class AutocompleteCommonView(autocomplete.Select2QuerySetView):
             }
             qs = qs.filter(**filters)
         return qs
+
+
+class BookClubFilterQuerysetMixin(object):
+
+    def get_queryset(self):
+        qs = super(BookClubFilterQuerysetMixin, self).get_queryset()
+        return qs.filter(club=self.request.club)

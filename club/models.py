@@ -28,6 +28,9 @@ class Club(models.Model):
         verbose_name = _('Клуб')
         verbose_name_plural = _('Клуби')
 
+    def __str__(self):
+        return self.name
+
 
 class ClubMember(models.Model):
     club = models.ForeignKey(
@@ -45,3 +48,6 @@ class ClubMember(models.Model):
     class Meta:
         verbose_name = _('Член-Клуб')
         verbose_name_plural = _('Члени-Клубу')
+
+    def __str__(self):
+        return '{} - {}'.format(self.club.name, self.member.get_username())
