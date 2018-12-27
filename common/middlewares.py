@@ -16,7 +16,7 @@ class ClubSubDomainsMiddleware:
         host = self.get_host(request)
         host_splited = host.split('.')
         if len(host_splited) > 2 and not self.is_localhost(host):
-            sub_domain_name = ''.join(host[:-2])
+            sub_domain_name = ''.join(host_splited[:-2])
             club = self.load_club(sub_domain_name)
             if club is None:
                 return redirect(self.get_global_site(request))
