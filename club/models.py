@@ -1,3 +1,4 @@
+from django.contrib.sites.models import Site
 from django.db import models
 from django.utils.crypto import get_random_string
 from django.utils.translation import gettext as _
@@ -32,6 +33,16 @@ class Club(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return 'http://{}'.format(self.get_domain_name())
+
+
+class ClubMemberManager(models.Manager):
+    def create_club_member(self, club, user, invited_by=None):
+        member = self.model(club=club, user=user, invited_by=invited_by)
+        member.save(using=self._db)
+        return member
+
 
 class ClubMember(models.Model):
     club = models.ForeignKey(
@@ -39,7 +50,6 @@ class ClubMember(models.Model):
         verbose_name=_('Клуб'),
         on_delete=models.CASCADE,
     )
-
     user = models.ForeignKey(
         'users.User',
         verbose_name=_('Член'),
@@ -50,8 +60,10 @@ class ClubMember(models.Model):
         related_name='invited_members',
         verbose_name=_('Invited by member'),
         on_delete=models.CASCADE,
-        null=True,
+        null=True, blank=True,
     )
+
+    objects = ClubMemberManager()
 
     class Meta:
         verbose_name = _('Член Клубу')
@@ -82,15 +94,20 @@ class ClubInvite(models.Model):
     )
 
     class Meta:
-        verbose_name = "Invite"
-        verbose_name_plural = "Invites"
+        verbose_name = _('Запрошення в клуб')
+        verbose_name_plural = _('Запрошення в клуб')
 
     def __str__(self):
         return '{} - {}'.format(self.member.user.email, self.token)
 
+    def is_valid(self):
+        return True
+
 
 def generate_unique_club_invite_token():
     token = get_random_string(length=10)
-    if ClubInvite.objects.filter(token=token):
+
+    if ClubInvite.objects.filter(token=token).exists():
         return generate_unique_club_invite_token()
+
     return token

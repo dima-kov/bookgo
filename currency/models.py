@@ -2,9 +2,6 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 
-from book.models import Book
-from book.models import BookReading
-
 
 class OpportunityQuerySet(models.QuerySet):
     def count_values(self):
@@ -55,14 +52,14 @@ class Opportunity(models.Model):
         blank=True,
     )
     book = models.ForeignKey(
-        Book,
+        'book.Book',
         verbose_name=_('Book'),
         on_delete=models.CASCADE,
         blank=True,
         null=True,
     )
     reading = models.ForeignKey(
-        BookReading,
+        'book.BookReading',
         verbose_name=_('Book Reading'),
         blank=True,
         null=True,

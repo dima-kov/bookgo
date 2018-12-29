@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.views.generic import DetailView
 from django.views.generic import CreateView
 from django.views.generic import UpdateView
@@ -17,6 +18,8 @@ from django.core.signing import BadSignature
 from django.shortcuts import redirect
 from django.contrib.auth.views import LoginView as BaseLoginView
 
+from club.models import ClubInvite, ClubMember
+from common.utils import ClubUrlGenerator
 from users.models import User
 from users.models import Invite
 from users.forms import UserProfileEditForm
@@ -80,6 +83,7 @@ class RegisterAfterStart(UpdateView):
 class InviteView(CreateView):
     form_class = RegisterInviteForm
     template_name = 'users/invite-register.html'
+    invite = None
 
     def get_context_data(self, **kwargs):
         context = super(InviteView, self).get_context_data(**kwargs)
@@ -87,16 +91,14 @@ class InviteView(CreateView):
         return context
 
     def dispatch(self, request, *args, **kwargs):
-        token = self.kwargs['token']
-        self.invite = get_object_or_404(Invite, token=token)
+        self.invite = get_object_or_404(Invite, token=self.kwargs.get('token'))
+
         if self.invite.is_valid():
             return super(InviteView, self).dispatch(request, *args, **kwargs)
-        else:
-            msg = "Читач {} вичерапав можливість запрошувати людей".format(
-                self.invite.user.get_full_name()
-            )
-            messages.warning(request, msg)
-            return redirect('/')
+
+        msg = "Читач {} вичерапав можливість запрошувати людей"
+        messages.warning(request, msg.format(self.invite.user.get_full_name()))
+        return redirect('/')
 
     def form_valid(self, form):
         user = form.save(commit=False)
@@ -105,16 +107,42 @@ class InviteView(CreateView):
         user.is_active = True
         user.invited_by = self.invite
         user.save()
-        auth_user = authenticate(
-            self.request,
-            username=user.email,
-            password=password
-        )
+        auth_user = authenticate(self.request, username=user.email, password=password, )
         login(self.request, auth_user)
         return redirect(self.get_success_url(user))
 
     def get_success_url(self, user):
         return user.get_absolute_url()
+
+
+class ClubInviteView(CreateView):
+    form_class = RegisterInviteForm
+    template_name = 'users/invite-register.html'
+    invite = None
+
+    def dispatch(self, request, *args, **kwargs):
+        self.invite = get_object_or_404(ClubInvite, token=self.kwargs.get('token'))
+        return super(ClubInviteView, self).dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        user = form.save(commit=False)
+        password = form.cleaned_data['password']
+        user.set_password(password)
+        user.is_active = True
+        user.save()
+
+        club = self.invite.member.club
+        ClubMember.objects.create_club_member(
+            club=club,
+            user=user,
+            invited_by=self.invite,
+        )
+        auth_user = authenticate(self.request, username=user.email, password=password)
+        login(self.request, auth_user)
+        return redirect(self.get_success_url(club, user))
+
+    def get_success_url(self, club, user):
+        return ClubUrlGenerator(self.request, path=user.get_absolute_url(), club=club).with_club()
 
 
 class LoginView(BaseLoginView):

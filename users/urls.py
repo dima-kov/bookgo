@@ -4,7 +4,6 @@ from users import views
 
 app_name = 'users'
 
-
 urlpatterns = [
     path(
         'register/<str:token>/',
@@ -15,6 +14,11 @@ urlpatterns = [
         'invite/<str:token>',
         views.InviteView.as_view(),
         name='invite'
+    ),
+    path(
+        'invite/club/<str:token>/',
+        views.ClubInviteView.as_view(),
+        name='club-invite'
     ),
     path(
         'login/',

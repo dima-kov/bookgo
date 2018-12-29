@@ -5,8 +5,8 @@ from django.db import models
 from django.core.signing import TimestampSigner
 from django.contrib.auth.models import AbstractUser
 from django.urls import reverse
-from django.utils.translation import ugettext_lazy as _
 from django.utils.crypto import get_random_string
+from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 
 from phonenumber_field.modelfields import PhoneNumberField
@@ -57,6 +57,16 @@ class User(AbstractUser):
         blank=False,
         unique=True,
     )
+    phone = PhoneNumberField(
+        verbose_name=_('Номер телефону'),
+        null=True,
+        blank=True,
+    )
+    phone = PhoneNumberField(
+        verbose_name=_('Номер телефону'),
+        null=True,
+        blank=True,
+    )
     avatar = models.ImageField(
         upload_to='avatars',
         verbose_name=_('Avatar'),
@@ -87,11 +97,7 @@ class User(AbstractUser):
         null=True,
         blank=True,
     )
-    phone = PhoneNumberField(
-        verbose_name=_('Номер телефону'),
-        null=True,
-        blank=True,
-    )
+
     city = models.CharField(
         max_length=100,
         verbose_name=_('City'),
@@ -152,13 +158,9 @@ class User(AbstractUser):
         return base64.urlsafe_b64encode(bytes(token, 'utf8'))
 
     def get_or_create_invite(self):
+        inv = self.invite
         if not hasattr(self, 'invite'):
-            inv = Invite.objects.create(
-                user=self,
-                token=generate_unique_invite_token()
-            )
-        else:
-            inv = self.invite
+            inv = Invite.objects.create(user=self, token=generate_unique_user_invite_token())
         return inv.token
 
 
@@ -186,8 +188,10 @@ class Invite(models.Model):
         return self.invited_users.count() < settings.USERS_NUM_TO_INVITE
 
 
-def generate_unique_invite_token():
+def generate_unique_user_invite_token():
     token = get_random_string(length=10)
-    if Invite.objects.filter(token=token):
-        return generate_unique_invite_token()
+
+    if Invite.objects.filter(token=token).exists():
+        return generate_unique_user_invite_token()
+
     return token

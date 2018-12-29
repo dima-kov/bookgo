@@ -175,5 +175,8 @@ BOOKS_TO_START_NEED = 40
 
 USERS_NUM_TO_INVITE = 3
 
+URL_PROTOCOL_FORMAT = 'https://{}'
+
+
 # Secret key only for a quick test
 SECRET_KEY = '8#_ff2^xo@f=dvtgk&dhl9b0d5%ds3&g^$g&h_@tcx0!0mxq8s'
