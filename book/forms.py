@@ -88,15 +88,16 @@ class AddBookForm(forms.ModelForm):
     class Meta:
         model = Book
         fields = (
-            'author', 'name', 'description', 'publisher', 'publishing_date',
-            'pages', 'photo', 'category', 'genre', 'language',
+            'author', 'name', 'description', 'publisher', 'publishing_year',
+            'amazon_link', 'pages', 'photo', 'category', 'genre', 'language',
         )
         widgets = {
             'author': forms.TextInput(attrs={'placeholder': _('Автор')}),
             'name': forms.TextInput(attrs={'placeholder': _('Назва')}),
             'publisher': forms.TextInput(attrs={'placeholder': _('Видавництво')}),
             'pages': forms.TextInput(attrs={'placeholder': _('К-сть сторінок')}),
-            'publishing_date': forms.DateInput(attrs={'placeholder': _('Дата публікації')}),
+            'amazon_link': forms.URLInput(attrs={'placeholder': _('Посилання на Amazon')}),
+            'publishing_year': forms.NumberInput(attrs={'placeholder': _('Рік видавництва')}),
 
             'category': ModelSelect2(url='book:category-autocomplete'),
             'genre': ModelSelect2(url='book:genre-autocomplete'),

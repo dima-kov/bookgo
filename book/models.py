@@ -93,12 +93,16 @@ class Book(models.Model):
         verbose_name=_('Видавництво'),
         null=True, blank=True,
     )
-    publishing_date = models.DateField(
-        verbose_name=_('Дата видавництва'),
+    publishing_year = models.IntegerField(
+        verbose_name=_('Рік видавництва'),
+        null=True, blank=True,
+    )
+    amazon_link = models.URLField(
+        verbose_name=_('Посилання на книгу на Amazon'),
         null=True, blank=True,
     )
     pages = models.PositiveIntegerField(
-        verbose_name=_('Кількість сторінок'),
+        verbose_name=_('К-сть сторінок'),
         null=True, blank=True,
     )
     photo = models.ImageField(

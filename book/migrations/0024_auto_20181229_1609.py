@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='book',
             name='pages',
-            field=models.PositiveIntegerField(blank=True, null=True, verbose_name='Кількість сторінок'),
+            field=models.PositiveIntegerField(blank=True, null=True, verbose_name='К-сть сторінок'),
         ),
         migrations.AddField(
             model_name='book',
@@ -28,8 +28,13 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='book',
-            name='publishing_date',
-            field=models.DateField(blank=True, null=True, verbose_name='Дата видавництва'),
+            name='publishing_year',
+            field=models.IntegerField(blank=True, null=True, verbose_name='Рік видавництва'),
+        ),
+        migrations.AddField(
+            model_name='book',
+            name='amazon_link',
+            field=models.URLField(blank=True, null=True, verbose_name='Посилання на книгу на Amazon'),
         ),
         migrations.AlterField(
             model_name='book',
