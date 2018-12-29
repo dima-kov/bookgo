@@ -1,4 +1,6 @@
 from dal import autocomplete
+from django.conf import settings
+from django.contrib.sites.models import Site
 
 from django.core.signing import TimestampSigner
 from django.core.signing import BadSignature
@@ -136,3 +138,38 @@ class BookClubFilterQuerysetMixin(object):
     def get_queryset(self):
         qs = super(BookClubFilterQuerysetMixin, self).get_queryset()
         return qs.filter(club=self.request.club)
+
+
+class ClubUrlGenerator(object):
+    template = '{protocol}://{domain}:{port}{path}'
+
+    def __init__(self, request, path, club=None):
+        self.request = request
+        self.path = path
+        self.club = club
+        self.domain = self.get_club_domain_name()
+
+    def with_club(self):
+        print(self.club)
+        print(self.domain, 'with cl')
+        return self.apply_http(self.domain, self.path)
+
+    def apply_http(self, domain, path):
+        return self.template.format(
+            protocol=self.request.scheme,
+            domain=domain,
+            path=path,
+            port=self.request.META.get('SERVER_PORT', 80)
+        )
+
+    def default_domain(self):
+        return Site.objects.get_current().domain
+
+    def get_club_domain_name(self):
+        if not self.club:
+            return self.default_domain()
+
+        club_domain = Site.objects.filter(domain__startswith=self.club.slug).first()
+        if not club_domain:
+            return self.default_domain()
+        return club_domain.domain

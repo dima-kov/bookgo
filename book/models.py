@@ -5,10 +5,8 @@ from django.urls import reverse
 
 from phonenumber_field.modelfields import PhoneNumberField
 
-from club.models import Club
 
 class Category(models.Model):
-
     name = models.CharField(
         max_length=255,
         verbose_name=_('Name')
@@ -23,7 +21,6 @@ class Category(models.Model):
 
 
 class Genre(models.Model):
-
     name = models.CharField(
         max_length=255,
         verbose_name=_('Name')
@@ -57,7 +54,6 @@ class BookManager(models.Manager):
 
 
 class Book(models.Model):
-
     UKRAINIAN = 'UK'
     ENGLISH = 'EN'
     RUSSIAN = 'RU'
@@ -131,7 +127,7 @@ class Book(models.Model):
         verbose_name=_('Status')
     )
     club = models.ForeignKey(
-        Club,
+        'club.Club',
         verbose_name=_('Club'),
         on_delete=models.CASCADE,
         null=True, blank=True,
@@ -180,7 +176,6 @@ class ReadingQuerySet(models.QuerySet):
 
 
 class BookReading(models.Model):
-
     WAITING_OWNER = 'WO'
     CONFIRMED_BY_OWNER = 'CO'
     SENT_BY_POST = 'SP'

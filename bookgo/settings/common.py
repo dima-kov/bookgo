@@ -70,7 +70,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'bookgo.wsgi.application'
 
-
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
 
@@ -103,7 +102,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
@@ -151,7 +149,6 @@ SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
 
 SOCIAL_AUTH_TWITTER_KEY = 'TQFP2ZPb0CwMJPzCN96eDyfcj'
 SOCIAL_AUTH_TWITTER_SECRET = 'sd4HfWaQtGtje9dvD8RaTJI5ngsMbcBJMqb4x4emVSSvJUJ2l1'
-
 
 # Celery
 
