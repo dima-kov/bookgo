@@ -1,5 +1,5 @@
 from dal import autocomplete
-from django.conf import settings
+from django.contrib.auth.mixins import LoginRequiredMixin, AccessMixin
 from django.contrib.sites.models import Site
 
 from django.core.signing import TimestampSigner
@@ -7,8 +7,10 @@ from django.core.signing import BadSignature
 from django.utils.decorators import classonlymethod
 from django.views.generic import View
 from django.utils.translation import ugettext_lazy as _
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404
 from django.contrib import messages
+
+from book.models import Book
 
 
 class EmailLinkView(View):
@@ -136,8 +138,35 @@ class AutocompleteCommonView(autocomplete.Select2QuerySetView):
 class BookClubFilterQuerysetMixin(object):
 
     def get_queryset(self):
-        qs = super(BookClubFilterQuerysetMixin, self).get_queryset()
+        qs = super(BookFilterClubQuerysetMixin, self).get_queryset()
         return qs.filter(club=self.request.club)
+
+
+class BookFilterClubQuerysetMixin(object):
+
+    def get_queryset(self):
+        qs = super(BookFilterClubQuerysetMixin, self).get_queryset()
+        return qs.filter(club=self.request.club)
+
+
+class ClubMemberAccess(LoginRequiredMixin, View, AccessMixin):
+
+    def dispatch(self, request, *args, **kwargs):
+        response = super(ClubMemberAccess, self).dispatch(request, *args, **kwargs)
+        if not self.request.club:
+            return response
+
+        is_member = self.request.club.is_member(self.request.user)
+        return response if is_member else self.handle_no_permission()
+
+
+class BookOwnerAccess(LoginRequiredMixin, View, AccessMixin):
+    def dispatch(self, request, *args, **kwargs):
+        response = super(BookOwnerAccess, self).dispatch(request, *args, **kwargs)
+
+        book = get_object_or_404(Book, pk=self.kwargs['pk'])
+        is_book_owner = book.owner == self.request.user
+        return response if is_book_owner else self.handle_no_permission()
 
 
 class ClubUrlGenerator(object):
@@ -150,8 +179,6 @@ class ClubUrlGenerator(object):
         self.domain = self.get_club_domain_name()
 
     def with_club(self):
-        print(self.club)
-        print(self.domain, 'with cl')
         return self.apply_http(self.domain, self.path)
 
     def apply_http(self, domain, path):
