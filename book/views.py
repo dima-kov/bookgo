@@ -120,6 +120,7 @@ class AddBookView(CreateView):
         if not self.request.user.is_authenticated:
             user = self.create_new_user(form.cleaned_data['email'])
         form.instance.owner = user or self.request.user
+        form.instance.club = self.request.club
         form.instance.save()
         return redirect(form.instance.get_absolute_url())
 

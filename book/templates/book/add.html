@@ -52,22 +52,27 @@
 
                                 <div class="col-md-6 col-sm-6">
                                     {% if not request.user.is_authenticated %}
-                                        {{ form.email.label_tag }}
                                         <strong>{{ form.email.errors.as_text }}</strong>
                                         {{ form.email }}
                                     {% endif %}
 
-                                    {{ form.photo.label_tag }}
-                                    <strong>{{ form.photo.errors.as_text }}</strong>
-                                    {{ form.photo }}
-
-                                    {{ form.author.label_tag }}
                                     <strong>{{ form.author.errors.as_text }}</strong>
                                     {{ form.author }}
 
-                                    {{ form.name.label_tag }}
                                     <strong>{{ form.name.errors.as_text }}</strong>
                                     {{ form.name }}
+
+                                    <strong>{{ form.publisher.errors.as_text }}</strong>
+                                    {{ form.publisher }}
+
+                                    <strong>{{ form.publishing_year.errors.as_text }}</strong>
+                                    {{ form.publishing_year }}
+
+                                    <strong>{{ form.pages.errors.as_text }}</strong>
+                                    {{ form.pages }}
+
+                                    <strong>{{ form.amazon_link.errors.as_text }}</strong>
+                                    {{ form.amazon_link }}
 
                                     <div class="autocomplete">
                                         {{ form.category.label_tag }}
@@ -87,14 +92,11 @@
                                 </div>
 
                                 <div class="col-md-6 col-sm-6">
-                                    {{ form.description.label_tag }}
-                                    <p class="">{{ form.description.help_text }}</p>
+                                    <p>{{ form.description.help_text }}</p>
                                     <strong>{{ form.description.errors.as_text }}</strong>
                                     {{ form.description }}
-
                                 </div>
                             </div>
-
                         </div>
                         <div class="text-center">
                             <button type="submit" class="btn btn-filled-tertiary btn-xl">{% trans "Додати" %}</button>
@@ -103,6 +105,9 @@
                     <div class="col-md-5 col-sm-12 text-center">
                         <div class="row">
                             <div id="cropper"></div>
+                            {{ form.photo.label_tag }}
+                            <strong>{{ form.photo.errors.as_text }}</strong>
+                            {{ form.photo }}
                         </div>
                     </div>
                 </div>

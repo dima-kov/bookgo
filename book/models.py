@@ -73,29 +73,46 @@ class Book(models.Model):
     )
 
     created = models.DateTimeField(
-        verbose_name=_('Creation date'),
+        verbose_name=_('Додано'),
         auto_now_add=True,
     )
     author = models.CharField(
         max_length=250,
-        verbose_name=_('Author'),
+        verbose_name=_('Автор'),
     )
     name = models.CharField(
         max_length=250,
-        verbose_name=_('Name'),
+        verbose_name=_('Назва'),
     )
     description = models.TextField(
-        verbose_name=_('Description'),
+        verbose_name=_('Опис'),
         default="",
+    )
+    publisher = models.CharField(
+        max_length=255,
+        verbose_name=_('Видавництво'),
+        null=True, blank=True,
+    )
+    publishing_year = models.IntegerField(
+        verbose_name=_('Рік видавництва'),
+        null=True, blank=True,
+    )
+    amazon_link = models.URLField(
+        verbose_name=_('Посилання на книгу на Amazon'),
+        null=True, blank=True,
+    )
+    pages = models.PositiveIntegerField(
+        verbose_name=_('К-сть сторінок'),
+        null=True, blank=True,
     )
     photo = models.ImageField(
         upload_to='books_image',
-        verbose_name=_('Image'),
+        verbose_name=_('Зображення'),
         default="",
     )
     owner = models.ForeignKey(
         settings.AUTH_USER_MODEL,
-        verbose_name=_('Owner'),
+        verbose_name=_('Власник'),
         related_name='books',
         null=True,
         on_delete=models.CASCADE,
@@ -103,20 +120,20 @@ class Book(models.Model):
     category = models.ForeignKey(
         Category,
         related_name='books',
-        verbose_name=_('Category'),
+        verbose_name=_('Категорія'),
         default=1,
         on_delete=models.CASCADE,
     )
     language = models.CharField(
         max_length=2,
         choices=LANGUAGES,
-        verbose_name=_('Language'),
+        verbose_name=_('Мова'),
         default=UKRAINIAN,
     )
     genre = models.ForeignKey(
         Genre,
         related_name='books',
-        verbose_name=_('Genre'),
+        verbose_name=_('Жанр'),
         default=1,
         on_delete=models.CASCADE,
     )
@@ -124,11 +141,11 @@ class Book(models.Model):
         choices=BOOK_STATUS,
         max_length=2,
         default=AVAILABLE,
-        verbose_name=_('Status')
+        verbose_name=_('Статус')
     )
     club = models.ForeignKey(
         'club.Club',
-        verbose_name=_('Club'),
+        verbose_name=_('Клуб'),
         on_delete=models.CASCADE,
         null=True, blank=True,
     )
@@ -136,8 +153,8 @@ class Book(models.Model):
     objects = BookManager()
 
     class Meta:
-        verbose_name = _("Book")
-        verbose_name_plural = _("Books")
+        verbose_name = _("Книга")
+        verbose_name_plural = _("Книги")
         ordering = ['-created']
 
     def __str__(self):

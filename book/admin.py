@@ -7,7 +7,7 @@ from book.models import Genre
 
 
 class BookAdmin(admin.ModelAdmin):
-    list_display = ('name', 'author', 'owner', )
+    list_display = ('name', 'author', 'owner', 'publisher', 'publishing_year', 'pages', 'amazon_link')
     search_fields = ('name', 'author', 'owner', )
 
 
