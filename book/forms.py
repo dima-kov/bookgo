@@ -88,19 +88,22 @@ class AddBookForm(forms.ModelForm):
     class Meta:
         model = Book
         fields = (
-            'author', 'name', 'description', 'photo', 'category', 'genre',
-            'language',
+            'author', 'name', 'description', 'publisher', 'publishing_date',
+            'pages', 'photo', 'category', 'genre', 'language',
         )
         widgets = {
-            'description': forms.Textarea(attrs={'rows': 12}),
+            'author': forms.TextInput(attrs={'placeholder': _('Автор')}),
+            'name': forms.TextInput(attrs={'placeholder': _('Назва')}),
+            'publisher': forms.TextInput(attrs={'placeholder': _('Видавництво')}),
+            'pages': forms.TextInput(attrs={'placeholder': _('К-сть сторінок')}),
+            'publishing_date': forms.DateInput(attrs={'placeholder': _('Дата публікації')}),
+
             'category': ModelSelect2(url='book:category-autocomplete'),
             'genre': ModelSelect2(url='book:genre-autocomplete'),
-        }
-        help_texts = {
-            'description': _(
-                'Tell us a bit about this book.'
-                'Do you like it? Why? What feelings did it caused?'
-            ),
+            'description': forms.Textarea(attrs={
+                'rows': 12,
+                'placeholder': 'Про що ця книга? Чи сподобалась вона вам? Чому?',
+            }),
         }
 
     def __init__(self, *args, **kwargs):
