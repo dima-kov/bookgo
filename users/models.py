@@ -62,11 +62,6 @@ class User(AbstractUser):
         null=True,
         blank=True,
     )
-    phone = PhoneNumberField(
-        verbose_name=_('Номер телефону'),
-        null=True,
-        blank=True,
-    )
     avatar = models.ImageField(
         upload_to='avatars',
         verbose_name=_('Avatar'),
