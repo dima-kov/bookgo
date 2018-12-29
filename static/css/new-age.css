@@ -161,6 +161,9 @@ p {
 p.smaller {
   font-size: 16px;
 }
+p.smallest {
+  font-size: 12px;
+}
 .vertical-center {
   margin-top: 10px;
   margin-bottom: 10px;
