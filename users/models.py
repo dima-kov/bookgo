@@ -14,7 +14,6 @@ from phonenumber_field.modelfields import PhoneNumberField
 from currency.models import Opportunity
 from book.models import BookReading
 
-
 DEFAULT_USER_AVATAR = 'avatars/default-avatar.png'
 
 
@@ -53,7 +52,6 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractUser):
-
     email = models.EmailField(
         _('Email address'),
         blank=False,
@@ -157,7 +155,7 @@ class User(AbstractUser):
         if not hasattr(self, 'invite'):
             inv = Invite.objects.create(
                 user=self,
-                token=generate_unique_token()
+                token=generate_unique_invite_token()
             )
         else:
             inv = self.invite
@@ -165,12 +163,11 @@ class User(AbstractUser):
 
 
 class Invite(models.Model):
-
     user = models.OneToOneField(
         User,
         verbose_name='User',
         related_name='invite',
-        on_delete = models.CASCADE,
+        on_delete=models.CASCADE,
     )
     token = models.CharField(
         max_length=100,
@@ -189,8 +186,8 @@ class Invite(models.Model):
         return self.invited_users.count() < settings.USERS_NUM_TO_INVITE
 
 
-def generate_unique_token():
+def generate_unique_invite_token():
     token = get_random_string(length=10)
     if Invite.objects.filter(token=token):
-        return generate_unique_token()
+        return generate_unique_invite_token()
     return token
