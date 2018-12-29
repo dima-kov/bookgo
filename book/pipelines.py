@@ -1,11 +1,8 @@
-from datetime import datetime
-from datetime import timedelta
 from django.utils import timezone
 
 from book.utils import BasePipeline
 from book.models import BookReading
 from book.models import Book
-from book import tasks
 
 
 class OwnerConfirmPipeline(BasePipeline):
@@ -17,10 +14,6 @@ class OwnerConfirmPipeline(BasePipeline):
 
     def process(self, book_reading):
         book_reading = super(OwnerConfirmPipeline, self).process(book_reading)
-
-        two_weeks = datetime.utcnow() + timedelta(days=14)
-        tasks.book_read_time_end.apply_async((book_reading.id,), eta=two_weeks)
-        tasks.book_will_sent.delay(book_reading.id)
         return book_reading
 
 

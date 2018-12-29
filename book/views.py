@@ -60,23 +60,13 @@ class BookingView(CreateView):
         form.instance.book.status = Book.BOOKED
         form.instance.book.save()
 
-        form_valid = super(BookingView, self).form_valid(form)
-        tasks.book_owner_email_task.delay(
-            form.instance.id,
-        )
-        success_message = _(
-            'Your information was send to book owner. '
-            'You`ll be notified when he send it to you.'
-        )
-        messages.success(self.request, success_message)
-        return form_valid
+        return super(BookingView, self).form_valid(form)
 
     def form_invalid(self, form):
         kwargs = {
             'book': form.instance.book,
             'anchor': 'form',
         }
-
         return self.render_to_response(self.get_context_data(**kwargs))
 
     def redirect_to_register(self, form):
@@ -131,23 +121,7 @@ class AddBookView(CreateView):
             user = self.create_new_user(form.cleaned_data['email'])
         form.instance.owner = user or self.request.user
         form.instance.save()
-        self.check_unfinished_readings()
         return redirect(form.instance.get_absolute_url())
-
-    def check_unfinished_readings(self):
-        book_reading = BookReading.objects.filter(user=self.request.user, before_register=True)
-        if book_reading.exists():
-            book_reading = book_reading.first()
-            book_reading.before_register = False
-            book_reading.save()
-            tasks.book_owner_email_task.delay(
-                book_reading.id,
-            )
-            success_message = _(
-                'Your information was send to the book owner. '
-                'You`ll be notified when he send it to you.'
-            )
-            messages.success(self.request, success_message)
 
     def create_new_user(self, email):
         password = get_random_string()
