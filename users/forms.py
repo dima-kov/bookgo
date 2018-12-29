@@ -47,25 +47,13 @@ class RegisterForm(forms.ModelForm):
 
 class RegisterInviteForm(forms.ModelForm):
 
-    password2 = forms.CharField(
-        label='Повторіть пароль',
-        widget=forms.PasswordInput(),
-    )
-
     class Meta:
         model = User
-        fields = ('password', 'email', 'phone')
+        fields = ('password', 'email', 'phone', 'fb')
         widgets = {
             'password': forms.PasswordInput()
         }
         labels = {
-            'password': 'Пароль',
-            'email': "Email"
+            'email': "Email",
+            'password': "Пароль",
         }
-
-    def clean_password2(self):
-        password2 = self.cleaned_data['password2']
-        password = self.cleaned_data['password']
-        if password != password2:
-            raise forms.ValidationError("Паролі не співпадають")
-        return password2

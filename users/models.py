@@ -62,6 +62,13 @@ class User(AbstractUser):
         null=True,
         blank=True,
     )
+    fb = models.CharField(
+        max_length=1000,
+        null=True, blank=True,
+        verbose_name=_('Посилання на Facebook профіль'),
+        help_text=_("Введіть послання на ваш профіль у FB, щоб користувачі "
+                    "могли з вами зв'язатись щодо обміну книгами")
+    )
     avatar = models.ImageField(
         upload_to='avatars',
         verbose_name=_('Avatar'),
@@ -92,7 +99,6 @@ class User(AbstractUser):
         null=True,
         blank=True,
     )
-
     city = models.CharField(
         max_length=100,
         verbose_name=_('City'),

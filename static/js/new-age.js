@@ -31,7 +31,12 @@
     // Index statistics counter 
     var finished = false;
     $(window).scroll(function() {
-        var oTop = $('#statistics').offset().top - window.innerHeight;
+        var statistics = $('#statistics');
+        if (!statistics.length) {
+            return
+        }
+
+        var oTop = statistics.offset().top - window.innerHeight;
         if (finished == false && $(window).scrollTop() > oTop) {
             $('#statistics .count').each(function () {
                 $(this).prop('Counter',0).animate({
@@ -46,6 +51,7 @@
             });
             finished = true;
         }
+
      });
 
 
