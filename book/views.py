@@ -61,9 +61,6 @@ class BookingView(CreateView):
         form.instance.book.save()
 
         form_valid = super(BookingView, self).form_valid(form)
-        tasks.book_owner_email_task.delay(
-            form.instance.id,
-        )
         success_message = _(
             'Your information was send to book owner. '
             'You`ll be notified when he send it to you.'
@@ -140,9 +137,6 @@ class AddBookView(CreateView):
             book_reading = book_reading.first()
             book_reading.before_register = False
             book_reading.save()
-            tasks.book_owner_email_task.delay(
-                book_reading.id,
-            )
             success_message = _(
                 'Your information was send to the book owner. '
                 'You`ll be notified when he send it to you.'
