@@ -1,5 +1,5 @@
 from django.contrib.auth import authenticate, login
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, AccessMixin
 from django.utils.crypto import get_random_string
 from django.views.generic import View
 from django.views.generic import DetailView
@@ -8,9 +8,8 @@ from django.views.generic import UpdateView
 from django.views.generic import ListView
 from django.utils.translation import ugettext as _
 from django.contrib import messages
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404
 from django.http import HttpResponseForbidden
-from django.views.generic.list import MultipleObjectMixin
 
 from book.models import Category
 from book.models import Genre
@@ -20,12 +19,12 @@ from book.forms import BookListFilterForm
 from book.forms import BookFeedbackForm
 from book.pipelines import *
 from book.utils import BasePipelineView
-from common.utils import EmailLinkAppropriateView, BookClubFilterQuerysetMixin
+from common.utils import EmailLinkAppropriateView, BookFilterClubQuerysetMixin, ClubMemberAccess, BookOwnerAccess
 from common.utils import AutocompleteCommonView
 from users.models import User
 
 
-class BookDetailView(BookClubFilterQuerysetMixin, DetailView):
+class BookDetailView(ClubMemberAccess, BookFilterClubQuerysetMixin, DetailView):
     template_name = 'book/book_detail.html'
     model = Book
     context_object_name = 'book'
@@ -39,7 +38,7 @@ class BookDetailView(BookClubFilterQuerysetMixin, DetailView):
         return context
 
 
-class BookingView(CreateView):
+class BookingView(LoginRequiredMixin, CreateView):
     model = BookReading
     form_class = BookReadingForm
     template_name = 'book/book_detail.html'
@@ -104,7 +103,7 @@ class BookView(View):
         return view(request, *args, **kwargs)
 
 
-class AddBookView(CreateView):
+class AddBookView(LoginRequiredMixin, CreateView):
     model = Book
     form_class = AddBookForm
     template_name = 'book/add.html'
@@ -139,7 +138,7 @@ class AddBookView(CreateView):
         return new_user
 
 
-class EditBookView(UpdateView):
+class EditBookView(BookOwnerAccess, UpdateView):
     model = Book
     form_class = AddBookForm
     template_name = 'book/add.html'
@@ -173,7 +172,7 @@ class BookFeedbackView(UpdateView):
         return self.object.book.get_absolute_url()
 
 
-class BookListView(BookClubFilterQuerysetMixin, ListView):
+class BookListView(ClubMemberAccess, BookFilterClubQuerysetMixin, ListView):
     queryset = Book.objects.available()
     template_name = 'book/list.html'
     context_object_name = 'books'

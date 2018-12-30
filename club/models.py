@@ -1,4 +1,3 @@
-from django.contrib.sites.models import Site
 from django.db import models
 from django.utils.crypto import get_random_string
 from django.utils.translation import gettext as _
@@ -33,8 +32,8 @@ class Club(models.Model):
     def __str__(self):
         return self.name
 
-    def get_absolute_url(self):
-        return 'http://{}'.format(self.get_domain_name())
+    def is_member(self, user):
+        return self.members.filter(id=user.id).exists()
 
 
 class ClubMemberManager(models.Manager):
