@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
@@ -227,7 +229,7 @@ class BookReading(models.Model):
         auto_now_add=True,
     )
     date_end = models.DateTimeField(
-        verbose_name=_('Дата поверненняі'),
+        verbose_name=_('Дата повернення'),
         blank=True,
         null=True,
     )
@@ -286,3 +288,6 @@ class BookReading(models.Model):
     @property
     def is_read(self):
         return self.status == self.READ
+
+    def estimated_end(self):
+        return self.date_start + timedelta(days=settings.BOOK_READING_DAYS)

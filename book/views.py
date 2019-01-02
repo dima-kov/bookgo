@@ -1,5 +1,5 @@
 from django.contrib.auth import authenticate, login
-from django.contrib.auth.mixins import LoginRequiredMixin, AccessMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.crypto import get_random_string
 from django.views.generic import View
 from django.views.generic import DetailView
@@ -36,7 +36,7 @@ class BookDetailView(ClubMemberAccess, BookFilterClubQuerysetMixin, DetailView):
         return context
 
 
-class BookingView(LoginRequiredMixin, CreateView):
+class BookingView(ClubMemberAccess, CreateView):
     model = BookReading
     form_class = BookReadingForm
     template_name = 'book/book_detail.html'

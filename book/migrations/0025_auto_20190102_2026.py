@@ -26,7 +26,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='bookreading',
             name='date_end',
-            field=models.DateTimeField(blank=True, null=True, verbose_name='Дата поверненняі'),
+            field=models.DateTimeField(blank=True, null=True, verbose_name='Дата повернення'),
         ),
         migrations.AlterField(
             model_name='bookreading',

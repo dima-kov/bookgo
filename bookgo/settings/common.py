@@ -93,7 +93,7 @@ AUTH_USER_MODEL = 'users.User'
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'uk-UA'
 
 TIME_ZONE = 'UTC'
 
@@ -169,6 +169,8 @@ USER_AVATAR_WIDTH = 250
 USER_AVATAR_HEIGHT = 250
 
 BOOKS_TO_START_NEED = 40
+
+BOOK_READING_DAYS = 15
 
 USERS_NUM_TO_INVITE = 3
 
