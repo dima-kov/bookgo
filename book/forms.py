@@ -17,7 +17,7 @@ from users.models import User
 
 class BookReadingForm(forms.ModelForm):
     phone = PhoneNumberField(
-        label=_('Phone number')
+        label=_('Номер телефону')
     )
 
     class Meta:
@@ -61,7 +61,7 @@ class BookReadingForm(forms.ModelForm):
                     'User with such email already exists. Please, login and get this book'
                 ))
 
-        if not cleaned_data['book'].available_to_take():
+        if not cleaned_data['book'].available_to_exchange():
             raise ValidationError(_(
                 'This book is currently read by another person. So, '
                 'wait for her to retire!'
