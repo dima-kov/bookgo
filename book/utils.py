@@ -6,33 +6,6 @@ from django.contrib import messages
 from book.models import BookReading
 
 
-class BasePipeline(object):
-    """
-        Base pipeline class for book reading process.
-        You should subclass it to use.
-
-        Require two attributes:
-            `user` - attribute name of model field.
-                    Only this user object stored in this attribute
-                    is permited to process pipeline.
-            `status` - new status of BookReading.
-    """
-    user = None
-    status = None
-
-    def __init__(self, *args, **kwargs):
-        required_attributes = ['user', 'status']
-        for attr in required_attributes:
-            if getattr(self, attr) is None:
-                raise Exception(
-                    '`{}` attribute in Pipeline can not be None'.format(attr)
-                )
-
-    def process(self, book_reading):
-        book_reading.status = self.status
-        return book_reading
-
-
 class BasePipelineView(View):
     """
         Base view for book reading process.

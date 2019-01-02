@@ -8,18 +8,16 @@ from django.views.generic import UpdateView
 from django.views.generic import ListView
 from django.utils.translation import ugettext as _
 from django.contrib import messages
-from django.shortcuts import redirect, get_object_or_404
+from django.shortcuts import redirect
 from django.http import HttpResponseForbidden
 
-from book.models import Category
+from book.models import Category, Book, BookReading
 from book.models import Genre
 from book.forms import BookReadingForm
 from book.forms import AddBookForm
 from book.forms import BookListFilterForm
 from book.forms import BookFeedbackForm
-from book.pipelines import *
-from book.utils import BasePipelineView
-from common.utils import EmailLinkAppropriateView, BookFilterClubQuerysetMixin, ClubMemberAccess, BookOwnerAccess
+from common.utils import BookFilterClubQuerysetMixin, ClubMemberAccess, BookOwnerAccess
 from common.utils import AutocompleteCommonView
 from users.models import User
 
@@ -203,35 +201,6 @@ class BookListView(ClubMemberAccess, BookFilterClubQuerysetMixin, ListView):
             initial=self.request_form_data()
         )
         return context
-
-
-class BookingOwnerConfirmView(BasePipelineView):
-    pipeline = OwnerConfirmPipeline()
-    message = _('You successfully confirmed that you`ll send a book soon!')
-
-
-class BookingBookReadView(BasePipelineView):
-    pipeline = ReadPipeline()
-    message = _(
-        'You successfully returned book to the site! Now everyone can get '
-        'it to read. Thanks!'
-    )
-
-    def post(self, request, *args, **kwargs):
-        super(BookingBookReadView, self).post(request, *args, **kwargs)
-        kwargs = {
-            'pk': self.book_reading.book.pk,
-            'reading_pk': self.book_reading.pk,
-        }
-        return redirect('book:feedback', **kwargs)
-
-
-class EmailBookingOwnerConfirmView(EmailLinkAppropriateView):
-    appropriate_view_class = BookingOwnerConfirmView
-
-
-class EmailBookingBookReadView(EmailLinkAppropriateView):
-    appropriate_view_class = BookingBookReadView
 
 
 class CategoryAutocompleteView(AutocompleteCommonView):
