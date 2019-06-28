@@ -3,7 +3,7 @@ from datetime import timedelta
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 
 from phonenumber_field.modelfields import PhoneNumberField
 
@@ -163,7 +163,7 @@ class Book(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('book:detail', kwargs={'pk': self.pk})
+        return reverse_lazy('book:detail', kwargs={'pk': self.pk})
 
     @property
     def is_available(self):
