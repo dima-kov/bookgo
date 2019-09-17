@@ -11,28 +11,6 @@ booking_patterns = [
         views.BookingView.as_view(),
         name='booking',
     ),
-    path(
-        'owner-confirm/<int:pk>',
-        views.BookingOwnerConfirmView.as_view(),
-        name='owner-confirm',
-    ),
-    path(
-        'book-read/<int:pk>/',
-        views.BookingBookReadView.as_view(),
-        name='book-read',
-    ),
-    path(
-        'email/owner-confirm/<int:pk>/'
-        '<str:email>/<str:token>',
-        views.EmailBookingOwnerConfirmView.as_view(),
-        name='email-owner-confirm',
-    ),
-    path(
-        'email/book-read/<int:pk>/'
-        '<str:email>/<str:token>',
-        views.EmailBookingBookReadView.as_view(),
-        name='email-book-read',
-    ),
 ]
 
 dal_patterns = [

@@ -36,11 +36,6 @@ urlpatterns = [
         name='edit',
     ),
     path(
-        'book-readings/',
-        views.ReadingsView.as_view(),
-        name='readings',
-    ),
-    path(
         'logout/',
         views.LogoutView.as_view(),
         name='logout',

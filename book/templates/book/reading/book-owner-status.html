@@ -1,0 +1,8 @@
+{% load i18n %}
+
+<h4>Завершення: {{ reading.estimated_to|date:"d M Y" }}</h4>
+<p>
+    {% blocktrans with reading.user as exhanger %}
+        Ви обмінюєтесь цією книглю з {{ exhanger }}
+    {% endblocktrans %}
+</p>

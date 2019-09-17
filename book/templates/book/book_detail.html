@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+
 {% load i18n %}
 {% load user_tags %}
 
@@ -8,12 +9,15 @@
     <section id="single-book" class="single-book bg-primary text-center">
         <div class="container">
             <div class="row">
+
                 {% block messages %}
                     {{ block.super }}
                 {% endblock messages %}
+
                 <div class="col-md-5 col-sm-12 text-center">
                     {% include "book/includes/book_full_thumbnail.html" with image=book.photo %}
                 </div>
+
                 <div class="col-md-7 col-sm-12">
                     <h2 class="section-heading">{{ book.name }}</h2>
                     <div class="row">
@@ -43,7 +47,7 @@
                                         <span>Amazon:</span>
                                         <p>{{ book.amazon_link }}</p>
                                     </li>
-                            {% endif %}
+                                {% endif %}
 
                                 <li>
                                     <span>Жанр:</span>
@@ -61,7 +65,7 @@
                         </div>
                         <div class="col-md-4">
                             <div>
-                                {% if book.available_to_take %}
+                                {% if book.available_to_exchange %}
                                     <a href="#form" class="btn btn-outline btn-xl page-scroll">Доступно!</a>
                                 {% else %}
                                     <span class="btn btn-outline btn-xl">Не доступно :(</span>
@@ -70,7 +74,7 @@
                             {% if request.user == book.owner or request.user.is_superuser %}
                                 <br>
                                 <div>
-                                   <a href="{% url 'book:edit' book.id %}" class="btn btn-outline">Редагувати!</a>
+                                    <a href="{% url 'book:edit' book.id %}" class="btn btn-outline">Редагувати!</a>
                                 </div>
                             {% endif %}
                         </div>
@@ -81,45 +85,14 @@
                     </div>
                     <hr>
                     {% with book.last_reading as reading %}
-                        {% if reading.user == request.user or reading.book.current_owner == request.user %}
-                            <div class="pipeline alert alert-info">
-                                <i class="fa fa-exclamation" aria-hidden="true"></i>
-                                <p>
-                                    {% if reading.user == request.user %}
-                                        {% if not reading.is_confirmed and not reading.is_read %}
-                                            {% blocktrans %}
-                                                Ви надіслали заявку, щоб почитати цю книгу, проте людина у якої вона зараз знаходиться, ще не підтвердила надсилання книги! Як тільки вона це зробить - ми вас повідомимо! Очікуйте сповіщення!
-                                            {% endblocktrans %}
-                                        {% elif reading.is_confirmed %}
-                                            {% blocktrans %}
-                                                Користувач, в якого зараз ця книга підтвердив, що надішле цю книгу не пізніще як через 2 дні, або вже надіслав. Коли ви закінчите читати, поверніть книгу на сайт, натиснувши кнопку нижче. На читання книги, у вас 14 днів.
-                                            {% endblocktrans %}
-                                            <form action="{% url 'book:book-read' reading.id %}" method="POST">{% csrf_token %}
-                                                <button type="submit" class="btn btn-filled-tertiary">{% trans "Прочитав!" %}</button>
-                                            </form>
-                                        {% elif reading.is_read %}
-                                            {% blocktrans %}
-                                                Ви прочитали цю книгу і повернули її на сайт. Тепер вона чекає нового читача! Книга зберігається у вас, та як тільки хтось оформить заявку на її читання, вам прийде сповіщення, і ви зобов'язані надіслати книгу за даними протягом 2 днів.
-                                            {% endblocktrans %}
-                                        {% endif %}
-                                    {% elif reading.book.current_owner == request.user %}
-                                        {% if not reading.is_confirmed and not reading.is_read %}
-                                            {% blocktrans with user_url=reading.user.get_absolute_url user_name=reading.user.get_full_name %}
-                                                Ви - власник, цієї книги. Користувач <a href="{{ user_url }}">{{ user_name }}</a> хоче взяти її почитати. Натисніть кнопку, щоб підтвердити, що ви надішлете книгу Новою Поштою за <a href="">вказаними даними</a> протягом 2 днів.
-                                            {% endblocktrans %}
-                                            <form action="{% url 'book:owner-confirm' reading.id %}" method="POST">{% csrf_token %}
-                                                <button type="submit" class="btn btn-filled-tertiary">{% trans "Підтверджую!" %}</button>
-                                            </form>
-                                        {% elif reading.is_confirmed %}
-                                            {% blocktrans with user_url=reading.user.get_absolute_url user_name=reading.user.get_full_name %}
-                                                Ви підтвердили надсилання книги Новою Поштою! <a href="{{ user_url }}">{{ user_name }}</a> отримав сповіщення і, можливо, вже читає книгу! Дякуємо вам!
-                                            {% endblocktrans %}
-                                        {% endif %}
-                                    {% endif %}
-                                    <div class="clearfix"></div>
-                                </p>
-                            </div>
-                        {% endif %}
+                        <div class="pipeline alert alert-info">
+                            <i class="fa fa-exclamation" aria-hidden="true"></i>
+                            {% if reading.user == request.user %}
+                                {% include 'book/reading/book-exchanger-status.html'%}
+                            {% elif reading.book.current_owner == request.user %}
+                                {% include 'book/reading/book-owner-status.html' %}
+                            {% endif %}
+                        </div>
                     {% endwith %}
                 </div>
             </div>
@@ -176,38 +149,23 @@
                 <div class="col-lg-12 text-center">
                     <div class="section-heading">
                         <h2>Взяти почитати</h2>
-                        {% if request.user.is_authenticated %}
-                            <p class="text-muted">
-                                {% blocktrans %}
-                                    Швидше заповнюй цю форму! Власник книги отримає сповіщення про те, що ти хочеш почитати книгу "{{ book.name }}" і надішле тобі книгу за цими даними.
-                                {% endblocktrans %}
-                            </p>
-                            {% if not request.user.has_enough_to_read %}
-                                <p class="text-muted form-error">
-                                    {% url 'book:add' as add_book_link %}
-                                    {% blocktrans %}
-                                        Недостятньо можливостей! <a href="{{ add_book_link }}">Додай свою книжку</a>, і отримай за це <span class="delighted">3 можливості</span>.
-                                    {% endblocktrans %}
-                                </p>
-                            {% endif %}
-                            {% if not book.available_to_take %}
-                                <p class="text-muted form-error">
-                                    {% blocktrans %}
-                                        Цю книгу зараз читає інша людина почекайте, поки вона звільниться!
-                                    {% endblocktrans %}
-                                </p>
-                            {% endif %}
-                            {% if request.user.has_unfinished_readings %}
-                                <p class="text-muted form-error">
-                                    {% blocktrans %}
-                                        Ви вже взяли одну книгу на сайті, спершу прочитайте та поверніть її.
-                                    {% endblocktrans %}
-                                </p>
-                            {% endif %}
-                        {% else %}
+
+                        <p class="text-muted">
+                            {% blocktrans with book.name as book_name %}
+                                Текст, щоб пояснити чуваку, навіщо нам його fb
+                            {% endblocktrans %}
+                        </p>
+
+                        {% if not book.available_to_exchange %}
                             <p class="text-muted form-error">
                                 {% blocktrans %}
-                                    Щоб прочитати, заповнюй цю форму, додавай свою книгу і читай!
+                                    Цю книгу вже читають, почекайте поки вона звільниться
+                                {% endblocktrans %}
+                            </p>
+                        {% elif request.user.has_unfinished_readings %}
+                            <p class="text-muted form-error">
+                                {% blocktrans %}
+                                    Ви вже взяли одну книгу на сайті, спершу прочитайте та поверніть її
                                 {% endblocktrans %}
                             </p>
                         {% endif %}
@@ -215,40 +173,8 @@
                     </div>
                 </div>
             </div>
-            {% if not request.user.is_authenticated %}
-                <form action="{% url 'book:detail' book.pk %}" method="POST">
-                    {% csrf_token %}
-                    <div class="row">
-                        {% if form.non_field_errors %}
-                            {% for err in form.non_field_errors %}
-                                <p class="form-error">{{ err }}</p>
-                            {% endfor %}
-                        {% endif %}
-                        <div class="col-lg-6 col-md-6">
-                            {{ form.email.label_tag }}
-                            <strong>{{ form.email.errors.as_text }}</strong>
-                            {{ form.email }}
 
-                            {{ form.phone.label_tag }}
-                            <strong>{{ form.phone.errors.as_text }}</strong>
-                            {{ form.phone }}
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            {{ form.city.label_tag }}
-                            <strong>{{ form.city.errors.as_text }}</strong>
-                            {{ form.city }}
-
-                            {{ form.novaposhta_number.label_tag }}
-                            <strong>{{ form.novaposhta_number.errors.as_text }}</strong>
-                            {{ form.novaposhta_number }}
-                        </div>
-                        {{ form.book }}
-                    </div>
-                    <div class="text-center vertical-center">
-                        <button class="btn btn-filled-tertiary btn-xl" type="submit">Надіслати</button>
-                    </div>
-                </form>
-            {% elif request.user.has_enough_to_read and book.available_to_take and not request.user.has_unfinished_readings %}
+            {% if book.available_to_exchange and not request.user.has_unfinished_readings %}
                 <form action="{% url 'book:detail' book.pk %}" method="POST">
                     {% csrf_token %}
                     <div class="row">
@@ -261,19 +187,13 @@
                             {{ form.full_name.label_tag }}
                             <strong>{{ form.full_name.errors.as_text }}</strong>
                             {{ form.full_name }}
-
-                            {{ form.phone.label_tag }}
-                            <strong>{{ form.phone.errors.as_text }}</strong>
-                            {{ form.phone }}
                         </div>
                         <div class="col-lg-6 col-md-6">
-                            {{ form.city.label_tag }}
-                            <strong>{{ form.city.errors.as_text }}</strong>
-                            {{ form.city }}
-
-                            {{ form.novaposhta_number.label_tag }}
-                            <strong>{{ form.novaposhta_number.errors.as_text }}</strong>
-                            {{ form.novaposhta_number }}
+                            {% if form.fb %}
+                                {{ form.fb.label_tag }}
+                                <strong>{{ form.fb.errors.as_text }}</strong>
+                                {{ form.fb }}
+                            {% endif %}
                         </div>
                         {{ form.book }}
                     </div>
@@ -289,13 +209,16 @@
             <h2>Розкажи всім <i class="fa fa-share-alt"></i> про <br> таку чудову книгу!</h2>
             <ul class="list-inline list-social">
                 <li class="social-twitter">
-                    <a href="https://twitter.com/intent/tweet?text={{ share_text }}&url={{ request.build_absolute_uri }}" target="_blank"><i class="fa fa-twitter"></i></a>
+                    <a href="https://twitter.com/intent/tweet?text={{ share_text }}&url={{ request.build_absolute_uri }}"
+                       target="_blank"><i class="fa fa-twitter"></i></a>
                 </li>
                 <li class="social-facebook">
-                    <a href="https://www.facebook.com/share.php?u={{ request.build_absolute_uri }}"  target="_blank"><i class="fa fa-facebook"></i></a>
+                    <a href="https://www.facebook.com/share.php?u={{ request.build_absolute_uri }}" target="_blank"><i
+                            class="fa fa-facebook"></i></a>
                 </li>
                 <li class="social-google-plus">
-                    <a href="http://pinterest.com/pin/create/button/?url={{ request.build_absolute_uri }}&description={{ share_text }}&media=" target="_blank"><i class="fa fa-pinterest"></i></a>
+                    <a href="http://pinterest.com/pin/create/button/?url={{ request.build_absolute_uri }}&description={{ share_text }}&media="
+                       target="_blank"><i class="fa fa-pinterest"></i></a>
                 </li>
             </ul>
         </div>

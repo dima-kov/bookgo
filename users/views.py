@@ -181,21 +181,3 @@ class LogoutView(RedirectView):
     def get(self, request, *args, **kwargs):
         auth_logout(request)
         return super(LogoutView, self).get(request, *args, **kwargs)
-
-
-class ReadingsView(LoginRequiredMixin, TemplateView):
-    template_name = 'users/reading-process.html'
-    login_url = '/users/login/'
-
-    def get_context_data(self, **kwargs):
-        context = super(ReadingsView, self).get_context_data(**kwargs)
-        context['waiting_from_me'] = BookReading.objects.filter(
-            book__owner=self.request.user,
-        ).exclude(status__in=[BookReading.READING, BookReading.READ])
-        context['i_wait'] = BookReading.objects.filter(
-            user=self.request.user,
-        ).exclude(status__in=[BookReading.READING, BookReading.READ])
-        context['reading'] = BookReading.objects.filter(
-            user=self.request.user, status=BookReading.READING,
-        )
-        return context

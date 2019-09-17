@@ -1,0 +1,8 @@
+{% load i18n %}
+
+<h4>Завершення: {{ reading.estimated_end|date:"d M Y" }}</h4>
+<p>
+    {% blocktrans with reading.book.owner as book_owner %}
+        Ви взяли читати цю книгу у {{ book_owner }}
+    {% endblocktrans %}
+</p>

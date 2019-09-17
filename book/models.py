@@ -1,7 +1,9 @@
+from datetime import timedelta
+
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 
 from phonenumber_field.modelfields import PhoneNumberField
 
@@ -161,7 +163,7 @@ class Book(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('book:detail', kwargs={'pk': self.pk})
+        return reverse_lazy('book:detail', kwargs={'pk': self.pk})
 
     @property
     def is_available(self):
@@ -178,7 +180,7 @@ class Book(models.Model):
     def last_reading(self):
         return self.book_readings.all().order_by('-date_start').first()
 
-    def available_to_take(self):
+    def available_to_exchange(self):
         reading = self.book_readings.exclude(status=BookReading.READ).exists()
         return not reading and self.is_available
 
@@ -193,52 +195,53 @@ class ReadingQuerySet(models.QuerySet):
 
 
 class BookReading(models.Model):
-    WAITING_OWNER = 'WO'
-    CONFIRMED_BY_OWNER = 'CO'
-    SENT_BY_POST = 'SP'
+
+    # WAITING_OWNER = 'WO'
+    # CONFIRMED_BY_OWNER = 'CO'
+    # SENT_BY_POST = 'SP'
+
     READING = 'RG'
     READ = 'RD'
 
     READING_STATUS = (
-        (WAITING_OWNER, _('Waiting for owner')),
-        (CONFIRMED_BY_OWNER, _('Confirmed by owner')),
-        (SENT_BY_POST, _('Sent by post')),
-        (READING, _('Reading')),
-        (READ, _('Read')),
+        # (WAITING_OWNER, _('Waiting for owner')),
+        # (CONFIRMED_BY_OWNER, _('Confirmed by owner')),
+        # (SENT_BY_POST, _('Sent by post')),
+        (READING, _('В процесі')),
+        (READ, _('Прочитано')),
     )
 
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         related_name='book_readings',
-        verbose_name=_('User'),
+        verbose_name=_('Користувач'),
         null=True,
         on_delete=models.CASCADE,
     )
     book = models.ForeignKey(
         Book,
         related_name='book_readings',
-        verbose_name=_('Book'),
+        verbose_name=_('Книга'),
         on_delete=models.CASCADE,
     )
     date_start = models.DateTimeField(
-        verbose_name=_('Date of beginning'),
+        verbose_name=_('дата створення'),
         auto_now_add=True,
     )
     date_end = models.DateTimeField(
-        verbose_name=_('Date of ending'),
+        verbose_name=_('Дата повернення'),
         blank=True,
         null=True,
     )
     feedback = models.TextField(
-        verbose_name=_('Feedback'),
-        null=True,
-        blank=True,
+        verbose_name=_('Фідбек'),
+        null=True, blank=True,
     )
     status = models.CharField(
         choices=READING_STATUS,
         max_length=2,
-        default=WAITING_OWNER,
-        verbose_name=_('Status')
+        default=READING,
+        verbose_name=_('Статус')
     )
     before_register = models.BooleanField(
         default=False,
@@ -247,18 +250,26 @@ class BookReading(models.Model):
     # User data
     full_name = models.CharField(
         max_length=255,
-        verbose_name=_('Full name'),
+        verbose_name=_("Повне ім'я"),
+        null=True, blank=True,
     )
     phone = PhoneNumberField(
-        verbose_name=_('Phone Number'),
+        verbose_name=_('Номер Телефону'),
+        null=True, blank=True,
     )
     city = models.CharField(
         max_length=255,
-        verbose_name=_('City'),
+        null=True, blank=True,
+        verbose_name=_('Місто')
     )
     novaposhta_number = models.CharField(
         max_length=10,
-        verbose_name=_('Novaposhta Number'),
+        verbose_name=_('Номер відділення НП'),
+        null=True, blank=True,
+    )
+    fb = models.CharField(
+        max_length=1000,
+        verbose_name=_('Посилання на Facebook профіль'),
     )
 
     objects = ReadingQuerySet.as_manager()
@@ -270,10 +281,13 @@ class BookReading(models.Model):
     def __str__(self):
         return '{} - {}'.format(self.user, self.book)
 
-    @property
-    def is_confirmed(self):
-        return self.status == self.CONFIRMED_BY_OWNER
+    # @property
+    # def is_confirmed(self):
+    #     return self.status == self.CONFIRMED_BY_OWNER
 
     @property
     def is_read(self):
         return self.status == self.READ
+
+    def estimated_end(self):
+        return self.date_start + timedelta(days=settings.BOOK_READING_DAYS)

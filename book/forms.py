@@ -16,13 +16,9 @@ from users.models import User
 
 
 class BookReadingForm(forms.ModelForm):
-    phone = PhoneNumberField(
-        label=_('Phone number')
-    )
-
     class Meta:
         model = BookReading
-        fields = ('book', 'full_name', 'phone', 'city', 'novaposhta_number', )
+        fields = ('book', 'fb', 'full_name',)
         widgets = {
             'book': forms.HiddenInput(),
         }
@@ -31,46 +27,26 @@ class BookReadingForm(forms.ModelForm):
         request = kwargs.pop('request', None)
         self.user = request.user
         super(BookReadingForm, self).__init__(*args, **kwargs)
-        if request and request.user.is_authenticated:
-            self.fields['full_name'].initial = request.user.get_full_name()
-            self.fields['phone'].initial = request.user.phone
-            self.fields['city'].initial = request.user.city
-            self.fields['novaposhta_number'].initial = \
-                request.user.novaposhta_number
-        else:
-            del self.fields['full_name']
-            self.fields['email'] = forms.EmailField()
+        if request:
+            if self.user.fb is not None:
+                self.fields.pop('fb')
 
     def clean(self):
         cleaned_data = super(BookReadingForm, self).clean()
-        if self.user.is_authenticated:
-            if not self.user.has_enough_to_read():
-                raise ValidationError(_(
-                    'You have not enough Opportunities to read the book. Please, '
-                    '<a href="{}">add one book</a> to bookgo in order to '
-                    'get 3 new opportunities!'.format(reverse('book:add'))
-                ))
-            if self.user.has_unfinished_readings():
-                raise ValidationError(_(
-                    'You have already taken one book on the site! Read it '
-                    'first and turn it back!'
-                ))
-        else:
-            if User.objects.filter(email=cleaned_data['email']).exists():
-                raise ValidationError(_(
-                    'User with such email already exists. Please, login and get this book'
-                ))
 
-        if not cleaned_data['book'].available_to_take():
+        if self.user.has_unfinished_readings():
             raise ValidationError(_(
-                'This book is currently read by another person. So, '
-                'wait for her to retire!'
+                'Ви зараз читаєте іншу книгу, спершу поверніть її, а потім візьміть цю'
+            ))
+
+        if not cleaned_data['book'].available_to_exchange():
+            raise ValidationError(_(
+                'Цю книгу поточно зараз хтось уже читає, виберіть іншу'
             ))
         return cleaned_data
 
 
 class AddBookForm(forms.ModelForm):
-
     photo = CroppieField(
         options={
             'viewport': {
